@@ -1,0 +1,34 @@
+<header class="d-flex">
+    <mat-toolbar>
+        <img src="assets/images/mhrd-logo.png" alt="MHRD" class="img-fluid " width="17%">
+        <a href="javascrip:void(0)" class="ml-auto logout" (click)="logout();">
+            <div class="d-flex align-items-center">
+                Logout<mat-icon class="ml-2">exit_to_app</mat-icon>
+            </div>
+        </a>
+    </mat-toolbar>
+</header>
+
+<main class="h-100 w-100 d-flex position-fixed">
+    <mat-drawer-container class="w-100">
+        <mat-drawer #drawer mode="side" opened class="overflow-auto">
+            <div class="details-head">Welcome</div>
+            <div class="d-flex user-details align-items-center">
+                <div class="details">
+                    <div class="info">Prerit Mathur</div>
+                    <div class="info">Teacher</div>
+                </div>
+            </div>
+            <app-navigation></app-navigation>
+        </mat-drawer>
+        <div class="p-3">
+            <div class="d-flex align-items-center">
+                <a class="menu d-flex ml-2 p-1" (click)="drawer.toggle()" style="cursor: pointer;">
+                    <img src="assets/images/hamburger.svg" alt="Menu" class="img-fluid"></a>
+                <span class="route-head">{{commonService.currentRoute}}</span>
+            </div>
+            
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-container>
+</main>
