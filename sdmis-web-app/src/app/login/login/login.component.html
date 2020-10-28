@@ -1,0 +1,43 @@
+<div class="container-fluid position-absolute h-100 d-flex overflow-hidden">
+    <div class="login-box">
+        <mat-card class="pt-4">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 align-items-center">
+                    <a href="javascript:void(0);"> <img src="assets/images/mhrd-logo.png" width="95%"></a>
+                </div>
+                <div class="col-lg-6 col-md-6 text-right">
+                    <h2 class="text-center m-0" style="line-height: 50px;">SDMIS</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <mat-card-content>
+                        <form #lf="ngForm" (ngSubmit)='lf.valid && login()'>
+                            <div class="form-group">
+                                <mat-form-field class="w-100">
+                                    <mat-label>Username</mat-label>
+                                    <input matInput placeholder="Username" name="username" [(ngModel)]='user.username'
+                                        required>
+                                </mat-form-field>
+                                <mat-form-field class="w-100">
+                                    <mat-label>Password</mat-label>
+                                    <input matInput placeholder="Password" type="password" [(ngModel)]='user.password'
+                                        name="password" required>
+                                </mat-form-field>
+                            </div>
+
+                            <button type="submit" mat-raised-button color="primary" class="w-100"> Login </button>
+                        </form>
+                    </mat-card-content>
+                </div>
+            </div>
+        </mat-card>
+    </div>
+</div>
+
+<div *ngIf='alertFlag'>
+    <app-alert [message]='alertMsg' [flag]='alertFlag' [count]='alertCount'></app-alert>
+</div>
