@@ -1,0 +1,138 @@
+<form #profile="ngForm">
+    <ng-template matStepLabel>Basic Details</ng-template>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Student Name</mat-label>
+                <input matInput placeholder="Student Name" [(ngModel)]="profileDetails.name"
+                    name="profileDetails.name" required>
+                <mat-error>Student Name is required</mat-error>
+            </mat-form-field>
+        </div>
+        <!-- <div class="col-lg-3 col-md-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>School Name</mat-label>
+                <input matInput placeholder="School Name" [(ngModel)]="profileDetails.school"
+                    name="profileDetails.school" required>
+                <mat-error>School Name is required</mat-error>
+            </mat-form-field>
+        </div> -->
+        <div class="col-lg-3 col-md-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Student Class</mat-label>
+                <input matInput placeholder="Student Class" [(ngModel)]="profileDetails.class"
+                    name="profileDetails.class" required>
+                <mat-error>Student Class is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-md-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Student Section</mat-label>
+                <input matInput placeholder="Student Section" [(ngModel)]="profileDetails.section"
+                    name="profileDetails.section" required>
+                <mat-error>Student Section is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-md-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Date of Birth</mat-label>
+                <input matInput placeholder="Date of Birth" [(ngModel)]="profileDetails.dob"
+                    name="profileDetails.dob" required>
+                <mat-error>Date of Birth is required</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-3 col-md-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>School Admission Number</mat-label>
+                <input matInput placeholder="School Admission Number" [(ngModel)]="profileDetails.admissionNo"
+                    name="profileDetails.admissionNo" required>
+                <mat-error>School Admission No. is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-md-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Gender</mat-label>
+                <input matInput placeholder="Gender" [(ngModel)]="profileDetails.gender"
+                    name="profileDetails.gender" required>
+                <mat-error>Gender is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-md-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Religion</mat-label>
+                <input matInput placeholder="Religion" [(ngModel)]="profileDetails.religion"
+                    name="profileDetails.religion" required>
+                <mat-error>Religioj is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-md-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Mother Tongue</mat-label>
+                <input matInput placeholder="Mother Tongue" [(ngModel)]="profileDetails.mot"
+                    name="profileDetails.mot" required>
+                <mat-error>Mother Tongue is required</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-3 col-md-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Father's Name</mat-label>
+                <input matInput placeholder="Father's Name" [(ngModel)]="profileDetails.fatherName"
+                    name="profileDetails.fatherName" required>
+                <mat-error>Father's Name is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-md-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Mother's Name</mat-label>
+                <input matInput placeholder="Mother's Name" [(ngModel)]="profileDetails.motherName"
+                    name="profileDetails.motherName" required>
+                <mat-error>Mother's Name is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-md-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Social Category</mat-label>
+                <input matInput placeholder="Social Category" [(ngModel)]="profileDetails.socialCategory"
+                    name="profileDetails.socialCategory" required>
+                <mat-error>Social Category is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-md-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Blood Group</mat-label>
+                <input matInput placeholder="Blood Group" [(ngModel)]="profileDetails.bloodGroup"
+                    name="profileDetails.bloodGroup" required>
+                <mat-error>Blood Group is required</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-3 col-md-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Primary Contact</mat-label>
+                <input matInput placeholder="Primary Contact" [(ngModel)]="profileDetails.primaryContact"
+                    name="profileDetails.primaryContact" required>
+                <mat-error>Primary Contact is required</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-11 col-md-11">
+            <div class="text-right">
+                <button type="button" mat-button color="primary" [disabled]="!profile.valid" (click)="sendBasicInfo();">Save & Continue</button>
+            </div>
+
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,64 @@
+<mat-horizontal-stepper linear #stepper>
+    <mat-step editable="false">
+        <ng-template matStepLabel>Basic Information</ng-template>
+        <app-student-basic-info (event)=receiveBasicInfoData($event);></app-student-basic-info>
+    </mat-step>
+
+    <mat-step editable="false">
+        <ng-template matStepLabel>Education Details</ng-template>
+        <!-- <form #education="ngForm">
+            <mat-form-field>
+                <mat-label>Class</mat-label>
+                <input matInput placeholder="Name" [(ngModel)]="profileDetails.class" name="profileDetails.class"
+                    required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form> -->
+    </mat-step>
+
+    <mat-step editable="false">
+        <ng-template matStepLabel>Incentive Details</ng-template>
+        <!-- <form #incentive="ngForm">
+            <mat-form-field>
+                <mat-label>award</mat-label>
+                <input matInput placeholder="Name" [(ngModel)]="profileDetails.award" name="profileDetails.award"
+                    required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form> -->
+    </mat-step>
+
+    <mat-step editable="false">
+        <ng-template matStepLabel>Vocational Details</ng-template>
+        <!-- <form #vocational="ngForm">
+            <mat-form-field>
+                <mat-label>course</mat-label>
+                <input matInput placeholder="Name" [(ngModel)]="profileDetails.course" name="profileDetails.course"
+                    required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form> -->
+    </mat-step>
+
+    <mat-step editable="false">
+        <ng-template matStepLabel>Results</ng-template>
+        <!-- <form #result="ngForm">
+            <mat-form-field>
+                <mat-label>result</mat-label>
+                <input matInput placeholder="Name" [(ngModel)]="profileDetails.result" name="profileDetails.result"
+                    required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </form> -->
+    </mat-step>
+
+
+</mat-horizontal-stepper>

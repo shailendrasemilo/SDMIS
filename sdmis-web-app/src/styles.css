@@ -1,4 +1,5 @@
     /* You can add global styles to this file, and also import other style files */
+
     :root {
         --base-font: 'Open Sans', sans-serif;
         --nav-color: #404e67;
@@ -9,17 +10,16 @@
     html {
         font-size: 10px;
     }
-    
+
     ul {
         margin: 0;
     }
-    
-    body,
-    body * {
+
+    body, body * {
         font-family: var(--base-font);
         line-height: 1.4;
     }
-    
+
     body {
         font-size: 1.4rem;
         line-height: 1.4;
@@ -32,35 +32,33 @@
         padding: 2rem;
         margin: auto;
     }
-    
+
     .login-box .mat-card {
         border-radius: 4px;
         padding: 1.5rem 3rem;
         -webkit-box-shadow: 0px 0px 5px 1px rgba(51, 51, 51, 0.3);
         -moz-box-shadow: 0px 0px 5px 1px rgba(51, 51, 51, 0.3);
         box-shadow: 0px 0px 5px 1px rgba(51, 51, 51, 0.3);
-        
     }
+
     @-webkit-keyframes clipX {
         from {
-        clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%);
+            clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%);
         }
-    
         to {
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
         }
     }
-    
+
     @keyframes clipX {
         from {
-        clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%);
+            clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%);
         }
-    
         to {
-        clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
         }
     }
-    
+
     .clipX {
         -webkit-animation-name: clipX;
         animation-name: clipX;
@@ -78,7 +76,7 @@
         z-index: 4;
         height: 74px;
         padding: 0.5rem 0;
-        box-shadow: 2px 4px 20px -4px rgba(0,0,0,0.3)
+        box-shadow: 2px 4px 20px -4px rgba(0, 0, 0, 0.3)
     }
 
     main {
@@ -90,12 +88,11 @@
     .mat-toolbar {
         background-color: transparent !important;
     }
-    
+
     .user-details {
         padding: 0 1.6rem 1.3rem 1.6rem;
         margin-bottom: 1.3rem;
         box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-
     }
 
     .user-details .details {
@@ -113,7 +110,6 @@
         font-weight: 900;
     }
 
-    
     .mat-drawer .menu-list a {
         background-color: var(--nav-color);
         color: var(--nav-text);
@@ -128,7 +124,6 @@
         background-color: var(--nav-active-color);
         text-decoration: none !important;
     }
-
 
     .mat-drawer {
         width: 230px;
@@ -150,7 +145,7 @@
     .user-details .details>div {
         margin-bottom: 5px;
     }
-    
+
     .user-details .details .info {
         white-space: nowrap;
         width: 100%;
@@ -170,4 +165,20 @@
     .route-head {
         margin-left: 1rem;
         font-size: 2.3rem;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-infix {
+        padding: 0.75rem 0 0.75rem 0;
+    }
+
+    .mat-form-field-label-wrapper {
+        top: -1.5rem;
+    }
+
+    .mat-button.mat-primary, .mat-icon-button.mat-primary, .mat-stroked-button.mat-primary {
+        border: 1px solid;
+    }
+
+    .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label, .mat-form-field-appearance-outline.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label {
+        transform: translateY(-1.29375em) scale(0.75);
     }
