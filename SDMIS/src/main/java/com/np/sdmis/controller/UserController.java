@@ -53,7 +53,7 @@ public class UserController {
 	@PostMapping(value = "/saveStudentDetail")
 	public ResponseDTO saveStudentBasicInfo(@RequestBody RequestDTO requestDTO) {
 
-		return studentService.saveStudentBasicDetail(requestDTO.getStudentBasicDetail());
+		return studentService.saveStudentBasicDetail(requestDTO);
 
 	}
 
