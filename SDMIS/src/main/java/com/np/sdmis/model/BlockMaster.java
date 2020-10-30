@@ -20,7 +20,7 @@ public class BlockMaster {
 	private Long blockId;
 	@Column(name = "district_id")
 	private Long districtId;
-	@Column(name = "block_name")
+	@Column(name = "block")
 	private String blockName;
 	@Column(name = "block_code")
 	private String udiseBlockCode;
