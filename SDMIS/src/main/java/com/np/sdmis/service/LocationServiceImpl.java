@@ -33,11 +33,11 @@ public class LocationServiceImpl {
 		return stateRepository.findById(id);
 	}
 
-	public List<DistrictMaster> getDistrict(int stateId) {
+	public List<DistrictMaster> getDistrict(long stateId) {
 		return districtRepository.getDistrict(stateId);
 	}
 
-	public List<BlockMaster> getBlock(int districtId) {
+	public List<BlockMaster> getBlock(long districtId) {
 		return blockRepository.getBlock(districtId);
 	}
 }

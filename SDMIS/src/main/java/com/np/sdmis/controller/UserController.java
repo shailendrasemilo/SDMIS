@@ -81,14 +81,14 @@ public class UserController {
 	}
 
 	@GetMapping("/getDistrict")
-	public List<DistrictMaster> getDistrict(@RequestParam("stateId") int stateId) throws JsonProcessingException {
+	public List<DistrictMaster> getDistrict(@RequestParam("stateId") long stateId) throws JsonProcessingException {
 		// log.info("State requested data ");
 
 		return locationServiceImpl.getDistrict(stateId);
 	}
 
 	@GetMapping("/getBlock")
-	public List<BlockMaster> getBlock(@RequestParam("districtId") int districtId) throws JsonProcessingException {
+	public List<BlockMaster> getBlock(@RequestParam("districtId") long districtId) throws JsonProcessingException {
 		// log.info("State requested data ");
 
 		return locationServiceImpl.getBlock(districtId);

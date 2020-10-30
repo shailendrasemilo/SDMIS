@@ -10,5 +10,5 @@ import com.np.sdmis.model.DistrictMaster;
 @Repository
 public interface DistrictRepository extends JpaRepository<DistrictMaster, Long> {
 
-	List<DistrictMaster> getDistrict(int stateId);
+	List<DistrictMaster> getDistrict(long stateId);
 }
