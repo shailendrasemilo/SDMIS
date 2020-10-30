@@ -9,10 +9,18 @@ import { CommonService } from '../services/common.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor( private router: Router, public commonService: CommonService) { }
+  screenWidth: number;
+
+  constructor(private router: Router, public commonService: CommonService) {
+    this.screenWidth = window.innerWidth;
+    window.onresize = () => {
+      // set screenWidth on screen size change
+      this.screenWidth = window.innerWidth;
+    };
+  }
 
   ngOnInit(): void {
-    
+
   }
 
   logout() {

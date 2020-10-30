@@ -1,4 +1,4 @@
-<mat-horizontal-stepper linear #stepper>
+<mat-horizontal-stepper #stepper>
     <mat-step editable="false">
         <ng-template matStepLabel>Basic Information</ng-template>
         <app-student-basic-info (event)=receiveBasicInfoData($event);></app-student-basic-info>
@@ -6,16 +6,7 @@
 
     <mat-step editable="false">
         <ng-template matStepLabel>Education Details</ng-template>
-        <!-- <form #education="ngForm">
-            <mat-form-field>
-                <mat-label>Class</mat-label>
-                <input matInput placeholder="Name" [(ngModel)]="profileDetails.class" name="profileDetails.class"
-                    required>
-            </mat-form-field>
-            <div>
-                <button mat-button matStepperNext>Next</button>
-            </div>
-        </form> -->
+        <app-student-education (educationEvent)=receiveEducationInfo($event);></app-student-education>
     </mat-step>
 
     <mat-step editable="false">
@@ -62,3 +53,7 @@
 
 
 </mat-horizontal-stepper>
+
+<div *ngIf='alertFlag'>
+    <app-alert [message]='alertMsg' [flag]='alertFlag' [count]='alertCount'></app-alert>
+</div>

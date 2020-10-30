@@ -1,0 +1,59 @@
+<form #education="ngForm">
+    
+    <div class="row">
+        <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Previous Class</mat-label>
+                <input matInput placeholder="Previous Class" [(ngModel)]="educationDetails.prevClass"
+                    name="educationDetails.prevClass" required>
+                <mat-error>Previous Class is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Status of Previous Year</mat-label>
+                <input matInput placeholder="Status of Previous Year" [(ngModel)]="educationDetails.prevStatus"
+                    name="educationDetails.prevStatus" required>
+                <mat-error>Previous Year status is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Attendance</mat-label>
+                <input matInput placeholder="Attendance" [(ngModel)]="educationDetails.attendance"
+                    name="educationDetails.attendance" required>
+                <mat-error>Attendance is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+            <mat-form-field appearance="outline">
+                <mat-label>Medium of Instruction</mat-label>
+                <mat-select [(ngModel)]="educationDetails.moi" name="educationDetails.moi" required>
+                    <mat-option value="hindi">Hindi</mat-option>
+                    <mat-option value="english">English</mat-option>
+                  </mat-select>
+                <mat-error>Medium of Instruction is required</mat-error>
+            </mat-form-field>
+        </div>
+    
+        <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+            <label id="freeEducation" class="mb-3" >Getting free Education as per RTE education</label>
+            <mat-radio-group aria-labelledby="freeEducation" [(ngModel)]="educationDetails.freeEducation"
+                name="educationDetails.freeEducation">
+                <mat-radio-button value="yes" class="mr-2"> Yes </mat-radio-button>
+                <mat-radio-button value="no" class="ml-2"> No </mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-11 col-md-11">
+            <div class="text-right">
+                <button type="button" mat-button color="primary" [disabled]="!education.valid"
+                    (click)="sendEducationInfo();">Save & Continue</button>
+            </div>
+
+        </div>
+    </div>
+
+</form>

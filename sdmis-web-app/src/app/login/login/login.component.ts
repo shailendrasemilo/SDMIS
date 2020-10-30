@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     if(this.user.username == this.defaultUser.username && this.user.password) {
       console.log('inside')
       sessionStorage.setItem('user', JSON.stringify(this.user))
-      this.router.navigate(['/home'])
+      this.router.navigateByUrl('/home/dashboard')
     } else {
       this.alertMsg = "Incorrect Credentials";
       this.alertCount = this.alertCount + 1;

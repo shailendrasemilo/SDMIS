@@ -11,7 +11,7 @@
 
 <main class="h-100 w-100 d-flex position-fixed">
     <mat-drawer-container class="w-100">
-        <mat-drawer #drawer mode="side" opened class="overflow-auto">
+        <mat-drawer #drawer mode="side" [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'" class="overflow-auto">
             <div class="details-head">Welcome</div>
             <div class="d-flex user-details align-items-center">
                 <div class="details">
