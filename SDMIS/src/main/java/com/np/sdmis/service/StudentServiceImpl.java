@@ -7,6 +7,7 @@ import com.np.sdmis.constant.ResponceCode;
 import com.np.sdmis.dto.RequestDTO;
 import com.np.sdmis.dto.ResponseDTO;
 import com.np.sdmis.model.StudentBasicDetail;
+import com.np.sdmis.repository.StdEducationDetailRepo;
 import com.np.sdmis.repository.StdSectionClassMappingRepo;
 import com.np.sdmis.repository.StudentBasicDetailRepo;
 
@@ -17,6 +18,8 @@ public class StudentServiceImpl {
 	StudentBasicDetailRepo basicDetailRepo;
 	@Autowired
 	StdSectionClassMappingRepo sectionClassRepo;
+	@Autowired
+	StdEducationDetailRepo educationDetailRepo;
 
 	public ResponseDTO saveStudentBasicDetail(RequestDTO requestDTO) {
 		ResponseDTO responceDto = new ResponseDTO();
@@ -27,6 +30,14 @@ public class StudentServiceImpl {
 			responceDto.setStatusCode(ResponceCode.App001.getStatusCode());
 			responceDto.setDescription(ResponceCode.App001.getStatusDesc());
 		}
+		return responceDto;
+	}
+
+	public ResponseDTO saveEducationDetail(RequestDTO requestDTO) {
+		ResponseDTO responceDto = new ResponseDTO();
+		educationDetailRepo.save(requestDTO.getEducationDetail());
+		responceDto.setStatusCode(ResponceCode.App001.getStatusCode());
+		responceDto.setDescription(ResponceCode.App001.getStatusDesc());
 		return responceDto;
 	}
 

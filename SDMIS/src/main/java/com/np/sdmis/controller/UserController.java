@@ -1,22 +1,3 @@
-/*
- *
- *  Copyright (c) 2018-2020 Givantha Kalansuriya, This source is a part of
- *   Staxrt - sample application source code.
- *   http://staxrt.com
- *
- *   Licensed under the Apache License, Version 2.0 (the "License");
- *   you may not use this file except in compliance with the License.
- *   You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *   Unless required by applicable law or agreed to in writing, software
- *   distributed under the License is distributed on an "AS IS" BASIS,
- *   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *   See the License for the specific language governing permissions and
- *   limitations under the License.
- *
- */
 
 package com.np.sdmis.controller;
 
@@ -28,19 +9,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.np.sdmis.dto.RequestDTO;
 import com.np.sdmis.dto.ResponseDTO;
+import com.np.sdmis.model.BlockMaster;
+import com.np.sdmis.model.DistrictMaster;
+import com.np.sdmis.model.StateMaster;
 import com.np.sdmis.model.StudentBasicDetail;
 import com.np.sdmis.repository.StudentBasicDetailRepo;
+import com.np.sdmis.service.LocationServiceImpl;
 import com.np.sdmis.service.StudentServiceImpl;
 
-/**
- * The type User controller.
- *
- * @author Givantha Kalansuriya
- */
 @RestController
 @RequestMapping("/api/v1")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -52,10 +34,20 @@ public class UserController {
 	@Autowired
 	StudentBasicDetailRepo studentRepo;
 
+	@Autowired
+	LocationServiceImpl locationServiceImpl;
+
 	@PostMapping(value = "/saveStudentDetail")
 	public ResponseDTO saveStudentBasicInfo(@RequestBody RequestDTO requestDTO) {
 
 		return studentService.saveStudentBasicDetail(requestDTO);
+
+	}
+
+	@PostMapping(value = "/saveEducationDetail")
+	public ResponseDTO saveEducationDetail(@RequestBody RequestDTO requestDTO) {
+
+		return studentService.saveEducationDetail(requestDTO);
 
 	}
 
@@ -72,6 +64,34 @@ public class UserController {
 	@GetMapping("/students")
 	public List<StudentBasicDetail> getAllStudents() {
 		return studentRepo.findAll();
+	}
+
+	@GetMapping("/getState")
+	public List<StateMaster> getState() throws JsonProcessingException {
+		// log.info("State requested data ");
+
+		return locationServiceImpl.getState();
+	}
+
+	@GetMapping("/getStateById")
+	public StateMaster getStateById(@RequestParam("stateId") long stateId) throws JsonProcessingException {
+		// log.info("State requested data ");
+
+		return locationServiceImpl.findById(stateId);
+	}
+
+	@GetMapping("/getDistrict")
+	public List<DistrictMaster> getDistrict(@RequestParam("stateId") int stateId) throws JsonProcessingException {
+		// log.info("State requested data ");
+
+		return locationServiceImpl.getDistrict(stateId);
+	}
+
+	@GetMapping("/getBlock")
+	public List<BlockMaster> getBlock(@RequestParam("districtId") int districtId) throws JsonProcessingException {
+		// log.info("State requested data ");
+
+		return locationServiceImpl.getBlock(districtId);
 	}
 
 	/* *//**

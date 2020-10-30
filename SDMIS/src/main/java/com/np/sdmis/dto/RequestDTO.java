@@ -2,6 +2,7 @@ package com.np.sdmis.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.np.sdmis.model.StdEducationDetail;
 import com.np.sdmis.model.StdSectionClassMapping;
 import com.np.sdmis.model.StudentBasicDetail;
 
@@ -11,6 +12,16 @@ public class RequestDTO {
 	private StudentBasicDetail studentBasicDetail;
 	@JsonInclude(Include.NON_NULL)
 	private StdSectionClassMapping classMapping;
+
+	private StdEducationDetail educationDetail;
+
+	public StdEducationDetail getEducationDetail() {
+		return educationDetail;
+	}
+
+	public void setEducationDetail(StdEducationDetail educationDetail) {
+		this.educationDetail = educationDetail;
+	}
 
 	public StudentBasicDetail getStudentBasicDetail() {
 		return studentBasicDetail;
