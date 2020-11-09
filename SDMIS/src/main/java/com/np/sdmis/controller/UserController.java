@@ -2,7 +2,9 @@
 package com.np.sdmis.controller;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.hibernate.tool.schema.internal.exec.GenerationTargetToStdout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,13 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JacksonInject.Value;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.np.sdmis.dto.RequestDTO;
 import com.np.sdmis.dto.ResponseDTO;
 import com.np.sdmis.model.BlockMaster;
 import com.np.sdmis.model.DistrictMaster;
+import com.np.sdmis.model.MOI;
 import com.np.sdmis.model.StateMaster;
+import com.np.sdmis.model.StdSectionClassMapping;
 import com.np.sdmis.model.StudentBasicDetail;
+import com.np.sdmis.repository.MOIRepo;
 import com.np.sdmis.repository.StudentBasicDetailRepo;
 import com.np.sdmis.service.LocationServiceImpl;
 import com.np.sdmis.service.StudentServiceImpl;
@@ -37,6 +43,9 @@ public class UserController {
 	@Autowired
 	LocationServiceImpl locationServiceImpl;
 
+	@Autowired
+	MOIRepo moiRepo;
+
 	@PostMapping(value = "/saveStudentDetail")
 	public ResponseDTO saveStudentBasicInfo(@RequestBody RequestDTO requestDTO) {
 
@@ -44,11 +53,28 @@ public class UserController {
 
 	}
 
+	@PostMapping(value = "/saveSectionClassMap")
+	public ResponseDTO savesaveSectionClassMap(@RequestBody RequestDTO requestDTO) {
+
+		return studentService.saveSectionClassMap(requestDTO);
+
+	}
+
+	@GetMapping("/getStdSectionClass")
+	public ResponseDTO getStdSectionClass(@RequestParam("studentId") long studentId) {
+		return studentService.getStdSectionClass(studentId);
+	}
+
 	@PostMapping(value = "/saveEducationDetail")
 	public ResponseDTO saveEducationDetail(@RequestBody RequestDTO requestDTO) {
 
 		return studentService.saveEducationDetail(requestDTO);
 
+	}
+
+	@GetMapping("/getStudent")
+	public Optional<StudentBasicDetail> getStudentById(@RequestParam("studentId") long studentId) {
+		return studentRepo.findById(studentId);
 	}
 
 	@GetMapping("/test")
@@ -92,6 +118,11 @@ public class UserController {
 		// log.info("State requested data ");
 
 		return locationServiceImpl.getBlock(districtId);
+	}
+
+	@GetMapping("/moi")
+	public List<MOI> getMOI() {
+		return moiRepo.findAll();
 	}
 
 	/* *//**
