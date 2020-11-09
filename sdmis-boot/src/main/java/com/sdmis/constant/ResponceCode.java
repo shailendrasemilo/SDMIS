@@ -1,8 +1,5 @@
 package com.sdmis.constant;
 
-import lombok.Getter;
-
-@Getter
 public enum ResponceCode {
 
 	
