@@ -6,9 +6,15 @@ import { Injectable } from '@angular/core';
 export class CommonService {
 
   currentRoute: String = "Dashboard";
+  generatedStudentId: any;
+
   constructor() { }
 
   setCurrentRoute(routeName: any) {
     this.currentRoute = routeName;
+  }
+
+  setGeneratedStdId(studentId: any) {
+    this.generatedStudentId = studentId;
   }
 }

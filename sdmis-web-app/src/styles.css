@@ -196,3 +196,58 @@
     .mat-input-element {
         font-size: 1.3rem !important;
     }
+
+    .mat-header-cell {
+        font-size: 14px;
+        font-weight: 600;
+    }
+    
+    .mat-cell {
+        font-size: 13px;
+    }
+
+    th.mat-header-cell {
+        text-align: center !important;
+    }
+
+    tr.mat-header-row {
+        height: 65px !important;
+    }
+    
+    .table-panel {
+        height: 50px;
+        background-color: white;
+        color: rgba(0, 0, 0, 0.71);
+        font-size: 16px;
+        font-weight: 600;
+        justify-content: center;
+        line-height: 2.2rem;
+        padding: 10px;
+    }
+
+    .basic-detail ul li label {
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .basic-detail ul li {
+        width: 220px;
+        padding: 0 2rem;
+        margin: 2rem 0;
+    }
+
+    .mat-horizontal-content-container {
+        padding: 0 !important;
+    }
+   
+    .mat-horizontal-stepper-header {
+        height: 50px !important;
+    }
+
+    .btn-round {
+        border-radius: 20px !important;
+    }
+
+    button:focus {
+        outline: none;
+    }

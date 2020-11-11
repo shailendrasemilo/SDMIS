@@ -20,7 +20,13 @@ export class HttpService {
   getDistrictsByState(stateId: Number) {
     return this.http.get<any>(environment.api_base_url + '/getDistrict?stateId=' + stateId);
   }
+
   getBlocksByDistrict(districtId: Number) {
     return this.http.get<any>(environment.api_base_url + '/getBlock?districtId=' + districtId);
   }
+
+  getStudents() {
+    return this.http.get<any>(environment.api_base_url + '/students');
+  }
+
 }

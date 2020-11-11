@@ -23,12 +23,12 @@ export class StudentBasicInfoComponent implements OnInit {
   stateList: any = [];
   districtList: any = [];
   blockList: any = [];
-
+  showProgress: boolean = false;
 
   constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
-    this.getStateList();
+    this.getStateList(); 
   }
 
   getStateList() {

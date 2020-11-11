@@ -16,9 +16,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { DateAdapter, MatNativeDateModule } from '@angular/material/core';
 import { AlertModule } from 'src/app/alert/alert.module';
 import { DirectiveModule } from 'src/app/directives/directive/directive.module';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { StudentIncentiveComponent } from './student-incentive/student-incentive.component';
+import { StudentVocationalComponent } from './student-vocational/student-vocational.component';
+import { StudentResultComponent } from './student-result/student-result.component';
 
 @NgModule({
-  declarations: [StudentProfileComponent, StudentBasicInfoComponent, StudentEducationComponent],
+  declarations: [StudentProfileComponent, StudentBasicInfoComponent, StudentEducationComponent,
+     StudentIncentiveComponent, StudentVocationalComponent, StudentResultComponent],
   imports: [
     CommonModule,
     StudentProfileRoutingModule,
@@ -32,6 +38,8 @@ import { DirectiveModule } from 'src/app/directives/directive/directive.module';
     FormsModule,
     AlertModule,
     DirectiveModule,
+    MatTableModule,
+    MatProgressBarModule
   ]
 })
 export class StudentProfileModule {

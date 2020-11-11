@@ -1,58 +1,116 @@
-<mat-horizontal-stepper #stepper>
-    <mat-step editable="false">
-        <ng-template matStepLabel>Basic Information</ng-template>
-        <app-student-basic-info (event)=receiveBasicInfoData($event);></app-student-basic-info>
-    </mat-step>
+<div *ngIf="studentAction=='view' && basicInfoList.length > 0" class="mr-5">
+    <div class="text-right">
+        <button type="button" mat-button color="primary" class="btn-round" (click)="studentAction = 'add'">Add new
+            student</button>
+    </div>
+    <div class="mt-3">
+        <div class="w-100 table-panel">
+            Basic Information of students
+        </div>
+        <table mat-table [dataSource]="basicInfoList" multiTemplateDataRows class="mat-elevation-z8 w-100 text-center">
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef>Name</th>
+                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="admissionNum">
+                <th mat-header-cell *matHeaderCellDef>Admission <br> Number</th>
+                <td mat-cell *matCellDef="let element"> {{element.admissionNum}} </td>
+            </ng-container>
+            <ng-container matColumnDef="dob">
+                <th mat-header-cell *matHeaderCellDef>Date of <br> Birth</th>
+                <td mat-cell *matCellDef="let element"> {{element.dob | date:'dd/MM/yyyy'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="doa">
+                <th mat-header-cell *matHeaderCellDef>Date of <br> Admission</th>
+                <td mat-cell *matCellDef="let element"> {{element.doa | date:'dd/MM/yyyy'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="gender">
+                <th mat-header-cell *matHeaderCellDef>Gender</th>
+                <td mat-cell *matCellDef="let element"> {{element.gender | titlecase}} </td>
+            </ng-container>
+            <!-- <ng-container matColumnDef="fatherName">
+                <th mat-header-cell *matHeaderCellDef>Father's <br> Name</th>
+                <td mat-cell *matCellDef="let element"> {{element.fatherName | titlecase}} </td>
+            </ng-container>
+            <ng-container matColumnDef="motherName">
+                <th mat-header-cell *matHeaderCellDef>Mother's <br> Name</th>
+                <td mat-cell *matCellDef="let element"> {{element.motherName | titlecase}} </td>
+            </ng-container> -->
 
-    <mat-step editable="false">
-        <ng-template matStepLabel>Education Details</ng-template>
-        <app-student-education (educationEvent)=receiveEducationInfo($event);></app-student-education>
-    </mat-step>
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="basicInfoTableHead.length">
+                    <div class="example-element-detail"
+                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                        <div class="basic-detail">
+                            <ul class="list-unstyled d-flex flex-wrap">
+                                <li>
+                                    <label>Father's Name</label>
+                                    <div>{{element.fatherName | titlecase}}</div>
+                                </li>
+                                <li>
+                                    <label>Mother's Name</label>
+                                    <div>{{element.motherName | titlecase}}</div>
+                                </li>
+                            </ul>
+                            <a routerLink='/home/studentProfile/studentBasicInfo'
+                                (click)='common.setCurrentRoute("Student Basic Information")'> Edit Basic Info </a>
+                        </div>
 
-    <mat-step editable="false">
-        <ng-template matStepLabel>Incentive Details</ng-template>
-        <!-- <form #incentive="ngForm">
-            <mat-form-field>
-                <mat-label>award</mat-label>
-                <input matInput placeholder="Name" [(ngModel)]="profileDetails.award" name="profileDetails.award"
-                    required>
-            </mat-form-field>
-            <div>
-                <button mat-button matStepperNext>Next</button>
-            </div>
-        </form> -->
-    </mat-step>
+                    </div>
+                </td>
+            </ng-container>
 
-    <mat-step editable="false">
-        <ng-template matStepLabel>Vocational Details</ng-template>
-        <!-- <form #vocational="ngForm">
-            <mat-form-field>
-                <mat-label>course</mat-label>
-                <input matInput placeholder="Name" [(ngModel)]="profileDetails.course" name="profileDetails.course"
-                    required>
-            </mat-form-field>
-            <div>
-                <button mat-button matStepperNext>Next</button>
-            </div>
-        </form> -->
-    </mat-step>
+            <tr mat-header-row *matHeaderRowDef="basicInfoTableHead"></tr>
+            <tr mat-row *matRowDef="let element; columns: basicInfoTableHead;" class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+        </table>
 
-    <mat-step editable="false">
-        <ng-template matStepLabel>Results</ng-template>
-        <!-- <form #result="ngForm">
-            <mat-form-field>
-                <mat-label>result</mat-label>
-                <input matInput placeholder="Name" [(ngModel)]="profileDetails.result" name="profileDetails.result"
-                    required>
-            </mat-form-field>
-            <div>
-                <button mat-button matStepperNext>Next</button>
-            </div>
-        </form> -->
-    </mat-step>
+    </div>
+</div>
 
 
-</mat-horizontal-stepper>
+<div *ngIf="studentAction=='add'" class="mr-5">
+    <div class="text-right">
+        <button type="button" mat-button color="primary" class="btn-round" (click)="getStudentList();">Student
+            List</button>
+    </div>
+    <div class="mt-3">
+        <mat-horizontal-stepper #stepper>
+            <mat-step editable="false">
+                <!--  [completed]='false' -->
+                <ng-template matStepLabel>Basic Information</ng-template>
+                <app-student-basic-info (event)=receiveBasicInfoData($event);></app-student-basic-info>
+            </mat-step>
+
+            <mat-step editable="false">
+                <ng-template matStepLabel>Education Details</ng-template>
+                <app-student-education (educationEvent)=receiveEducationInfo($event);></app-student-education>
+            </mat-step>
+
+            <mat-step editable="false">
+                <ng-template matStepLabel>Incentive Details</ng-template>
+                <app-student-incentive></app-student-incentive>
+            </mat-step>
+
+            <mat-step editable="false">
+                <ng-template matStepLabel>Vocational Details</ng-template>
+                <app-student-vocational></app-student-vocational>
+            </mat-step>
+
+            <mat-step editable="false">
+                <ng-template matStepLabel>Results</ng-template>
+                <app-student-result></app-student-result>
+            </mat-step>
+
+
+        </mat-horizontal-stepper>
+    </div>
+</div>
+
+
 
 <div *ngIf='alertFlag'>
     <app-alert [message]='alertMsg' [flag]='alertFlag' [count]='alertCount'></app-alert>

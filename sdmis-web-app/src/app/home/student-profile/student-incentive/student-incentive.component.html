@@ -1,0 +1,72 @@
+<div class="mt-3 ml-4 mr-3">
+    <form #incentive="ngForm">
+
+        <div class="row">
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <mat-form-field appearance="outline" class="w-75">
+                    <mat-label>Number of Uniform Sets</mat-label>
+                    <input matInput placeholder="Number of Uniform Sets" [(ngModel)]="incentiveDetails.uniform"
+                        name="incentiveDetails.uniform" required appNumberOnly>
+                    <mat-error>Number of Uniform sets is required</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+           
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <div><label id="freeBooks" class="mb-3">Getting free books</label></div>
+                <mat-radio-group aria-labelledby="freeBooks" [(ngModel)]="incentiveDetails.freeBooks"
+                    name="incentiveDetails.freeBooks">
+                    <mat-radio-button value="yes" class="mr-2"> Yes </mat-radio-button>
+                    <mat-radio-button value="no" class="ml-2"> No </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <div><label id="freeTransport" class="mb-3">Getting free transport</label></div>
+                <mat-radio-group aria-labelledby="freeTransport" [(ngModel)]="incentiveDetails.freeTransport"
+                    name="incentiveDetails.freeTransport">
+                    <mat-radio-button value="yes" class="mr-2"> Yes </mat-radio-button>
+                    <mat-radio-button value="no" class="ml-2"> No </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <div><label id="freeEscort" class="mb-3">Getting free escort</label></div>
+                <mat-radio-group aria-labelledby="freeEscort" [(ngModel)]="incentiveDetails.freeEscort"
+                    name="incentiveDetails.freeEscort">
+                    <mat-radio-button value="yes" class="mr-2"> Yes </mat-radio-button>
+                    <mat-radio-button value="no" class="ml-2"> No </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <div><label id="freeBicycle" class="mb-3">Getting free bicycle</label></div>
+                <mat-radio-group aria-labelledby="freeBicycle" [(ngModel)]="incentiveDetails.freeBicycle"
+                    name="incentiveDetails.freeBicycle">
+                    <mat-radio-button value="yes" class="mr-2"> Yes </mat-radio-button>
+                    <mat-radio-button value="no" class="ml-2"> No </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <div><label id="freeHostel" class="mb-3">Getting free hostel</label></div>
+                <mat-radio-group aria-labelledby="freeHostel" [(ngModel)]="incentiveDetails.freeHostel"
+                    name="incentiveDetails.freeHostel">
+                    <mat-radio-button value="yes" class="mr-2"> Yes </mat-radio-button>
+                    <mat-radio-button value="no" class="ml-2"> No </mat-radio-button>
+                </mat-radio-group>
+            </div>
+
+        </div>
+
+        
+
+        <div class="row">
+            <div class="col-lg-11 col-md-11">
+                <div class="text-right">
+                    <button type="button" mat-button color="primary" class="btn-round" [disabled]="!incentive.valid">Save & Continue</button>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+</div>
