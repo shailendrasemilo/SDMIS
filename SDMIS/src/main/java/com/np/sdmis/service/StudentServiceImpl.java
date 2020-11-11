@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.np.sdmis.constant.ResponceCode;
 import com.np.sdmis.dto.RequestDTO;
 import com.np.sdmis.dto.ResponseDTO;
-import com.np.sdmis.model.StdSectionClassMapping;
 import com.np.sdmis.model.StudentBasicDetail;
 import com.np.sdmis.repository.StdEducationDetailRepo;
 import com.np.sdmis.repository.StdSectionClassMappingRepo;
@@ -23,9 +22,6 @@ public class StudentServiceImpl {
 	StdSectionClassMappingRepo sectionClassRepo;
 	@Autowired
 	StdEducationDetailRepo educationDetailRepo;
-
-	@Autowired
-	StdSectionClassMappingRepo stdSectionClassMappingRepo;
 
 	public ResponseDTO saveStudentBasicDetail(RequestDTO requestDTO) {
 		ResponseDTO responceDto = new ResponseDTO();
@@ -49,8 +45,7 @@ public class StudentServiceImpl {
 
 	public ResponseDTO saveSectionClassMap(RequestDTO requestDTO) {
 		ResponseDTO responceDto = new ResponseDTO();
-		responceDto.setSectionClassMapping(
-				Optional.ofNullable(stdSectionClassMappingRepo.save(requestDTO.getClassMapping())));
+		responceDto.setSectionClassMapping(Optional.ofNullable(sectionClassRepo.save(requestDTO.getClassMapping())));
 		responceDto.setStatusCode(ResponceCode.App001.getStatusCode());
 		responceDto.setDescription(ResponceCode.App001.getStatusDesc());
 
@@ -61,7 +56,7 @@ public class StudentServiceImpl {
 
 	{
 		ResponseDTO responceDto = new ResponseDTO();
-		responceDto.setSectionClassMapping(stdSectionClassMappingRepo.findById(studentId));
+		responceDto.setSectionClassMapping(sectionClassRepo.findById(studentId));
 		responceDto.setStatusCode(ResponceCode.App001.getStatusCode());
 		responceDto.setDescription(ResponceCode.App001.getStatusDesc());
 		return responceDto;
