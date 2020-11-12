@@ -27,6 +27,7 @@ public class StudentServiceImpl {
 		ResponseDTO responceDto = new ResponseDTO();
 		StudentBasicDetail studentBasicDetail = basicDetailRepo.save(requestDTO.getStudentBasicDetail());
 		if (null != studentBasicDetail) {
+			responceDto.setStudentBasicDetail(studentBasicDetail);
 			requestDTO.getClassMapping().setStudentId(studentBasicDetail.getRecordId());
 			sectionClassRepo.save(requestDTO.getClassMapping());
 			responceDto.setStatusCode(ResponceCode.App001.getStatusCode());

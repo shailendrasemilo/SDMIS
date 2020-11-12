@@ -45,6 +45,16 @@ public class StdEducationDetail implements Serializable {
 	String modifiedBy;
 	@Column(name = "modified_time")
 	Date modifiedTime;
+	@Column(name = "status_prev")
+	String statusPrev;
+
+	public String getStatusPrev() {
+		return statusPrev;
+	}
+
+	public void setStatusPrev(String statusPrev) {
+		this.statusPrev = statusPrev;
+	}
 
 	public long getRecordId() {
 		return recordId;
