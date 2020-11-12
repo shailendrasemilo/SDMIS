@@ -10,8 +10,11 @@ import com.np.sdmis.dto.RequestDTO;
 import com.np.sdmis.dto.ResponseDTO;
 import com.np.sdmis.model.StudentBasicDetail;
 import com.np.sdmis.repository.StdEducationDetailRepo;
+import com.np.sdmis.repository.StdIncentiveDetailRepo;
 import com.np.sdmis.repository.StdSectionClassMappingRepo;
+import com.np.sdmis.repository.StdVocationalDetailRepo;
 import com.np.sdmis.repository.StudentBasicDetailRepo;
+import com.np.sdmis.repository.StudentResultDetailRepo;
 
 @Service
 public class StudentServiceImpl {
@@ -22,6 +25,13 @@ public class StudentServiceImpl {
 	StdSectionClassMappingRepo sectionClassRepo;
 	@Autowired
 	StdEducationDetailRepo educationDetailRepo;
+
+	@Autowired
+	StudentResultDetailRepo resultDetailRepo;
+	@Autowired
+	StdIncentiveDetailRepo incentiveDetailRepo;
+	@Autowired
+	StdVocationalDetailRepo vocationalDetailRepo;
 
 	public ResponseDTO saveStudentBasicDetail(RequestDTO requestDTO) {
 		ResponseDTO responceDto = new ResponseDTO();
@@ -58,6 +68,30 @@ public class StudentServiceImpl {
 	{
 		ResponseDTO responceDto = new ResponseDTO();
 		responceDto.setSectionClassMapping(sectionClassRepo.findById(studentId));
+		responceDto.setStatusCode(ResponceCode.App001.getStatusCode());
+		responceDto.setDescription(ResponceCode.App001.getStatusDesc());
+		return responceDto;
+	}
+
+	public ResponseDTO saveResultDetail(RequestDTO requestDTO) {
+		ResponseDTO responceDto = new ResponseDTO();
+		resultDetailRepo.save(requestDTO.getResultDetail());
+		responceDto.setStatusCode(ResponceCode.App001.getStatusCode());
+		responceDto.setDescription(ResponceCode.App001.getStatusDesc());
+		return responceDto;
+	}
+
+	public ResponseDTO saveIncentiveDetail(RequestDTO requestDTO) {
+		ResponseDTO responceDto = new ResponseDTO();
+		incentiveDetailRepo.save(requestDTO.getIncentiveDetail());
+		responceDto.setStatusCode(ResponceCode.App001.getStatusCode());
+		responceDto.setDescription(ResponceCode.App001.getStatusDesc());
+		return responceDto;
+	}
+
+	public ResponseDTO saveVocationalDetail(RequestDTO requestDTO) {
+		ResponseDTO responceDto = new ResponseDTO();
+		vocationalDetailRepo.save(requestDTO.getVocationalDetail());
 		responceDto.setStatusCode(ResponceCode.App001.getStatusCode());
 		responceDto.setDescription(ResponceCode.App001.getStatusDesc());
 		return responceDto;

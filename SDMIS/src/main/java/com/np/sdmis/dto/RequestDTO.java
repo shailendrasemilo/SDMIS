@@ -3,8 +3,11 @@ package com.np.sdmis.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.np.sdmis.model.StdEducationDetail;
+import com.np.sdmis.model.StdIncentiveDetail;
 import com.np.sdmis.model.StdSectionClassMapping;
+import com.np.sdmis.model.StdVocationalDetail;
 import com.np.sdmis.model.StudentBasicDetail;
+import com.np.sdmis.model.StudentResultDetail;
 
 public class RequestDTO {
 
@@ -14,6 +17,33 @@ public class RequestDTO {
 	private StdSectionClassMapping classMapping;
 
 	private StdEducationDetail educationDetail;
+	private StudentResultDetail resultDetail;
+	private StdIncentiveDetail incentiveDetail;
+	private StdVocationalDetail vocationalDetail;
+
+	public StudentResultDetail getResultDetail() {
+		return resultDetail;
+	}
+
+	public void setResultDetail(StudentResultDetail resultDetail) {
+		this.resultDetail = resultDetail;
+	}
+
+	public StdIncentiveDetail getIncentiveDetail() {
+		return incentiveDetail;
+	}
+
+	public void setIncentiveDetail(StdIncentiveDetail incentiveDetail) {
+		this.incentiveDetail = incentiveDetail;
+	}
+
+	public StdVocationalDetail getVocationalDetail() {
+		return vocationalDetail;
+	}
+
+	public void setVocationalDetail(StdVocationalDetail vocationalDetail) {
+		this.vocationalDetail = vocationalDetail;
+	}
 
 	public StdEducationDetail getEducationDetail() {
 		return educationDetail;

@@ -75,7 +75,24 @@ public class UserController {
 		return studentService.saveEducationDetail(requestDTO);
 
 	}
+	@PostMapping(value = "/saveResultDetail")
+	public ResponseDTO saveResultDetail(@RequestBody RequestDTO requestDTO) {
 
+		return studentService.saveResultDetail(requestDTO);
+
+	}
+	@PostMapping(value = "/saveIncentiveDetail")
+	public ResponseDTO saveIncentiveDetail(@RequestBody RequestDTO requestDTO) {
+
+		return studentService.saveIncentiveDetail(requestDTO);
+
+	}
+	@PostMapping(value = "/saveVocationalDetail")
+	public ResponseDTO saveVocationalDetail(@RequestBody RequestDTO requestDTO) {
+
+		return studentService.saveVocationalDetail(requestDTO);
+
+	}
 	@GetMapping("/getStudent")
 	public Optional<StudentBasicDetail> getStudentById(@RequestParam("studentId") long studentId) {
 		return studentRepo.findById(studentId);
