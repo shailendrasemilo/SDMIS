@@ -5,48 +5,48 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Trade/Sector</mat-label>
-                    <input matInput placeholder="Trade/Sector" [(ngModel)]="vocationalDetails.trade"
-                        name="vocationalDetails.trade" required >
+                    <input matInput placeholder="Trade/Sector" [(ngModel)]="vocationalDetail.trade"
+                        name="vocationalDetail.trade" required >
                     <mat-error>Trade/Sector is required</mat-error>
                 </mat-form-field>
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Job Role</mat-label>
-                    <input matInput placeholder="Job Role" [(ngModel)]="vocationalDetails.jobRole"
-                        name="vocationalDetails.trade" required >
+                    <input matInput placeholder="Job Role" [(ngModel)]="vocationalDetail.jobRole"
+                        name="vocationalDetail.trade" required >
                     <mat-error>Job Role is required</mat-error>
                 </mat-form-field>
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>NSQF Level Completed</mat-label>
-                    <input matInput placeholder="NSQF Level Completed" [(ngModel)]="vocationalDetails.nsqfLevel"
-                        name="vocationalDetails.nsqfLevel" required >
+                    <input matInput placeholder="NSQF Level Completed" [(ngModel)]="vocationalDetail.nsqfLevel"
+                        name="vocationalDetail.nsqfLevel" required >
                     <mat-error>NSQF Level is required</mat-error>
                 </mat-form-field>
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Course Opted</mat-label>
-                    <input matInput placeholder="Course Opted" [(ngModel)]="vocationalDetails.course"
-                        name="vocationalDetails.course" required >
+                    <input matInput placeholder="Course Opted" [(ngModel)]="vocationalDetail.stuOptedFor"
+                        name="vocationalDetail.stuOptedFor" required >
                     <mat-error>Course is required</mat-error>
                 </mat-form-field>
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Employment Status</mat-label>
-                    <input matInput placeholder="Employment Status" [(ngModel)]="vocationalDetails.empStatus"
-                        name="vocationalDetails.empStatus" required >
+                    <input matInput placeholder="Employment Status" [(ngModel)]="vocationalDetail.placementStatus"
+                        name="vocationalDetail.placementStatus" required >
                     <mat-error>Employment Status is required</mat-error>
                 </mat-form-field>
             </div> 
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Salary Offered</mat-label>
-                    <input matInput placeholder="Salary Offered" [(ngModel)]="vocationalDetails.salary"
-                        name="vocationalDetails.salary" appNumberOnly>
+                    <input matInput placeholder="Salary Offered" [(ngModel)]="vocationalDetail.salaryOffered"
+                        name="vocationalDetail.salaryOffered" appNumberOnly>
                     <!-- <mat-error>Salary is required</mat-error> -->
                 </mat-form-field>
             </div>
@@ -55,7 +55,7 @@
         <div class="row">
             <div class="col-lg-11 col-md-11">
                 <div class="text-right">
-                    <button type="button" mat-button color="primary" class="btn-round" [disabled]="!vocational.valid">Save & Continue</button>
+                    <button type="button" mat-button color="primary" class="btn-round" [disabled]="!vocational.valid" (click)='sendVocationalDetail()'>Save & Continue</button>
                 </div>
 
             </div>

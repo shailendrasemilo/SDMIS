@@ -5,25 +5,33 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Last Result</mat-label>
-                    <input matInput placeholder="Last Result" [(ngModel)]="resultDetails.lastResult"
-                        name="resultDetails.lastResult" required>
+                    <input matInput placeholder="Last Result" [(ngModel)]="resultDetail.lastResult"
+                        name="resultDetail.lastResult" required>
                     <mat-error>Last Result is required</mat-error>
                 </mat-form-field>
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Marks Obtained</mat-label>
-                    <input matInput placeholder="Marks Obtained" [(ngModel)]="resultDetails.marksObtained"
-                        name="resultDetails.marksObtained" required>
+                    <input matInput placeholder="Marks Obtained" [(ngModel)]="resultDetail.markObtain"
+                        name="resultDetail.markObtain" required>
                     <mat-error>Marks Obtained is required</mat-error>
                 </mat-form-field>
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Schooling Status</mat-label>
-                    <input matInput placeholder="Schooling Status" [(ngModel)]="resultDetails.schoolingStatus"
-                        name="resultDetails.schoolingStatus" required>
+                    <input matInput placeholder="Schooling Status" [(ngModel)]="resultDetail.schoolingStatus"
+                        name="resultDetail.schoolingStatus" required>
                     <mat-error>Schooling Status is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <mat-form-field appearance="outline" class="w-75">
+                    <mat-label>Stream</mat-label>
+                    <input matInput placeholder="Stream" [(ngModel)]="resultDetail.stream"
+                        name="resultDetail.stream" required>
+                    <mat-error>Stream is required</mat-error>
                 </mat-form-field>
             </div>
         </div>
@@ -31,7 +39,7 @@
         <div class="row">
             <div class="col-lg-11 col-md-11">
                 <div class="text-right">
-                    <button type="button" mat-button color="primary" class="btn-round" [disabled]="!result.valid">Save &
+                    <button type="button" mat-button color="primary" class="btn-round" [disabled]="!result.valid" (click)='sendResultDetail()'>Save &
                         Continue</button>
                 </div>
 

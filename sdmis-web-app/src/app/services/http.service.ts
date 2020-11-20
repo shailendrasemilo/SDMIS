@@ -29,4 +29,24 @@ export class HttpService {
     return this.http.get<any>(environment.api_base_url + '/students');
   }
 
+  saveStudentEducationInfo(requestDto) {
+    return this.http.post<any>(environment.api_base_url + '/saveEducationDetail', requestDto);
+  }
+
+  saveStudentResultDetail(requestDto) {
+    return this.http.post<any>(environment.api_base_url + '/saveResultDetail', requestDto);
+  }
+  
+  saveStudentIncentiveDetail(requestDto) {
+    return this.http.post<any>(environment.api_base_url + '/saveIncentiveDetail', requestDto);
+  }
+
+  saveStudentVocationalDetail(requestDto) {
+    return this.http.post<any>(environment.api_base_url + '/saveVocationalDetail', requestDto);
+  }
+
+  getStudentById(studentId) {
+    return this.http.get<any>(environment.api_base_url + '/getStudent?studentId=' + studentId, {});
+  }
+
 }

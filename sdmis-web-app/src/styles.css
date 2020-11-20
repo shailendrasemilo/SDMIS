@@ -5,6 +5,8 @@
         --nav-color: #404e67;
         --nav-text: #DCDCDC;
         --nav-active-color: #4f6180;
+        --drawer-content: #f6f6f6;
+        --btn-color: #55A8FD;
     }
 
     html {
@@ -27,18 +29,27 @@
         background-color: #fbfbfb;
     }
 
+    .w-90 {
+        width: 90%;
+    }
+
+    .btn-gradient {
+        background-color: var(--btn-color) !important;
+    }
+
     .login-box {
-        width: 640px;
+        width: 820px;
         padding: 2rem;
         margin: auto;
     }
 
     .login-box .mat-card {
-        border-radius: 4px;
-        padding: 1.5rem 3rem;
+        border-radius: 6px;
+        padding: 0;
         -webkit-box-shadow: 0px 0px 5px 1px rgba(51, 51, 51, 0.3);
         -moz-box-shadow: 0px 0px 5px 1px rgba(51, 51, 51, 0.3);
         box-shadow: 0px 0px 5px 1px rgba(51, 51, 51, 0.3);
+        /* height: 350px; */
     }
 
     @-webkit-keyframes clipX {
@@ -200,8 +211,9 @@
     .mat-header-cell {
         font-size: 14px;
         font-weight: 600;
+        color: black;
     }
-    
+
     .mat-cell {
         font-size: 13px;
     }
@@ -213,7 +225,7 @@
     tr.mat-header-row {
         height: 65px !important;
     }
-    
+
     .table-panel {
         height: 50px;
         background-color: white;
@@ -239,7 +251,7 @@
     .mat-horizontal-content-container {
         padding: 0 !important;
     }
-   
+
     .mat-horizontal-stepper-header {
         height: 50px !important;
     }
@@ -250,4 +262,44 @@
 
     button:focus {
         outline: none;
+    }
+
+    .mat-drawer-content {
+        background-color: var(--drawer-content);
+    }
+
+    .mat-table {
+        background-color: transparent !important;
+        border-spacing: 0 10px !important;
+        border-collapse: separate !important;
+    }
+
+    tr.mat-row {
+        background: #FFFFFF;
+        box-shadow: 0px 2px 4px #0000000D;
+        border-radius: 6px;
+    }
+
+    th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+        border-bottom-width: 0 !important;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+        /* login field outline colour */
+        color: #40557c !important;
+        opacity: 1 !important;
+    }
+
+    .mat-form-field-label {
+        /* login field text colour  */
+        color: #9299aa !important
+    }
+
+    .row {
+        margin: 0 !important;
+    }
+
+    .logo-font {
+        font-size: 3.5rem !important;
+        letter-spacing: 0.6px !important;
     }

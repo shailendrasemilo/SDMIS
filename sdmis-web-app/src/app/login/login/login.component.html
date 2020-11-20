@@ -1,37 +1,52 @@
-<div class="container-fluid position-absolute h-100 d-flex overflow-hidden">
+<div class="container-fluid position-absolute h-100 d-flex overflow-hidden bg-img">
     <div class="login-box">
-        <mat-card class="pt-4">
+        <mat-card>
             <div class="row">
-                <div class="col-lg-6 col-md-6 align-items-center">
-                    <a href="javascript:void(0);"> <img src="assets/images/mhrd-logo.png" width="95%"></a>
+                <div class="col-md-7 align-items-center">
+                    <div class='left-logo'>
+                        <a href="javascript:void(0);"> <img src="assets/images/mhrd-logo.png" width="75%"></a>
+                    </div>
+                    <div>
+
+                    </div>
                 </div>
-                <div class="col-lg-6 col-md-6 text-right">
-                    <h2 class="text-center m-0" style="line-height: 50px;">SDMIS</h2>
+                <div class="col-md-5 login-bg br-radius">
+                    <div class="m-4 head-style logo-font">
+                        <span style='font-weight: 900'>SD</span>
+                        <span style='font-weight: lighter'>MIS</span>
+                    </div>
+
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-md-6">
+                <div class="col-md-7">
 
                 </div>
-                <div class="col-lg-6 col-md-6">
+                <div class="col-md-5 login-bg bl-radius pb-5">
                     <mat-card-content>
+                        <div class="form-head">Welcome back to login!</div>
                         <form #lf="ngForm" (ngSubmit)='lf.valid && login()'>
-                            <div class="form-group">
-                                <mat-form-field class="w-100">
+                            <div class="form-group text-center">
+                                <mat-form-field class="w-90" appearance='outline'>
                                     <mat-label>Username</mat-label>
-                                    <input matInput placeholder="Username" name="username" [(ngModel)]='user.username'
+                                    <input matInput name="username" [(ngModel)]='user.username'
                                         required>
                                 </mat-form-field>
-                                <mat-form-field class="w-100">
+                                <mat-form-field class="w-90" appearance='outline'>
                                     <mat-label>Password</mat-label>
-                                    <input matInput placeholder="Password" type="password" [(ngModel)]='user.password'
+                                    <input matInput type="password" [(ngModel)]='user.password'
                                         name="password" required>
                                 </mat-form-field>
+                                <div class="">
+                                    <span style="color: #55A8FD;" class="pl-4">Forgot Password?</span>
+                                </div>
                             </div>
-
-                            <button type="submit" mat-raised-button color="primary" class="w-100"> Login </button>
                         </form>
                     </mat-card-content>
+                    <div class="text-center">
+                        <button type="submit" mat-raised-button color="primary" class="w-90 btn-gradient"> Login
+                        </button>
+                    </div>
                 </div>
             </div>
         </mat-card>

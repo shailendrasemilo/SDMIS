@@ -25,7 +25,7 @@
                     <input matInput [matDatepicker]="pickerDob" [(ngModel)]="profileDetails.dob"
                         name="profileDetails.dob" (focus)="pickerDob.open()" required>
                     <mat-datepicker-toggle matSuffix [for]="pickerDob"></mat-datepicker-toggle>
-                    <mat-datepicker #pickerDob></mat-datepicker>
+                    <mat-datepicker #pickerDob [startAt]='profileDetails.dob'></mat-datepicker>
                     <mat-error>Date of Birth is required</mat-error>
                 </mat-form-field>
             </div>

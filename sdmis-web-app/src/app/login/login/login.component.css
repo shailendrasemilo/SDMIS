@@ -1,0 +1,37 @@
+.bg-img {
+    background: url('../../../assets/images/background.svg') center center;
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.login-bg {
+    background-color: #1f2e54;
+    color: white;
+}
+
+.br-radius {
+    border-top-right-radius: 6px;
+}
+
+.bl-radius {
+    border-bottom-right-radius: 6px;
+    /* height: 248px; */
+}
+
+.head-style {
+    color: #7693BB;
+    line-height: 5rem;
+}
+
+.left-logo {
+    border-bottom: 3px solid #dfe1e2;
+    padding: 1.2rem;
+}
+
+.form-head {
+    color: white;
+    font-size: 1.6rem;
+    line-height: 1.8rem;
+    margin-left: 1.6rem;
+    margin-bottom: 2rem;
+}

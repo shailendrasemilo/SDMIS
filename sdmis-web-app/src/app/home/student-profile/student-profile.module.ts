@@ -21,6 +21,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { StudentIncentiveComponent } from './student-incentive/student-incentive.component';
 import { StudentVocationalComponent } from './student-vocational/student-vocational.component';
 import { StudentResultComponent } from './student-result/student-result.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [StudentProfileComponent, StudentBasicInfoComponent, StudentEducationComponent,
@@ -39,7 +40,8 @@ import { StudentResultComponent } from './student-result/student-result.componen
     AlertModule,
     DirectiveModule,
     MatTableModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatIconModule
   ]
 })
 export class StudentProfileModule {

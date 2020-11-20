@@ -7,6 +7,8 @@ export class CommonService {
 
   currentRoute: String = "Dashboard";
   generatedStudentId: any;
+  studentAction: any = 'view';
+  stdIdEdit: any;
 
   constructor() { }
 
@@ -16,5 +18,9 @@ export class CommonService {
 
   setGeneratedStdId(studentId: any) {
     this.generatedStudentId = studentId;
+  }
+
+  setStdIdForEdit(studentId: any) {
+    this.stdIdEdit = studentId;
   }
 }
