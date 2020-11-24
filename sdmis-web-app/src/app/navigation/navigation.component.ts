@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonService } from '../services/common.service'
 
 @Component({
@@ -8,13 +9,18 @@ import { CommonService } from '../services/common.service'
 })
 export class NavigationComponent implements OnInit {
 
-  constructor(private commonService: CommonService) { }
+  constructor(public commonService: CommonService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   setRoute(routeName) {
     this.commonService.setCurrentRoute(routeName);
+  }
+
+  logout() {
+    sessionStorage.clear();
+    this.router.navigate(['./login'])
   }
 
 }

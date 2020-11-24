@@ -1,12 +1,40 @@
-<ul class="list-unstyled menu-list">
-    <li>
-        <a routerLink="/home/dashboard" routerLinkActive="active" (click)="setRoute('Dashboard')">
-            <img src="assets/images/next.png" width="12px" class="mr-3"> Dashboard
-        </a>
-    </li>
-    <li>
-        <a routerLink="/home/studentProfile" routerLinkActive="active" (click)="setRoute('Student Profile')">
-         <img src="assets/images/next.png" width="12px" class="mr-3"> Student Profile
-        </a>
-    </li>
-</ul>
+<div *ngIf="commonService.sidenavOpen">
+    <ul class="list-unstyled menu-list">
+        <li>
+            <a routerLink="/home/dashboard" routerLinkActive="active" (click)="setRoute('Dashboard')">
+                <img src="assets/images/dashboard.svg" alt="Dashboard" width="15px">
+                <span> Dashboard </span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/home/studentProfile" routerLinkActive="active" (click)="setRoute('Student Profile')">
+                <img src="assets/images/manage.svg" width="15px"> Student Profile
+            </a>
+        </li>
+        <li>
+            <a href="javascropt:void(0);" (click)="logout();" routerLinkActive="active">
+                <img src="assets/images/logout.svg" width="15px"> Logout
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div *ngIf="!commonService.sidenavOpen">
+    <ul class="list-unstyled menu-list">
+        <li>
+            <a routerLink="/home/dashboard" routerLinkActive="active" (click)="setRoute('Dashboard')">
+                <img src="assets/images/dashboard.svg" alt="Dashboard" width="15px">
+            </a>
+        </li>
+        <li>
+            <a routerLink="/home/studentProfile" routerLinkActive="active" (click)="setRoute('Student Profile')">
+                <img src="assets/images/manage.svg" width="15px">
+            </a>
+        </li>
+        <li>
+            <a href="javascropt:void(0);" (click)="logout();" routerLinkActive="active">
+                <img src="assets/images/logout.svg" width="15px">
+            </a>
+        </li>
+    </ul>
+</div>

@@ -1,34 +1,51 @@
 <header class="d-flex">
     <mat-toolbar>
-        <img src="assets/images/mhrd-logo.png" alt="MHRD" class="img-fluid " width="17%">
-        <a href="javascrip:void(0)" class="ml-auto logout" (click)="logout();">
-            <div class="d-flex align-items-center">
-                Logout<mat-icon class="ml-2">exit_to_app</mat-icon>
-            </div>
+        <img src="assets/images/mhrd-logo.png" alt="MHRD" class="img-fluid " width="13%">
+        <a class="menu d-flex ml-5 p-1" (click)="toggleDrawer(drawer)" style="cursor: pointer;">
+            <img src="assets/images/hamburger.svg" alt="Menu" width="20px" class="img-fluid" *ngIf="commonService.sidenavOpen">
+            <img src="assets/images/right_arrow.svg" width="20px" alt="Menu" class="img-fluid" *ngIf="!commonService.sidenavOpen">
         </a>
+        <span class="route-head">{{commonService.currentRoute}}</span>
+        <div class="ml-auto">
+
+            <input type="text" class="custom-input" placeholder="Enter admission number to search...">
+        </div>
+
     </mat-toolbar>
 </header>
 
 <main class="h-100 w-100 d-flex position-fixed">
     <mat-drawer-container class="w-100">
-        <mat-drawer #drawer mode="side" [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'" class="overflow-auto">
-            <div class="details-head">Welcome</div>
-            <div class="d-flex user-details align-items-center">
-                <div class="details">
-                    <div class="info">Prerit Mathur</div>
-                    <div class="info">Teacher</div>
+        <mat-drawer #drawer mode="side" [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'"
+            class="overflow-auto" [ngClass]="commonService.sidenavOpen ? 'drawer-width-open' : 'drawer-width-close'">
+            <div>
+                <div *ngIf="commonService.sidenavOpen">
+                    <div class="text-center mt-5 mb-4">
+                        <img src="assets/images/profile_img.svg" alt="Menu" class="img-fluid">
+                    </div>
+                    <div class="text-center mb-5 user-details">
+                        <ul class="list-unstyled">
+                            <li>Prerit Mathur</li>
+                            <li>Teacher</li>
+
+                        </ul>
+                    </div>
+                </div>
+
+
+                <app-navigation></app-navigation>
+                <div class="logo-font logo-inner" *ngIf="commonService.sidenavOpen">
+                    <span style='font-weight: 900'>SD</span>
+                    <span style='font-weight: lighter'>MIS</span>
                 </div>
             </div>
-            <app-navigation></app-navigation>
+
         </mat-drawer>
-        <div class="p-3">
-            <div class="d-flex align-items-center mt-2">
-                <a class="menu d-flex ml-2 p-1" (click)="drawer.toggle()" style="cursor: pointer;">
-                    <img src="assets/images/hamburger.svg" alt="Menu" class="img-fluid"></a>
-                <span class="route-head">{{commonService.currentRoute}}</span>
+        <mat-drawer-content [ngClass]="commonService.sidenavOpen ? 'route-content-sm' : 'route-content-lg'">
+            <div class="p-3">
+                    <router-outlet></router-outlet>
             </div>
-            
-            <router-outlet></router-outlet>
-        </div>
+        </mat-drawer-content>
+        
     </mat-drawer-container>
 </main>

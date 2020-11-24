@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { CommonService } from '../services/common.service';
 
@@ -20,12 +21,17 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    console.log(this.commonService.sidenavOpen)
   }
 
-  logout() {
-    sessionStorage.clear();
-    this.router.navigate(['./login'])
+  toggleDrawer(drawer: MatDrawer) {
+    if (this.commonService.sidenavOpen) {
+      this.commonService.sidenavOpen = false
+    } else {
+      this.commonService.sidenavOpen = true;
+    }
+
+    console.log(this.commonService.sidenavOpen)
   }
 
 }

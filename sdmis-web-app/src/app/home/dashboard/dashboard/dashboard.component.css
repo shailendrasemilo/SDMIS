@@ -1,0 +1,118 @@
+.dashboard-card-head {
+    color: var(--dashboard-head);
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-left: 1rem;
+    /* margin-bottom: 2rem; */
+}
+
+.dash-card {
+    min-height: 350px;
+}
+
+.total-chart {
+    position: relative;
+    margin-top: 3rem;
+}
+
+.text-chart {
+    position: absolute;
+    top: 43%;
+    left: 44%;
+    line-height: 2rem;
+    font-size: 2.2rem;
+    font-weight: 900;
+    opacity: 1;
+}
+
+.chart-legend {
+    margin: 4rem auto 0 1rem;
+    font-size: 1.4rem;
+}
+
+.complete-profile {
+    background-color: #56C549;
+}
+
+.remaining-profile {
+    background-color: #E93535;
+}
+
+.legend-layout {
+    height: 10px;
+    width: 10px;
+    margin-right: 1rem;
+    border-radius: 5px;
+}
+
+.mat-card> :last-child:not(.mat-card-footer) {
+    margin-bottom: 2rem !important;
+}
+
+.chart-legend>ul>li {
+    margin-bottom: 1rem !important;
+}
+
+.label-name {
+    font-weight: 500;
+}
+
+.label-count {
+    font-weight: 900;
+}
+
+.mat-progress-bar {
+    height: 6px !important;
+}
+
+.class-wise-label, .class-wise-count {
+    text-align: center;
+    min-width: 2rem;
+}
+
+.class-wise-label {
+    margin-right: 1.5rem;
+    font-size: 1.3rem;
+    color: var(--color-grey)
+}
+
+.class-wise-count {
+    margin-left: 1.5rem;
+    font-weight: bolder;
+}
+
+.classwise-chart {
+    margin-top: 2rem;
+}
+
+.class-wise-head {
+    margin-top: 1.5rem;
+    color: #5F6C7E
+}
+
+.profile-parent {
+    margin-top: 3rem;
+    margin-left: 1.5rem;
+}
+
+.profile-parent>ul>li {
+    width: 25%;
+}
+
+.profile-parent>ul>li:not(:last-child) {
+    margin-right: 3rem;
+}
+
+.profile-parent>ul>li:last-child {
+    margin-right: 1.5rem;
+}
+
+.profile-head {
+    color: var(--color-green);
+    font-size: 2.5rem;
+    font-weight: bolder;
+}
+
+.mat-card {
+    box-shadow: 0px 2px 4px #0000000D;
+}

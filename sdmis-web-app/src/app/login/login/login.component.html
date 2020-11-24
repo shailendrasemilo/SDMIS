@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="col-md-5 login-bg br-radius">
-                    <div class="m-4 head-style logo-font">
+                    <div class="m-4 logo-font">
                         <span style='font-weight: 900'>SD</span>
                         <span style='font-weight: lighter'>MIS</span>
                     </div>
@@ -25,28 +25,34 @@
                 <div class="col-md-5 login-bg bl-radius pb-5">
                     <mat-card-content>
                         <div class="form-head">Welcome back to login!</div>
-                        <form #lf="ngForm" (ngSubmit)='lf.valid && login()'>
-                            <div class="form-group text-center">
-                                <mat-form-field class="w-90" appearance='outline'>
-                                    <mat-label>Username</mat-label>
-                                    <input matInput name="username" [(ngModel)]='user.username'
-                                        required>
-                                </mat-form-field>
-                                <mat-form-field class="w-90" appearance='outline'>
-                                    <mat-label>Password</mat-label>
-                                    <input matInput type="password" [(ngModel)]='user.password'
-                                        name="password" required>
-                                </mat-form-field>
-                                <div class="">
-                                    <span style="color: #55A8FD;" class="pl-4">Forgot Password?</span>
+                        <form #lf="ngForm" (ngSubmit)="lf.valid && login()">
+                            <div class="form-group">
+                                <div class="text-center">
+                                    <mat-form-field class="w-90" appearance='outline'>
+                                        <mat-label>Username</mat-label>
+                                        <input matInput name="username" [(ngModel)]='user.username' required>
+                                        <mat-error>Username cannot be blank</mat-error>
+                                    </mat-form-field>
+                                    <mat-form-field class="w-90 mt-3 mb-3" appearance='outline'>
+                                        <mat-label>Password</mat-label>
+                                        <input matInput type="password" [(ngModel)]='user.password' name="password"
+                                            required>
+                                        <mat-error>Password cannot be blank</mat-error>
+                                    </mat-form-field>
                                 </div>
+                                <div class="pb-4">
+                                    <span style="color: #55A8FD; font-size: 90%;" class="pl-4">Forgot Password?</span>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" mat-raised-button color="primary" class="w-90 btn-gradient">
+                                        Login
+                                    </button>
+                                </div>
+
                             </div>
                         </form>
                     </mat-card-content>
-                    <div class="text-center">
-                        <button type="submit" mat-raised-button color="primary" class="w-90 btn-gradient"> Login
-                        </button>
-                    </div>
+
                 </div>
             </div>
         </mat-card>

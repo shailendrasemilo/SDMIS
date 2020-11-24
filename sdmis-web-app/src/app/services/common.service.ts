@@ -9,6 +9,7 @@ export class CommonService {
   generatedStudentId: any;
   studentAction: any = 'view';
   stdIdEdit: any;
+  sidenavOpen: any = true;
 
   constructor() { }
 

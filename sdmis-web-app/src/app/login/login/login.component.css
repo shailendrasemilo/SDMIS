@@ -18,11 +18,6 @@
     /* height: 248px; */
 }
 
-.head-style {
-    color: #7693BB;
-    line-height: 5rem;
-}
-
 .left-logo {
     border-bottom: 3px solid #dfe1e2;
     padding: 1.2rem;
@@ -34,4 +29,27 @@
     line-height: 1.8rem;
     margin-left: 1.6rem;
     margin-bottom: 2rem;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    /* login field outline colour  */
+    color: var(--form-field-outline) !important;
+    opacity: 1 !important;
+}
+
+.mat-form-field-label {
+    /* login field text colour   */
+    color: var(--form-field-text) !important
+}
+
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: var(--color-blue) !important;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: var(--color-blue) !important;
+}
+
+.mat-form-field-subscript-wrapper {
+    margin-top: 0.3rem;
 }
