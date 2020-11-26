@@ -22,6 +22,7 @@ import com.np.sdmis.model.DistrictMaster;
 import com.np.sdmis.model.MOI;
 import com.np.sdmis.model.StateMaster;
 import com.np.sdmis.model.StudentBasicDetail;
+import com.np.sdmis.model.StudentListData;
 import com.np.sdmis.repository.MOIRepo;
 import com.np.sdmis.repository.StudentBasicDetailRepo;
 import com.np.sdmis.service.LocationServiceImpl;
@@ -50,6 +51,13 @@ public class UserController {
 		return studentService.saveStudentBasicDetail(requestDTO);
 
 	}
+
+	@GetMapping("/viewStubasicDetail")
+	public ResponseDTO viewStubasicDetail(@RequestParam("studentId") long studentId,
+			@RequestParam("schoolId") long schoolId) {
+		return studentService.viewStubasicDetail(studentId, schoolId);
+	}
+
 	@PutMapping(value = "/udateStudentDetail")
 	public ResponseDTO updateStudentBasicInfo(@RequestBody RequestDTO requestDTO) {
 
@@ -75,27 +83,61 @@ public class UserController {
 		return studentService.saveEducationDetail(requestDTO);
 
 	}
+
+	@GetMapping("/viewEducationDetail")
+	public ResponseDTO viewEducationDetail(@RequestParam("studentId") long studentId,
+			@RequestParam("schoolId") long schoolId) {
+		return studentService.viewEducationDetail(studentId, schoolId);
+	}
+
 	@PostMapping(value = "/saveResultDetail")
 	public ResponseDTO saveResultDetail(@RequestBody RequestDTO requestDTO) {
 
 		return studentService.saveResultDetail(requestDTO);
 
 	}
+
+	@GetMapping("/viewResultDetail")
+	public ResponseDTO viewResultDetail(@RequestParam("studentId") long studentId,
+			@RequestParam("schoolId") long schoolId) {
+		return studentService.viewResultDetail(studentId, schoolId);
+	}
+
 	@PostMapping(value = "/saveIncentiveDetail")
 	public ResponseDTO saveIncentiveDetail(@RequestBody RequestDTO requestDTO) {
 
 		return studentService.saveIncentiveDetail(requestDTO);
 
 	}
+
+	@GetMapping("/viewIncentiveDetail")
+	public ResponseDTO viewIncentiveDetail(@RequestParam("studentId") long studentId,
+			@RequestParam("schoolId") long schoolId) {
+		return studentService.viewIncentiveDetail(studentId, schoolId);
+	}
+
 	@PostMapping(value = "/saveVocationalDetail")
 	public ResponseDTO saveVocationalDetail(@RequestBody RequestDTO requestDTO) {
 
 		return studentService.saveVocationalDetail(requestDTO);
 
 	}
+
+	@GetMapping("/viewVocationalDetail")
+	public ResponseDTO viewVocationalDetail(@RequestParam("studentId") long studentId,
+			@RequestParam("schoolId") long schoolId) {
+		return studentService.viewVocationalDetail(studentId, schoolId);
+	}
+
 	@GetMapping("/getStudent")
 	public Optional<StudentBasicDetail> getStudentById(@RequestParam("studentId") long studentId) {
 		return studentRepo.findById(studentId);
+	}
+
+	@GetMapping("/getStudentList")
+	public List<StudentListData> getStudentList(@RequestParam("className") String className,
+			@RequestParam("section") String section, @RequestParam("schoolId") long schoolId) {
+		return studentService.getStudentList(null, null, schoolId);
 	}
 
 	@GetMapping("/test")

@@ -20,7 +20,7 @@ public class StdIncentiveDetail implements Serializable {
 	@Column(name = "record_id")
 	long recordId;
 	@Column(name = "student_id")
-	long student_id;
+	long studentId;
 	@Column(name = "academic_year")
 	String academicYear;
 	@Column(name = "facility_cwsn")
@@ -56,12 +56,12 @@ public class StdIncentiveDetail implements Serializable {
 		this.recordId = recordId;
 	}
 
-	public long getStudent_id() {
-		return student_id;
+	public long getStudentId() {
+		return studentId;
 	}
 
-	public void setStudent_id(long student_id) {
-		this.student_id = student_id;
+	public void setStudentId(long studentId) {
+		this.studentId = studentId;
 	}
 
 	public String getAcademicYear() {

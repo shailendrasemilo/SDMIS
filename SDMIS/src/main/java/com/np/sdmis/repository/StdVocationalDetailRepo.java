@@ -8,4 +8,6 @@ import com.np.sdmis.model.StdVocationalDetail;
 @Repository
 public interface StdVocationalDetailRepo extends JpaRepository<StdVocationalDetail, Long> {
 
+	StdVocationalDetail findByStudentId(long studentId);
+
 }

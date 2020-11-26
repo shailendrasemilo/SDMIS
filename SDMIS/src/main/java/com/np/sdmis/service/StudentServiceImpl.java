@@ -1,6 +1,11 @@
 package com.np.sdmis.service;
 
+import java.util.List;
 import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,10 +13,16 @@ import org.springframework.stereotype.Service;
 import com.np.sdmis.constant.ResponceCode;
 import com.np.sdmis.dto.RequestDTO;
 import com.np.sdmis.dto.ResponseDTO;
+import com.np.sdmis.model.StdClassSectionMapping;
+import com.np.sdmis.model.StdEducationDetail;
+import com.np.sdmis.model.StdIncentiveDetail;
+import com.np.sdmis.model.StdVocationalDetail;
 import com.np.sdmis.model.StudentBasicDetail;
+import com.np.sdmis.model.StudentListData;
+import com.np.sdmis.model.StudentResultDetail;
 import com.np.sdmis.repository.StdEducationDetailRepo;
 import com.np.sdmis.repository.StdIncentiveDetailRepo;
-import com.np.sdmis.repository.StdSectionClassMappingRepo;
+import com.np.sdmis.repository.StdClassSectionMappingRepo;
 import com.np.sdmis.repository.StdVocationalDetailRepo;
 import com.np.sdmis.repository.StudentBasicDetailRepo;
 import com.np.sdmis.repository.StudentResultDetailRepo;
@@ -22,7 +33,7 @@ public class StudentServiceImpl {
 	@Autowired
 	StudentBasicDetailRepo basicDetailRepo;
 	@Autowired
-	StdSectionClassMappingRepo sectionClassRepo;
+	StdClassSectionMappingRepo sectionClassRepo;
 	@Autowired
 	StdEducationDetailRepo educationDetailRepo;
 
@@ -32,14 +43,50 @@ public class StudentServiceImpl {
 	StdIncentiveDetailRepo incentiveDetailRepo;
 	@Autowired
 	StdVocationalDetailRepo vocationalDetailRepo;
+	@Autowired
+	EntityManagerFactory emf;
+
+	public List<StudentListData> getStudentList(String className, String section, long schoolId) {
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		String qq = "Select"
+				+ "s.recordId as record,s.name as studentName,s.studentId as studentId,s.admissionNum as admNum,s.gender as gender,s.doa as doa,"
+				+ "c.className as className ,c.section as section" + " from StdClassSectionMapping  c "
+				+ "inner join StudentBasicDetail s on s.recordId = c.studentId where c.status='A' and c.schoolId=:schoolId";
+		if (null != className) {
+			qq.concat(", and className=:className");
+		}
+		if (null != section) {
+			qq.concat(", and section=:section");
+		}
+		qq.concat(" group by c.className,c.section order by c.className,c.section");
+		System.out.println(qq);
+		Query query = em.createQuery(qq);
+		query.setParameter("schoolId", schoolId);
+		if (null != className) {
+			query.setParameter("className", className);
+		}
+		if (null != section) {
+			query.setParameter("section", section);
+		}
+		@SuppressWarnings("unchecked")
+		List<StudentListData> list = (List<StudentListData>) query.getResultList();
+		System.out.println("Student Name :");
+		em.close();
+
+		return list;
+
+	}
 
 	public ResponseDTO saveStudentBasicDetail(RequestDTO requestDTO) {
 		ResponseDTO responceDto = new ResponseDTO();
 		StudentBasicDetail studentBasicDetail = basicDetailRepo.save(requestDTO.getStudentBasicDetail());
 		if (null != studentBasicDetail) {
-			responceDto.setStudentBasicDetail(studentBasicDetail);
 			requestDTO.getClassMapping().setStudentId(studentBasicDetail.getRecordId());
-			sectionClassRepo.save(requestDTO.getClassMapping());
+			StdClassSectionMapping classSectionObj = sectionClassRepo.save(requestDTO.getClassMapping());
+			studentBasicDetail.setClassSectionId(classSectionObj.getRecordId());
+			basicDetailRepo.save(studentBasicDetail);
+			responceDto.setStudentBasicDetail(Optional.ofNullable(studentBasicDetail));
 			responceDto.setStatusCode(ResponceCode.App001.getStatusCode());
 			responceDto.setDescription(ResponceCode.App001.getStatusDesc());
 		}
@@ -95,6 +142,61 @@ public class StudentServiceImpl {
 		responceDto.setStatusCode(ResponceCode.App001.getStatusCode());
 		responceDto.setDescription(ResponceCode.App001.getStatusDesc());
 		return responceDto;
+	}
+
+	public ResponseDTO viewStubasicDetail(long studentId, long schoolId) {
+		// TODO Auto-generated method stub
+		ResponseDTO responseDTO = new ResponseDTO();
+		StdClassSectionMapping classSectionMapping = sectionClassRepo.findByStudentIdAndSchoolIdAndStatus(studentId,
+				schoolId, "A");
+		if (null != classSectionMapping) {
+			Optional<StudentBasicDetail> basicDetail = basicDetailRepo.findById(studentId);
+			responseDTO.setSectionClassMapping(Optional.ofNullable(classSectionMapping));
+			responseDTO.setStudentBasicDetail(basicDetail);
+			responseDTO.setStatusCode(ResponceCode.App001.getStatusCode());
+			responseDTO.setDescription(ResponceCode.App001.getStatusDesc());
+		}
+		return responseDTO;
+	}
+
+	public ResponseDTO viewEducationDetail(long studentId, long schoolId) {
+		// TODO Auto-generated method stub
+		ResponseDTO responseDTO = new ResponseDTO();
+		StdEducationDetail educationDetail = educationDetailRepo.findByStudentId(studentId);
+		responseDTO.setEducationDetail(educationDetail);
+		responseDTO.setStatusCode(ResponceCode.App001.getStatusCode());
+		responseDTO.setDescription(ResponceCode.App001.getStatusDesc());
+		return responseDTO;
+	}
+
+	public ResponseDTO viewResultDetail(long studentId, long schoolId) {
+		// TODO Auto-generated method stub
+		ResponseDTO responseDTO = new ResponseDTO();
+		StudentResultDetail resultDetail = resultDetailRepo.findByStudentId(studentId);
+		responseDTO.setResultDetail(resultDetail);
+		responseDTO.setStatusCode(ResponceCode.App001.getStatusCode());
+		responseDTO.setDescription(ResponceCode.App001.getStatusDesc());
+		return responseDTO;
+	}
+
+	public ResponseDTO viewIncentiveDetail(long studentId, long schoolId) {
+		// TODO Auto-generated method stub
+		ResponseDTO responseDTO = new ResponseDTO();
+		StdIncentiveDetail incentiveDetail = incentiveDetailRepo.findByStudentId(studentId);
+		responseDTO.setIncentiveDetail(incentiveDetail);
+		responseDTO.setStatusCode(ResponceCode.App001.getStatusCode());
+		responseDTO.setDescription(ResponceCode.App001.getStatusDesc());
+		return responseDTO;
+	}
+
+	public ResponseDTO viewVocationalDetail(long studentId, long schoolId) {
+		// TODO Auto-generated method stub
+		ResponseDTO responseDTO = new ResponseDTO();
+		StdVocationalDetail vocationalDetail = vocationalDetailRepo.findByStudentId(studentId);
+		responseDTO.setVocationalDetail(vocationalDetail);
+		responseDTO.setStatusCode(ResponceCode.App001.getStatusCode());
+		responseDTO.setDescription(ResponceCode.App001.getStatusDesc());
+		return responseDTO;
 	}
 
 }

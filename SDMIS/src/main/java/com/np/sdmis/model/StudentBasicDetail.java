@@ -8,9 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
+@NamedQueries({
+		@NamedQuery(name = "StudentBasicDetail.getStudentList", query = "Select s from StudentBasicDetail s where s.status = :search"), })
 @Table(name = "std_basic_details")
 public class StudentBasicDetail implements Serializable {
 
@@ -24,7 +28,7 @@ public class StudentBasicDetail implements Serializable {
 	@Column(name = "record_id")
 	long recordId;
 	@Column(name = "student_id")
-	long student_id;
+	long studentId;
 	@Column(name = "admission_num")
 	long admissionNum;
 	@Column(name = "date_of_admission")
@@ -73,6 +77,16 @@ public class StudentBasicDetail implements Serializable {
 	Date modifiedTime;
 	@Column(name = "date_of_birth")
 	Date dob;
+	@Column(name = "class_section_id")
+	long classSectionId;
+
+	public long getClassSectionId() {
+		return classSectionId;
+	}
+
+	public void setClassSectionId(long classSectionId) {
+		this.classSectionId = classSectionId;
+	}
 
 	public long getRecordId() {
 		return recordId;
@@ -82,12 +96,12 @@ public class StudentBasicDetail implements Serializable {
 		this.recordId = recordId;
 	}
 
-	public long getStudent_id() {
-		return student_id;
+	public long getStudentId() {
+		return studentId;
 	}
 
-	public void setStudent_id(long student_id) {
-		this.student_id = student_id;
+	public void setStudentId(long studentId) {
+		this.studentId = studentId;
 	}
 
 	public long getAdmissionNum() {

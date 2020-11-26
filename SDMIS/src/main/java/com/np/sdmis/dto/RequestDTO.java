@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.np.sdmis.model.StdEducationDetail;
 import com.np.sdmis.model.StdIncentiveDetail;
-import com.np.sdmis.model.StdSectionClassMapping;
+import com.np.sdmis.model.StdClassSectionMapping;
 import com.np.sdmis.model.StdVocationalDetail;
 import com.np.sdmis.model.StudentBasicDetail;
 import com.np.sdmis.model.StudentResultDetail;
@@ -14,7 +14,7 @@ public class RequestDTO {
 	@JsonInclude(Include.NON_NULL)
 	private StudentBasicDetail studentBasicDetail;
 	@JsonInclude(Include.NON_NULL)
-	private StdSectionClassMapping classMapping;
+	private StdClassSectionMapping classMapping;
 
 	private StdEducationDetail educationDetail;
 	private StudentResultDetail resultDetail;
@@ -61,11 +61,11 @@ public class RequestDTO {
 		this.studentBasicDetail = studentBasicDetail;
 	}
 
-	public StdSectionClassMapping getClassMapping() {
+	public StdClassSectionMapping getClassMapping() {
 		return classMapping;
 	}
 
-	public void setClassMapping(StdSectionClassMapping classMapping) {
+	public void setClassMapping(StdClassSectionMapping classMapping) {
 		this.classMapping = classMapping;
 	}
 

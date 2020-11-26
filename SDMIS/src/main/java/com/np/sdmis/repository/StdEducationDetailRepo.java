@@ -8,4 +8,6 @@ import com.np.sdmis.model.StdEducationDetail;
 @Repository
 public interface StdEducationDetailRepo extends JpaRepository<StdEducationDetail, Long> {
 
+	StdEducationDetail findByStudentId(long studentId);
+
 }

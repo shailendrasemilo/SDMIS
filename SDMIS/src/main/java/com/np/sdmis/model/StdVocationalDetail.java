@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "std_vocational_details")
+@Table(name = "std_vocational_detail")
 public class StdVocationalDetail implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -20,14 +20,14 @@ public class StdVocationalDetail implements Serializable {
 	@Column(name = "record_id")
 	long recordId;
 	@Column(name = "student_id")
-	long student_id;
+	long studentId;
 	@Column(name = "academic_year")
 	String academicYear;
 	@Column(name = "trade")
 	String trade;
 	@Column(name = "job_role")
 	String jobRole;
-	@Column(name = "NSQF_level")
+	@Column(name = "nsqf_level")
 	int nsqfLevel;
 	@Column(name = "student_opted_for")
 	String stuOptedFor;
@@ -52,12 +52,12 @@ public class StdVocationalDetail implements Serializable {
 		this.recordId = recordId;
 	}
 
-	public long getStudent_id() {
-		return student_id;
+	public long getStudentId() {
+		return studentId;
 	}
 
-	public void setStudent_id(long student_id) {
-		this.student_id = student_id;
+	public void setStudentId(long studentId) {
+		this.studentId = studentId;
 	}
 
 	public String getAcademicYear() {

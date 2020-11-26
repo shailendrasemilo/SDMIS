@@ -11,8 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "std_section_class_mapping")
-public class StdSectionClassMapping implements Serializable {
+@Table(name = "std_class_section_mapping")
+public class StdClassSectionMapping implements Serializable {
 	/**
 	* 
 	*/
@@ -23,17 +23,26 @@ public class StdSectionClassMapping implements Serializable {
 	long recordId;
 	@Column(name = "student_id")
 	long studentId;
-
-	@Column(name = "section_id")
-	long sectioId;
-	@Column(name = "class_id")
-	long classId;
+	@Column(name = "section")
+	String section;
+	@Column(name = "class")
+	String className;
 	@Column(name = "status")
-	String stauts;
+	String status;
 	@Column(name = "created_by")
 	String createdBy;
 	@Column(name = "created_time")
 	Date createdTime;
+	@Column(name = "school_id")
+	long schoolId;
+
+	public long getSchoolId() {
+		return schoolId;
+	}
+
+	public void setSchoolId(long schoolId) {
+		this.schoolId = schoolId;
+	}
 
 	public long getRecordId() {
 		return recordId;
@@ -51,28 +60,28 @@ public class StdSectionClassMapping implements Serializable {
 		this.studentId = studentId;
 	}
 
-	public long getSectioId() {
-		return sectioId;
+	public String getSection() {
+		return section;
 	}
 
-	public void setSectioId(long sectioId) {
-		this.sectioId = sectioId;
+	public void setSection(String section) {
+		this.section = section;
 	}
 
-	public long getClassId() {
-		return classId;
+	public String getClassName() {
+		return className;
 	}
 
-	public void setClassId(long classId) {
-		this.classId = classId;
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
-	public String getStauts() {
-		return stauts;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setStauts(String stauts) {
-		this.stauts = stauts;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getCreatedBy() {
