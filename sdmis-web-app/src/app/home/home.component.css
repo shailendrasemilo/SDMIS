@@ -1,0 +1,6 @@
+.custom-input {
+    color: var(--color-grey);
+    background-color: #E8EEF6;
+    width: 300px;
+    background-position: 270px 10px;
+}

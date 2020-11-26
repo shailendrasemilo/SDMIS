@@ -1,0 +1,39 @@
+.w-80 {
+    width: 80%;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    color: #B8BBBF !important;
+    opacity: 1 !important;
+    background-color: white;
+}
+
+.custom-input {
+    width: 250px;
+    background-position: 230px 13px;
+    height: 43px;
+    margin-right: 2rem;
+}
+
+.table-head {
+    padding-bottom: 1.3rem;
+    margin-left: auto;
+}
+
+/* .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    color: white !important;
+    opacity: 1 !important;
+    background-color: white;
+} */
+
+/* .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: var(--color-blue) !important;
+}
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: var(--color-blue) !important;
+}
+
+.mat-form-field-wrapper {
+    padding-bottom: 0;
+} */

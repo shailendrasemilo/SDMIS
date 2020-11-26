@@ -40,6 +40,7 @@
 
     .btn-gradient {
         background-color: var(--color-blue) !important;
+        height: 40px;
     }
 
     .login-box {
@@ -254,16 +255,31 @@
         background-color: transparent !important;
         border-spacing: 0 10px !important;
         border-collapse: separate !important;
+        /* border-radius: 50px !important;
+        border: 1px solid black !important; */
     }
 
     tr.mat-row {
-        background: #FFFFFF;
-        box-shadow: 0px 2px 4px #0000000D;
-        border-radius: 6px;
+        /* background: #FFFFFF; */
     }
 
     th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
         border-bottom-width: 0 !important;
+    }
+
+    td.mat-cell {
+        background: #FFFFFF;
+        box-shadow: 0px 2px #0000000D;
+    }
+
+    td.mat-cell:first-child {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    
+    td.mat-cell:last-child {
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 
     .row {
@@ -287,15 +303,11 @@
 
     .custom-input {
         font-size: 1.4rem;
-        width: 300px;
         height: 35px;
         border-radius: 5px;
         border: none;
         padding-left: 10px;
-        color: var(--color-grey);
-        background-color: #E8EEF6;
         background-image: url('assets/images/search.svg');
-        background-position: 270px 10px;
         background-repeat: no-repeat;
     }
 

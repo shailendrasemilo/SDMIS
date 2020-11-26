@@ -22,10 +22,11 @@ import { StudentIncentiveComponent } from './student-incentive/student-incentive
 import { StudentVocationalComponent } from './student-vocational/student-vocational.component';
 import { StudentResultComponent } from './student-result/student-result.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [StudentProfileComponent, StudentBasicInfoComponent, StudentEducationComponent,
-     StudentIncentiveComponent, StudentVocationalComponent, StudentResultComponent],
+    StudentIncentiveComponent, StudentVocationalComponent, StudentResultComponent],
   imports: [
     CommonModule,
     StudentProfileRoutingModule,
@@ -41,7 +42,8 @@ import { MatIconModule } from '@angular/material/icon';
     DirectiveModule,
     MatTableModule,
     MatProgressBarModule,
-    MatIconModule
+    MatIconModule,
+    MatPaginatorModule
   ]
 })
 export class StudentProfileModule {
