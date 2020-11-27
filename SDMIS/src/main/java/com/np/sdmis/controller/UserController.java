@@ -135,9 +135,9 @@ public class UserController {
 	}
 
 	@GetMapping("/getStudentList")
-	public List<StudentListData> getStudentList(@RequestParam("className") String className,
+	public ResponseDTO getStudentList(@RequestParam("className") String className,
 			@RequestParam("section") String section, @RequestParam("schoolId") long schoolId) {
-		return studentService.getStudentList(null, null, schoolId);
+		return studentService.getStudentList(className, section, schoolId);
 	}
 
 	@GetMapping("/test")

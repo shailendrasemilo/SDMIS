@@ -46,35 +46,51 @@ public class StudentServiceImpl {
 	@Autowired
 	EntityManagerFactory emf;
 
-	public List<StudentListData> getStudentList(String className, String section, long schoolId) {
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-		String qq = "Select"
-				+ "s.recordId as record,s.name as studentName,s.studentId as studentId,s.admissionNum as admNum,s.gender as gender,s.doa as doa,"
-				+ "c.className as className ,c.section as section" + " from StdClassSectionMapping  c "
-				+ "inner join StudentBasicDetail s on s.recordId = c.studentId where c.status='A' and c.schoolId=:schoolId";
-		if (null != className) {
-			qq.concat(", and className=:className");
+	public ResponseDTO getStudentList(String className, String section, long schoolId) {
+		ResponseDTO responseDTO = new ResponseDTO();
+		try {
+			EntityManager em = emf.createEntityManager();
+			em.getTransaction().begin();
+			String qq = "Select"
+					+ " s.recordId as record,s.name as studentName,s.studentId as studentId,s.admissionNum as admNum,s.gender as gender,s.doa as doa,"
+					+ "c.className as className ,c.section as section" + " from StdClassSectionMapping  c "
+					+ "inner join StudentBasicDetail s on s.recordId = c.studentId where c.status='A' and c.schoolId=:schoolId";
+			System.out.println("class name:: " + className);
+			String qqq = null;
+			if (null != className) {
+				qqq = qq + " and c.className=:className";
+			}
+			String qqqq = null;
+			if (null != section) {
+				qqqq = qqq + " and c.section=:section";
+			}
+			qq.concat(" group by c.className,c.section order by c.className,c.section");
+			System.out.println(qqqq);
+			Query query = em.createQuery(qqqq);
+			query.setParameter("schoolId", schoolId);
+			if (null != className) {
+				query.setParameter("className", className);
+			}
+			if (null != section) {
+				query.setParameter("section", section);
+			}
+			@SuppressWarnings("unchecked")
+			List<StudentListData> list = (List<StudentListData>) query.getResultList();
+			if (null != list && list.size() > 0) {
+				responseDTO.setStudentListDatas(list);
+				responseDTO.setStatusCode(ResponceCode.App001.getStatusCode());
+				responseDTO.setDescription(ResponceCode.App001.getStatusDesc());
+			} else {
+				responseDTO.setStatusCode(ResponceCode.App003.getStatusCode());
+				responseDTO.setDescription(ResponceCode.App003.getStatusDesc());
+			}
+			em.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
-		if (null != section) {
-			qq.concat(", and section=:section");
-		}
-		qq.concat(" group by c.className,c.section order by c.className,c.section");
-		System.out.println(qq);
-		Query query = em.createQuery(qq);
-		query.setParameter("schoolId", schoolId);
-		if (null != className) {
-			query.setParameter("className", className);
-		}
-		if (null != section) {
-			query.setParameter("section", section);
-		}
-		@SuppressWarnings("unchecked")
-		List<StudentListData> list = (List<StudentListData>) query.getResultList();
 		System.out.println("Student Name :");
-		em.close();
 
-		return list;
+		return responseDTO;
 
 	}
 

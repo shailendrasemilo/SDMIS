@@ -1,5 +1,6 @@
 package com.np.sdmis.dto;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -9,6 +10,7 @@ import com.np.sdmis.model.StdEducationDetail;
 import com.np.sdmis.model.StdIncentiveDetail;
 import com.np.sdmis.model.StdVocationalDetail;
 import com.np.sdmis.model.StudentBasicDetail;
+import com.np.sdmis.model.StudentListData;
 import com.np.sdmis.model.StudentResultDetail;
 
 public class ResponseDTO {
@@ -25,6 +27,16 @@ public class ResponseDTO {
 	private StudentResultDetail resultDetail;
 	private StdIncentiveDetail incentiveDetail;
 	private StdVocationalDetail vocationalDetail;
+	List<StudentListData> studentListDatas;
+	
+
+	public List<StudentListData> getStudentListDatas() {
+		return studentListDatas;
+	}
+
+	public void setStudentListDatas(List<StudentListData> studentListDatas) {
+		this.studentListDatas = studentListDatas;
+	}
 
 	public StdVocationalDetail getVocationalDetail() {
 		return vocationalDetail;

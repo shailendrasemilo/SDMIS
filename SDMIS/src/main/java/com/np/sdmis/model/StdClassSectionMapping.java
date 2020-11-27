@@ -25,7 +25,7 @@ public class StdClassSectionMapping implements Serializable {
 	long studentId;
 	@Column(name = "section")
 	String section;
-	@Column(name = "class")
+	@Column(name = "class_name")
 	String className;
 	@Column(name = "status")
 	String status;
