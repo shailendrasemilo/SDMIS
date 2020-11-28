@@ -50,10 +50,11 @@ public class StudentServiceImpl {
 		ResponseDTO responseDTO = new ResponseDTO();
 		try {
 			EntityManager em = emf.createEntityManager();
+			
 			em.getTransaction().begin();
 			String qq = "Select"
-					+ " s.recordId as record,s.name as studentName,s.studentId as studentId,s.admissionNum as admNum,s.gender as gender,s.doa as doa,"
-					+ "c.className as className ,c.section as section" + " from StdClassSectionMapping  c "
+					+ " new com.np.sdmis.model.StudentListData(s.recordId as record,s.name as studentName,s.studentId as studentId,s.admissionNum as admNum,s.gender as gender,s.doa as doa,"
+					+ "c.className as className ,c.section as section)" + " from StdClassSectionMapping  c "
 					+ "inner join StudentBasicDetail s on s.recordId = c.studentId where c.status='A' and c.schoolId=:schoolId";
 			System.out.println("class name:: " + className);
 			String qqq = null;

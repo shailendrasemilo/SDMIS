@@ -20,7 +20,19 @@ public class StudentListData implements Serializable {
 	String statusCode;
 	String description;
 
-	
+	public StudentListData(long record, String studentName, long studentId, long admNum, String gender,
+			String className, String section, Date doa) {
+		super();
+		this.record = record;
+		this.studentName = studentName;
+		this.studentId = studentId;
+		this.admNum = admNum;
+		this.gender = gender;
+		this.className = className;
+		this.section = section;
+		this.doa = doa;
+	}
+
 	public String getStatusCode() {
 		return statusCode;
 	}

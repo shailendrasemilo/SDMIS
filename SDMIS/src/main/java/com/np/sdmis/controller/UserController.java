@@ -22,7 +22,6 @@ import com.np.sdmis.model.DistrictMaster;
 import com.np.sdmis.model.MOI;
 import com.np.sdmis.model.StateMaster;
 import com.np.sdmis.model.StudentBasicDetail;
-import com.np.sdmis.model.StudentListData;
 import com.np.sdmis.repository.MOIRepo;
 import com.np.sdmis.repository.StudentBasicDetailRepo;
 import com.np.sdmis.service.LocationServiceImpl;
