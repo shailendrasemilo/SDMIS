@@ -14,23 +14,23 @@ public class StudentListData implements Serializable {
 	long studentId;
 	long admNum;
 	String gender;
+	Date doa;
 	String className;
 	String section;
-	Date doa;
 	String statusCode;
 	String description;
 
-	public StudentListData(long record, String studentName, long studentId, long admNum, String gender,
-			String className, String section, Date doa) {
+	public StudentListData(long record, String studentName, long studentId, long admNum, String gender, Date doa,
+			String className, String section) {
 		super();
 		this.record = record;
 		this.studentName = studentName;
 		this.studentId = studentId;
 		this.admNum = admNum;
 		this.gender = gender;
+		this.doa = doa;
 		this.className = className;
 		this.section = section;
-		this.doa = doa;
 	}
 
 	public String getStatusCode() {
