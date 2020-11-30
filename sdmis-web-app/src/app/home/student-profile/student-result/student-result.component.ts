@@ -38,7 +38,12 @@ export class StudentResultComponent implements OnInit {
   }
 
   sendResultDetail() {
-    this.resultDetail.studentId = this.common.generatedStudentId;
+    if (this.common.studentAction == 'add') {
+      this.resultDetail.studentId = this.common.generatedStudentId;
+    }
+    else if (this.common.studentAction == 'edit') {
+      this.resultDetail.studentId = this.common.stdIdEdit;
+    }
     this.requestDTO.resultDetail = this.resultDetail;
     this.saveResultInfo();
   }

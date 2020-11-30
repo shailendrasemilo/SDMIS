@@ -98,6 +98,8 @@ export class StudentBasicInfoComponent implements OnInit {
       this.classMapping.schoolId = userObj.schoolId;
       this.classMapping.status = 'A';
       this.classMapping.createdBy = userObj.userName;
+    } else if (this.common.studentAction == 'edit') {
+      this.profileDetails.studentId = this.common.stdIdEdit;
     }
     this.requestDTO.studentBasicDetail = this.profileDetails;
     this.requestDTO.classMapping = this.classMapping;

@@ -101,6 +101,7 @@ export class StudentProfileComponent implements OnInit {
   }
 
   viewStudentDetails(studentId) {
+    console.log(studentId)
     this.common.studentAction = 'edit';
     this.common.setStdIdForEdit(studentId);
   }

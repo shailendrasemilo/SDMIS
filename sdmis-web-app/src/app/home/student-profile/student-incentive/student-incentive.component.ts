@@ -28,7 +28,12 @@ export class StudentIncentiveComponent implements OnInit {
   }
 
   sendIncentiveDetail() {
-    this.incentiveDetail.studentId = this.common.generatedStudentId;
+    if (this.common.studentAction == 'add') {
+      this.incentiveDetail.studentId = this.common.generatedStudentId;
+    }
+    else if (this.common.studentAction == 'edit') {
+      this.incentiveDetail.studentId = this.common.stdIdEdit;
+    }
     this.requestDTO.incentiveDetail = this.incentiveDetail;
     this.saveIncentiveInfo();
   }

@@ -30,47 +30,52 @@ export class StudentEducationComponent implements OnInit {
   }
 
   sendEducationInfo() {
-    this.educationDetail.studentId = this.common.generatedStudentId;
-    this.requestDto.educationDetail = this.educationDetail
-    this.saveEducationInfo();
-  }
+    if (this.common.studentAction == 'add') {
+      this.educationDetail.studentId = this.common.generatedStudentId;
+    }
+    else if (this.common.studentAction == 'edit') {
+      this.educationDetail.studentId = this.common.stdIdEdit;
+    }
+      this.requestDto.educationDetail = this.educationDetail
+      this.saveEducationInfo();
+    }
 
-  getEducationDetail(studentId, schoolId) {
-    this.http.getEducationDetail(studentId, schoolId).subscribe(res => {
-      console.log(res)
-      if (res.educationDetail) {
-        this.educationDetail = res.educationDetail;
-      }
-    }, error => {
-      console.log(error)
-    })
-  }
+    getEducationDetail(studentId, schoolId) {
+      this.http.getEducationDetail(studentId, schoolId).subscribe(res => {
+        console.log(res)
+        if (res.educationDetail) {
+          this.educationDetail = res.educationDetail;
+        }
+      }, error => {
+        console.log(error)
+      })
+    }
 
 
 
-  saveEducationInfo() {
-    this.http.saveStudentEducationInfo(this.requestDto).subscribe(res => {
-      console.log(res);
-      if (res.statusCode == environment.successCode) {
-        if (this.common.studentAction == 'add') {
-          this.educationEvent.emit();
+    saveEducationInfo() {
+      this.http.saveStudentEducationInfo(this.requestDto).subscribe(res => {
+        console.log(res);
+        if (res.statusCode == environment.successCode) {
+          if (this.common.studentAction == 'add') {
+            this.educationEvent.emit();
 
-        } else if (this.common.studentAction == 'edit') {
-          this.alertMsg = 'Data updated successfully.';
+          } else if (this.common.studentAction == 'edit') {
+            this.alertMsg = 'Data updated successfully.';
+            this.alertCount = this.alertCount + 1;
+            this.alertFlag = true;
+            this.getEducationDetail(this.common.stdIdEdit, this.userObj.schoolId);
+
+          }
+        } else {
+          this.alertMsg = res.description;
           this.alertCount = this.alertCount + 1;
           this.alertFlag = true;
-          this.getEducationDetail(this.common.stdIdEdit, this.userObj.schoolId);
-
         }
-      } else {
-        this.alertMsg = res.description;
+      }, error => {
+        this.alertMsg = "Some problem occurred while saving data. Please try again.";
         this.alertCount = this.alertCount + 1;
         this.alertFlag = true;
-      }
-    }, error => {
-      this.alertMsg = "Some problem occurred while saving data. Please try again.";
-      this.alertCount = this.alertCount + 1;
-      this.alertFlag = true;
-    })
+      })
+    }
   }
-}

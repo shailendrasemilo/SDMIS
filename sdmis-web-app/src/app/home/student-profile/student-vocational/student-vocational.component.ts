@@ -37,7 +37,12 @@ export class StudentVocationalComponent implements OnInit {
     })
   }
   sendVocationalDetail() {
-    this.vocationalDetail.studentId = this.common.generatedStudentId;
+    if (this.common.studentAction == 'add') {
+      this.vocationalDetail.studentId = this.common.generatedStudentId;
+    }
+    else if (this.common.studentAction == 'edit') {
+      this.vocationalDetail.studentId = this.common.stdIdEdit;
+    }
     this.requestDTO.vocationalDetail = this.vocationalDetail;
     this.saveVocationalInfo();
   }
