@@ -31,11 +31,11 @@
 }
 
 .complete-profile {
-    background-color: #56C549;
+    background-color: var(--color-green);
 }
 
 .remaining-profile {
-    background-color: #E93535;
+    background-color: var(--color-red);
 }
 
 .legend-layout {

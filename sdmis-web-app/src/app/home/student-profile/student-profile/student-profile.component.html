@@ -1,34 +1,41 @@
-<div class="mt-4 mb-5">
-    <span class="page-head">Student Profile</span>
+<div class="mt-4 mb-5 d-flex align-items-center">
+    <div class="page-head">Student Profile</div>
+    <div class="ml-auto mr-5">
+        <button *ngIf="common.studentAction=='summaryList'" type="button" mat-raised-button color="primary"
+            class="btn-gradient" (click)="common.studentAction = 'add'">Add Student</button>
+
+        <button *ngIf="common.studentAction=='add' || common.studentAction=='edit'" type="button" mat-raised-button
+            color="primary" class="btn-gradient" (click)="clearSearchObjs()">Student
+            List</button>
+    </div>
+
+
 </div>
 
 
 
-<div *ngIf="common.studentAction=='view'" class="mr-5">
-
+<div *ngIf="common.studentAction=='summaryList'" class="mr-5">
     <div class="row align-items-center">
         <div class="col-md-2 mt-2">
             <mat-form-field appearance="outline" class="w-80 search-param">
                 <mat-label>Class</mat-label>
-                <mat-select name="classMapping.classId" required>
-                    <mat-option *ngFor="let class of classList" [value]="class.id">{{class.name}}</mat-option>
+                <mat-select [(ngModel)]='stdSearchParam.class' name='stdSearchParam.class' required>
+                    <mat-option *ngFor="let class of classList" [value]="class.name">{{class.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
         <div class="col-md-2 mt-2">
             <mat-form-field appearance="outline" class="w-80 search-param">
                 <mat-label>Section</mat-label>
-                <mat-select name="classMapping.sectioId">
-                    <mat-option *ngFor="let section of sectionList" [value]="section.id">{{section.name}}
+                <mat-select [(ngModel)]='stdSearchParam.section' name='stdSearchParam.section' (ngModelChange)="getStudentList()">
+                    <mat-option *ngFor="let section of sectionList" [value]="section.name">{{section.name}}
                     </mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
 
-        <div class="table-head">
+        <div class="table-head" *ngIf="basicInfoList.data.length > 0">
             <input type="text" class="custom-input" placeholder="Search...">
-            <button type="button" mat-raised-button color="primary" class="btn-gradient"
-                (click)="common.studentAction = 'add'">Add Student</button>
         </div>
 
     </div>
@@ -37,33 +44,38 @@
         <!-- <div class="w-100 table-panel">
             Basic Information of students
         </div> -->
-        <table mat-table [dataSource]="basicInfoList" class="w-100 text-center">
-            <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef>Name</th>
-                <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        <table mat-table [dataSource]="basicInfoList" class="w-100">
+            <ng-container matColumnDef="name" >
+                <th mat-header-cell *matHeaderCellDef style="width: 200px;">STUDENTS</th>
+                <td mat-cell *matCellDef="let element" style="width: 200px;"> {{element.studentName}} </td>
             </ng-container>
             <ng-container matColumnDef="admissionNum">
-                <th mat-header-cell *matHeaderCellDef>Admission <br> Number</th>
-                <td mat-cell *matCellDef="let element"> {{element.admissionNum}} </td>
+                <th mat-header-cell *matHeaderCellDef style="width: 200px;">ADMISSION NO</th>
+                <td mat-cell *matCellDef="let element" style="width: 200px;"> {{element.admNum}} </td>
             </ng-container>
-            <ng-container matColumnDef="dob">
-                <th mat-header-cell *matHeaderCellDef>Date of <br> Birth</th>
-                <td mat-cell *matCellDef="let element"> {{element.dob | date:'dd/MM/yyyy'}} </td>
-                <!-- ' -->
-            </ng-container>
+           
             <ng-container matColumnDef="doa">
-                <th mat-header-cell *matHeaderCellDef>Date of <br> Admission</th>
-                <td mat-cell *matCellDef="let element"> {{element.doa | date:'dd/MM/yyyy'}} </td>
+                <th mat-header-cell *matHeaderCellDef style="width: 230px; text-align: center;">DATE OF ADMISSION</th>
+                <td mat-cell *matCellDef="let element" style="width: 230px; text-align: center;"> {{element.doa | date:'dd/MM/yyyy'}} </td>
+            </ng-container>
+            <ng-container matColumnDef="class">
+                <th mat-header-cell *matHeaderCellDef style="width: 180px; text-align: center;">CLASS</th>
+                <td mat-cell *matCellDef="let element" style="width: 180px; text-align: center;"> {{element.className}} </td>
+            </ng-container>
+            <ng-container matColumnDef="section">
+                <th mat-header-cell *matHeaderCellDef style="width: 180px; text-align: center;">SECTION</th>
+                <td mat-cell *matCellDef="let element" style="width: 180px; text-align: center;"> {{element.section}} </td>
             </ng-container>
             <ng-container matColumnDef="gender">
-                <th mat-header-cell *matHeaderCellDef>Gender</th>
-                <td mat-cell *matCellDef="let element"> {{element.gender | titlecase}} </td>
+                <th mat-header-cell *matHeaderCellDef style="width: 180px; text-align: center;">GENDER</th>
+                <td mat-cell *matCellDef="let element" style="width: 180px; text-align: center;"> {{element.gender | titlecase}} </td>
             </ng-container>
             <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef>Action</th>
-                <td mat-cell *matCellDef="let element">
-                    <a href="javascript:void(0);" (click)='editStudentDetails(element.recordId);'>
-                        <mat-icon>edit</mat-icon>
+                <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: right; padding-right: 7rem;">Action</th>
+                <td mat-cell *matCellDef="let element" style="width: 200px; text-align: right; padding-right: 6rem;">
+                    <a href="javascript:void(0);" (click)='viewStudentDetails(element.record);'>
+                        <img src="assets/images/eye.svg" width="17px" class="view-icon">
+                        <span class="icon-text">View</span>
                     </a>
                 </td>
             </ng-container>
@@ -72,22 +84,18 @@
             <tr mat-row *matRowDef="let element; columns: basicInfoTableHead;">
             </tr>
         </table>
-        <mat-paginator [pageSizeOptions]="[1, 2, 3]" showFirstLastButtons></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[2, 5, 10]" showFirstLastButtons></mat-paginator>
 
     </div>
 </div>
 
 
-<div *ngIf="common.studentAction=='add' || common.studentAction=='edit'" class="mr-5">
-    <div class="text-right">
-        <button type="button" mat-raised-button color="primary" class="btn-gradient" (click)="getStudentList();">Student
-            List</button>
-    </div>
+<div *ngIf="common.studentAction=='add' || common.studentAction=='edit'" class="mr-5 mt-2">
     <div class="mt-3">
-        <mat-horizontal-stepper [linear]="common.studentAction=='add'" #stepper>
+        <mat-horizontal-stepper  #stepper>
             <mat-step [editable]="common.studentAction!='add'" [completed]='false'>
                 <!--  [completed]='false' -->
-                <ng-template matStepLabel>Basic Information</ng-template>
+                <ng-template matStepLabel >Basic Information</ng-template>
                 <app-student-basic-info (event)=receiveBasicInfoData($event);></app-student-basic-info>
             </mat-step>
 

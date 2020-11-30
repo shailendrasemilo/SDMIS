@@ -26,19 +26,28 @@ export class StudentBasicInfoComponent implements OnInit {
   blockList: any = [];
   showProgress: boolean = false;
 
+  userObj: any = {};
+
   constructor(private httpService: HttpService, public common: CommonService) { }
 
   ngOnInit(): void {
-    this.getStateList(); 
-    if(this.common.studentAction == 'edit') 
-    {
-      this.httpService.getStudentById(this.common.stdIdEdit).subscribe(data => {
+    this.getStateList();
+    this.userObj = this.common.userObj
+    if (this.common.studentAction == 'edit') {
+      this.httpService.getStudentBasicInfoById(this.common.stdIdEdit, this.userObj.schoolId).subscribe(data => {
         console.log(data)
-        this.profileDetails = data;
+        if (data.studentBasicDetail) {
+          this.profileDetails = data.studentBasicDetail;
+          this.profileDetails.dob = new Date(this.profileDetails.dob)
+          this.profileDetails.doa = new Date(this.profileDetails.doa)
+        } if (data.sectionClassMapping) {
+          this.classMapping = data.sectionClassMapping;
+        }
+
         this.getDistrictList(this.profileDetails.stateId);
       })
     }
-    
+
   }
 
   getStateList() {
@@ -52,14 +61,13 @@ export class StudentBasicInfoComponent implements OnInit {
     })
   }
 
-  getDistrictList(stateId) 
-  {
+  getDistrictList(stateId) {
     console.log(stateId)
     this.httpService.getDistrictsByState(stateId).subscribe(res => {
-      if(res.length > 0) {
+      if (res.length > 0) {
         console.log(res)
         this.districtList = res;
-        if(this.common.studentAction =='edit') {
+        if (this.common.studentAction == 'edit') {
           this.getBlockList(this.profileDetails.districtId)
         }
       }
@@ -68,7 +76,7 @@ export class StudentBasicInfoComponent implements OnInit {
 
   getBlockList(districtId) {
     this.httpService.getBlocksByDistrict(districtId).subscribe(res => {
-      if(res.length > 0) {
+      if (res.length > 0) {
         console.log(res)
         this.blockList = res;
       }
@@ -76,6 +84,10 @@ export class StudentBasicInfoComponent implements OnInit {
   }
 
   sendBasicInfo() {
+    let userObj = this.common.userObj
+    this.classMapping.schoolId = userObj.schoolId;
+    this.classMapping.status = 'A';
+    this.classMapping.createdBy = userObj.userName;
     this.requestDTO.studentBasicDetail = this.profileDetails;
     this.requestDTO.classMapping = this.classMapping;
     this.event.emit(this.requestDTO);

@@ -1,4 +1,4 @@
-<div class="mt-3 ml-4 mr-3">
+<div class="stepper-section">
     <form #vocational="ngForm">
 
         <div class="row">
@@ -6,7 +6,7 @@
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Trade/Sector</mat-label>
                     <input matInput placeholder="Trade/Sector" [(ngModel)]="vocationalDetail.trade"
-                        name="vocationalDetail.trade" required >
+                        name="vocationalDetail.trade" required>
                     <mat-error>Trade/Sector is required</mat-error>
                 </mat-form-field>
             </div>
@@ -14,7 +14,7 @@
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Job Role</mat-label>
                     <input matInput placeholder="Job Role" [(ngModel)]="vocationalDetail.jobRole"
-                        name="vocationalDetail.trade" required >
+                        name="vocationalDetail.trade" required>
                     <mat-error>Job Role is required</mat-error>
                 </mat-form-field>
             </div>
@@ -22,7 +22,7 @@
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>NSQF Level Completed</mat-label>
                     <input matInput placeholder="NSQF Level Completed" [(ngModel)]="vocationalDetail.nsqfLevel"
-                        name="vocationalDetail.nsqfLevel" required >
+                        name="vocationalDetail.nsqfLevel" required>
                     <mat-error>NSQF Level is required</mat-error>
                 </mat-form-field>
             </div>
@@ -30,7 +30,7 @@
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Course Opted</mat-label>
                     <input matInput placeholder="Course Opted" [(ngModel)]="vocationalDetail.stuOptedFor"
-                        name="vocationalDetail.stuOptedFor" required >
+                        name="vocationalDetail.stuOptedFor" required>
                     <mat-error>Course is required</mat-error>
                 </mat-form-field>
             </div>
@@ -38,10 +38,10 @@
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Employment Status</mat-label>
                     <input matInput placeholder="Employment Status" [(ngModel)]="vocationalDetail.placementStatus"
-                        name="vocationalDetail.placementStatus" required >
+                        name="vocationalDetail.placementStatus" required>
                     <mat-error>Employment Status is required</mat-error>
                 </mat-form-field>
-            </div> 
+            </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Salary Offered</mat-label>
@@ -54,8 +54,12 @@
 
         <div class="row">
             <div class="col-lg-11 col-md-11">
-                <div class="text-right">
-                    <button type="button" mat-button color="primary" class="btn-round" [disabled]="!vocational.valid" (click)='sendVocationalDetail()'>Save & Continue</button>
+                <div class="mt-5">
+                    <button *ngIf="common.studentAction=='add'" type="button" mat-raised-button color="primary"
+                        [ngClass]="{'btn-gradient' : vocational.valid}" [disabled]="!vocational.valid"
+                        (click)='sendVocationalDetail()'>Save & Continue</button>
+                    <button *ngIf="common.studentAction=='edit'" type="button" mat-raised-button color="primary"
+                        [disabled]="!vocational.valid" [ngClass]="{'btn-gradient' : vocational.valid}">Update</button>
                 </div>
 
             </div>

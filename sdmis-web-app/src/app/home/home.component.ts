@@ -21,7 +21,8 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.commonService.sidenavOpen)
+    this.commonService.userObj = JSON.parse(sessionStorage.getItem('user'))
+    console.log(this.commonService.userObj)
   }
 
   toggleDrawer(drawer: MatDrawer) {

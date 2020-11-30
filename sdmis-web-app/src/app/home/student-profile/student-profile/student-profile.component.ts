@@ -28,33 +28,53 @@ export class StudentProfileComponent implements OnInit {
   alertMsg: String;
   alertFlag: boolean = false;
   basicInfoList: any = new MatTableDataSource;
-  basicInfoTableHead = ['name', 'admissionNum', 'dob', 'doa', 'gender', 'action'];
+  basicInfoTableHead = ['name', 'admissionNum', 'doa', 'class', 'section', 'gender', 'action'];
   showProgress: boolean = false;
 
   sectionList: any = [{ name: 'Section A', id: 1 }, { name: 'Section B', id: 2 }];
   classList: any = [{ name: 'Class I', id: 1 }, { name: 'Class II', id: 2 }];
 
+  stdSearchParam: any = {};
+
   constructor(private httpService: HttpService, public common: CommonService) { }
 
   ngOnInit(): void {
-    this.getStudentList();
+    // this.getStudentList();
+  }
+
+  clearSearchObjs() {
+    this.stdSearchParam = {};
+    this.common.studentAction = 'summaryList';
+    this.basicInfoList = new MatTableDataSource();
   }
 
   getStudentList() {
-    this.common.studentAction = 'view';
-    this.httpService.getStudents().subscribe(data => {
-      if (data.length > 0) {
-        this.basicInfoList = new MatTableDataSource(data);
-        console.log(this.basicInfoList)
-        setTimeout(() => {
-          this.basicInfoList.paginator = this.paginator;
-        }, 100);
+    this.common.stdIdEdit = null;
+    this.common.studentAction = 'summaryList';
+    let userObj = this.common.userObj
+    this.stdSearchParam.schoolId = userObj.schoolId;
+    this.httpService.getStudentSummary(this.stdSearchParam).subscribe(data => {
+      console.log(data)
+      if (data.statusCode == environment.successCode) {
+        if (data.studentListDatas.length > 0) {
+          this.basicInfoList = new MatTableDataSource(data.studentListDatas);
+          console.log(this.basicInfoList)
+          setTimeout(() => {
+            this.basicInfoList.paginator = this.paginator;
+          }, 100);
+        } else {
+          this.alertCount = this.alertCount + 1;
+          this.alertFlag = true;
+          this.alertMsg = 'Student Records not found';
+        }
       } else {
         this.alertCount = this.alertCount + 1;
         this.alertFlag = true;
         this.alertMsg = 'Student Records not found';
       }
+
     }, error => {
+      console.log(error)
       this.alertCount = this.alertCount + 1;
       this.alertFlag = true;
       this.alertMsg = 'Some error occured';
@@ -125,12 +145,16 @@ export class StudentProfileComponent implements OnInit {
     this.requestDto = event;
     this.httpService.saveStudentResultDetail(this.requestDto).subscribe(res => {
       console.log(res)
-      this.moveStepper();
+      this.common.studentAction = 'summaryList';
+      this.stdSearchParam = {};
+      this.alertMsg = "Student Profile has been completed";
+      this.alertCount = this.alertCount + 1;
+      this.alertFlag = true;
     })
 
   }
 
-  editStudentDetails(studentId) {
+  viewStudentDetails(studentId) {
     this.common.studentAction = 'edit';
     this.common.setStdIdForEdit(studentId);
   }

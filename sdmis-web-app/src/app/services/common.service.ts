@@ -7,9 +7,11 @@ export class CommonService {
 
   currentRoute: String = "Dashboard";
   generatedStudentId: any;
-  studentAction: any = 'view';
+  studentAction: any = 'summaryList';
   stdIdEdit: any;
   sidenavOpen: any = true;
+
+  userObj: any = {};
 
   constructor() { }
 

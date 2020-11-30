@@ -8,11 +8,18 @@
     background-color: white;
 }
 
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: var(--color-red) !important
+}
+
+.mat-form-field-label {
+    color: #B8BBBF !important
+}
+
 .custom-input {
     width: 250px;
     background-position: 230px 13px;
     height: 43px;
-    margin-right: 2rem;
 }
 
 .table-head {
@@ -20,20 +27,45 @@
     margin-left: auto;
 }
 
-/* .mat-form-field-appearance-outline .mat-form-field-outline-thick {
-    color: white !important;
-    opacity: 1 !important;
-    background-color: white;
-} */
-
-/* .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
-    color: var(--color-blue) !important;
+.mat-horizontal-stepper-header-container {
+    background-color: var(--drawer-content);
+    padding: 1rem 0;
 }
 
-.mat-form-field.mat-form-field-invalid .mat-form-field-label {
-    color: var(--color-blue) !important;
+.mat-horizontal-stepper-header {
+    flex-direction: column;
+    /* height: 0px !important; */
+    padding: 20px 24px !important;
 }
 
-.mat-form-field-wrapper {
-    padding-bottom: 0;
-} */
+.mat-step-icon {
+    height: 40px !important;
+    width: 40px !important;
+}
+
+.mat-step-header .mat-step-icon-selected {
+    background-color: var(--color-blue);
+}
+
+.mat-step-icon {
+    margin-bottom: 1.3rem;
+}
+
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+    background-color: var(--color-blue) !important
+}
+
+.mat-step-text-label {
+    font-weight: bolder;
+}
+
+.icon-text {
+    color: var(--color-blue);
+    font-size: 1.4rem;
+    margin-left: 0.7rem;
+}
+
+.view-icon {
+    margin-top: 0.75rem;
+    margin-bottom: 1rem;
+}

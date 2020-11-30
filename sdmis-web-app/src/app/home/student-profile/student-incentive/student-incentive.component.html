@@ -1,4 +1,4 @@
-<div class="mt-3 ml-4 mr-3">
+<div class="stepper-section">
     <form #incentive="ngForm">
 
         <div class="row">
@@ -10,68 +10,67 @@
                     <mat-error>Number of Uniform sets is required</mat-error>
                 </mat-form-field>
             </div>
-        </div>
 
-        <div class="row">
-           
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <div><label id="freeBooks" class="mb-3">Getting free books</label></div>
+                <div><label id="freeBooks" class="radio-label">Getting free books</label></div>
                 <mat-radio-group aria-labelledby="freeBooks" [(ngModel)]="incentiveDetail.textBook"
                     name="incentiveDetail.textBook">
-                    <mat-radio-button value="1" class="mr-2"> Yes </mat-radio-button>
-                    <mat-radio-button value="0" class="ml-2"> No </mat-radio-button>
+                    <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
+                    <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
                 </mat-radio-group>
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <div><label id="freeTransport" class="mb-3">Getting free transport</label></div>
+                <div><label id="freeTransport" class="radio-label">Getting free transport</label></div>
                 <mat-radio-group aria-labelledby="freeTransport" [(ngModel)]="incentiveDetail.transFacility"
                     name="incentiveDetail.transFacility">
-                    <mat-radio-button value="1" class="mr-2"> Yes </mat-radio-button>
-                    <mat-radio-button value="0" class="ml-2"> No </mat-radio-button>
+                    <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
+                    <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
                 </mat-radio-group>
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <div><label id="freeEscort" class="mb-3">Getting free escort</label></div>
+                <div><label id="freeEscort" class="radio-label">Getting free escort</label></div>
                 <mat-radio-group aria-labelledby="freeEscort" [(ngModel)]="incentiveDetail.escortFacility"
                     name="incentiveDetail.escortFacility">
-                    <mat-radio-button value="1" class="mr-2"> Yes </mat-radio-button>
-                    <mat-radio-button value="0" class="ml-2"> No </mat-radio-button>
+                    <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
+                    <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
                 </mat-radio-group>
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <div><label id="freeBicycle" class="mb-3">Getting free bicycle</label></div>
+                <div><label id="freeBicycle" class="radio-label">Getting free bicycle</label></div>
                 <mat-radio-group aria-labelledby="freeBicycle" [(ngModel)]="incentiveDetail.bicycle"
                     name="incentiveDetail.bicycle">
-                    <mat-radio-button value="1" class="mr-2"> Yes </mat-radio-button>
-                    <mat-radio-button value="0" class="ml-2"> No </mat-radio-button>
+                    <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
+                    <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
                 </mat-radio-group>
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <div><label id="freeHostel" class="mb-3">Getting free hostel</label></div>
+                <div><label id="freeHostel" class="radio-label">Getting free hostel</label></div>
                 <mat-radio-group aria-labelledby="freeHostel" [(ngModel)]="incentiveDetail.hostalFacility"
                     name="incentiveDetail.hostalFacility">
-                    <mat-radio-button value="1" class="mr-2"> Yes </mat-radio-button>
-                    <mat-radio-button value="0" class="ml-2"> No </mat-radio-button>
+                    <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
+                    <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
                 </mat-radio-group>
             </div>
 
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <div><label id="specialTraining" class="mb-3">Receiving Special Training</label></div>
+                <div><label id="specialTraining" class="radio-label">Receiving Special Training</label></div>
                 <mat-radio-group aria-labelledby="specialTraining" [(ngModel)]="incentiveDetail.specialTraining"
                     name="incentiveDetail.specialTraining">
-                    <mat-radio-button value="1" class="mr-2"> Yes </mat-radio-button>
-                    <mat-radio-button value="0" class="ml-2"> No </mat-radio-button>
+                    <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
+                    <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
                 </mat-radio-group>
             </div>
 
         </div>
-
-        
 
         <div class="row">
             <div class="col-lg-11 col-md-11">
-                <div class="text-right">
-                    <button type="button" mat-button color="primary" class="btn-round" [disabled]="!incentive.valid" (click)='sendIncentiveDetail()'>Save & Continue</button>
+                <div class="mt-4">
+                    <button *ngIf="common.studentAction=='add'" type="button" mat-raised-button color="primary"
+                        [ngClass]="{'btn-gradient' : incentive.valid}" [disabled]="!incentive.valid"
+                        (click)='sendIncentiveDetail()'>Save & Continue</button>
+                    <button *ngIf="common.studentAction=='edit'" type="button" mat-raised-button color="primary"
+                        [disabled]="!incentive.valid" [ngClass]="{'btn-gradient' : incentive.valid}">Update</button>
                 </div>
 
             </div>

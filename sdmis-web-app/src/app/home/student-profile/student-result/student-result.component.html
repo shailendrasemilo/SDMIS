@@ -1,14 +1,17 @@
-<div class="mt-3 ml-4 mr-3">
+<div class="stepper-section">
     <form #result="ngForm">
 
         <div class="row">
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Last Result</mat-label>
-                    <input matInput placeholder="Last Result" [(ngModel)]="resultDetail.lastResult"
-                        name="resultDetail.lastResult" required>
-                    <mat-error>Last Result is required</mat-error>
-                </mat-form-field>
+
+                <div><label id="lastResult" class="radio-label">Last Result</label></div>
+                <mat-radio-group aria-labelledby="lastResult" [(ngModel)]="resultDetail.lastResult"
+                    name="resultDetail.lastResult">
+                    <mat-radio-button [value]="1" class="mr-2"> Pass </mat-radio-button>
+                    <mat-radio-button [value]="0" class="ml-2"> Fail </mat-radio-button>
+                </mat-radio-group>
+
+
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field appearance="outline" class="w-75">
@@ -29,8 +32,8 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Stream</mat-label>
-                    <input matInput placeholder="Stream" [(ngModel)]="resultDetail.stream"
-                        name="resultDetail.stream" required>
+                    <input matInput placeholder="Stream" [(ngModel)]="resultDetail.stream" name="resultDetail.stream"
+                        required>
                     <mat-error>Stream is required</mat-error>
                 </mat-form-field>
             </div>
@@ -38,9 +41,12 @@
 
         <div class="row">
             <div class="col-lg-11 col-md-11">
-                <div class="text-right">
-                    <button type="button" mat-button color="primary" class="btn-round" [disabled]="!result.valid" (click)='sendResultDetail()'>Save &
+                <div class="mt-5">
+                    <button *ngIf="common.studentAction=='add'" type="button" mat-raised-button color="primary" [ngClass]="{'btn-gradient' : result.valid}"
+                        [disabled]="!result.valid" (click)='sendResultDetail()'>Save &
                         Continue</button>
+                    <button *ngIf="common.studentAction=='edit'" type="button" mat-raised-button color="primary"
+                        [disabled]="!result.valid" [ngClass]="{'btn-gradient' : result.valid}">Update</button>
                 </div>
 
             </div>

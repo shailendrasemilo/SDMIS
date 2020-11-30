@@ -17,12 +17,16 @@ export class HttpService {
     return this.http.get<any>(environment.api_base_url + '/getState');
   }
 
-  getDistrictsByState(stateId: Number) {
-    return this.http.get<any>(environment.api_base_url + '/getDistrict?stateId=' + stateId);
+  getDistrictsByState(stateId) {
+    let params = new HttpParams();
+    params = params.set('stateId', stateId);
+    return this.http.get<any>(environment.api_base_url + '/getDistrict', { params });
   }
 
-  getBlocksByDistrict(districtId: Number) {
-    return this.http.get<any>(environment.api_base_url + '/getBlock?districtId=' + districtId);
+  getBlocksByDistrict(districtId) {
+    let params = new HttpParams();
+    params = params.set('districtId', districtId);
+    return this.http.get<any>(environment.api_base_url + '/getBlock', { params });
   }
 
   getStudents() {
@@ -36,7 +40,7 @@ export class HttpService {
   saveStudentResultDetail(requestDto) {
     return this.http.post<any>(environment.api_base_url + '/saveResultDetail', requestDto);
   }
-  
+
   saveStudentIncentiveDetail(requestDto) {
     return this.http.post<any>(environment.api_base_url + '/saveIncentiveDetail', requestDto);
   }
@@ -45,8 +49,48 @@ export class HttpService {
     return this.http.post<any>(environment.api_base_url + '/saveVocationalDetail', requestDto);
   }
 
-  getStudentById(studentId) {
-    return this.http.get<any>(environment.api_base_url + '/getStudent?studentId=' + studentId, {});
+  getStudentBasicInfoById(studentId, schoolId) {
+    let params = new HttpParams();
+    params = params.set('studentId', studentId)
+    params = params.set('schoolId', schoolId)
+
+    return this.http.get<any>(environment.api_base_url + '/viewStubasicDetail', { params });
+  }
+
+  getStudentSummary(stdSearchParam) {
+    let params = new HttpParams();
+    params = params.set('className', stdSearchParam.class)
+    params = params.set('section', stdSearchParam.section)
+    params = params.set('schoolId', stdSearchParam.schoolId)
+    return this.http.get<any>(environment.api_base_url + '/getStudentList', { params });
+  }
+
+  getEducationDetail(studentId, schoolId) {
+    let params = new HttpParams();
+    params = params.set('studentId', studentId)
+    params = params.set('schoolId', schoolId)
+    return this.http.get<any>(environment.api_base_url + '/viewEducationDetail', { params });
+  }
+
+  getIncentiveDetail(studentId, schoolId) {
+    let params = new HttpParams();
+    params = params.set('studentId', studentId)
+    params = params.set('schoolId', schoolId)
+    return this.http.get<any>(environment.api_base_url + '/viewIncentiveDetail', { params });
+  }
+
+  getVocationDetail(studentId, schoolId) {
+    let params = new HttpParams();
+    params = params.set('studentId', studentId)
+    params = params.set('schoolId', schoolId)
+    return this.http.get<any>(environment.api_base_url + '/viewVocationalDetail', { params });
+  }
+
+  getResultDetail(studentId, schoolId) {
+    let params = new HttpParams();
+    params = params.set('studentId', studentId)
+    params = params.set('schoolId', schoolId)
+    return this.http.get<any>(environment.api_base_url + '/viewResultDetail', { params });
   }
 
 }

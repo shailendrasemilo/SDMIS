@@ -11,11 +11,16 @@
         --form-field-outline: #40557c;
         --form-field-text: #9299aa;
         --color-green: #56C549;
+        --color-red: #E93535;
         --dashboard-head: #181F29;
     }
 
     html {
         font-size: 10px;
+    }
+
+    a:hover {
+        text-decoration: none !important;
     }
 
     ul {
@@ -57,8 +62,6 @@
         box-shadow: 0px 0px 5px 1px rgba(51, 51, 51, 0.3);
         /* height: 350px; */
     }
-
-
 
     .mat-form-field-label {
         font-size: 13px !important;
@@ -106,8 +109,6 @@
         padding: 1.5rem 1.5rem;
         font-size: 1.5rem;
     }
-
-    
 
     .menu-list a:hover, .menu-list a.active {
         background-color: var(--nav-active-bg);
@@ -216,10 +217,6 @@
         font-size: 13px;
     }
 
-    th.mat-header-cell {
-        text-align: center !important;
-    }
-
     tr.mat-header-row {
         height: 65px !important;
     }
@@ -239,10 +236,6 @@
         padding: 0 !important;
     }
 
-    .mat-horizontal-stepper-header {
-        height: 50px !important;
-    }
-
     button:focus {
         outline: none;
     }
@@ -259,10 +252,6 @@
         border: 1px solid black !important; */
     }
 
-    tr.mat-row {
-        /* background: #FFFFFF; */
-    }
-
     th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
         border-bottom-width: 0 !important;
     }
@@ -270,13 +259,15 @@
     td.mat-cell {
         background: #FFFFFF;
         box-shadow: 0px 2px #0000000D;
+        color: #5F6C7E;
+        font-weight: 600;
     }
 
     td.mat-cell:first-child {
         border-top-left-radius: 10px;
         border-bottom-left-radius: 10px;
     }
-    
+
     td.mat-cell:last-child {
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
@@ -324,7 +315,20 @@
     .green-progress .mat-progress-bar-fill::after {
         background-color: var(--color-green);
     }
-    
+
     .mat-progress-bar-buffer {
         background-color: #EFEFEF;
+    }
+
+    .stepper-section {
+        margin: 1rem 1rem 2rem 1rem
+    }
+
+    .mat-radio-button {
+        margin-right: 3rem !important;
+    }
+
+    .radio-label {
+        font-weight: bolder;
+        margin-bottom: 1.5rem;
     }

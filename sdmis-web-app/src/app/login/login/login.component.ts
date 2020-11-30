@@ -10,7 +10,7 @@ import { CommonService } from 'src/app/services/common.service';
 })
 export class LoginComponent implements OnInit {
 
-  defaultUser: any = {'username': 'prerit', 'password': 'Admin@123'};
+  defaultUser: any = {'username': 'prerit', 'password': 'Admin@123', 'schoolId': '1'};
   user: any = {};
   alertCount: number = 0;
   alertMsg: String;
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     console.log(this.user)
     if(this.user.username == this.defaultUser.username && this.user.password) {
       console.log('inside')
-      sessionStorage.setItem('user', JSON.stringify(this.user))
+      sessionStorage.setItem('user', JSON.stringify(this.defaultUser))
       this.router.navigateByUrl('/home/dashboard')
     } else {
       this.alertMsg = "Incorrect Credentials";

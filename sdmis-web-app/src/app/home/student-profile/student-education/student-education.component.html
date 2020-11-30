@@ -1,11 +1,12 @@
-<div class="mt-3 ml-4 mr-3">
+<div class="stepper-section">
     <form #education="ngForm">
 
         <div class="row">
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field appearance="outline" class="w-75">
                     <mat-label>Previous Class</mat-label>
-                    <mat-select [(ngModel)]="educationDetail.classPrevYear" name="educationDetail.classPrevYear" required>
+                    <mat-select [(ngModel)]="educationDetail.classPrevYear" name="educationDetail.classPrevYear"
+                        required>
                         <mat-option *ngFor="let class of classList" [value]="class.id">{{class.name}}</mat-option>
                     </mat-select>
                     <mat-error>Previous Class is required</mat-error>
@@ -31,28 +32,30 @@
                 <mat-form-field appearance="outline">
                     <mat-label>Medium of Instruction</mat-label>
                     <mat-select [(ngModel)]="educationDetail.moi" name="educationDetail.moi" required>
-                        <mat-option value="1">Hindi</mat-option>
-                        <mat-option value="2">English</mat-option>
+                        <mat-option *ngFor="let moi of moiList" [value]='moi.id'>{{moi.name}}</mat-option>
                     </mat-select>
                     <mat-error>Medium of Instruction is required</mat-error>
                 </mat-form-field>
             </div>
 
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <label id="freeEducation" class="mb-3">Getting free Education as per RTE education</label>
-                <mat-radio-group aria-labelledby="freeEducation" [(ngModel)]="educationDetail.freeEducation"
-                    name="educationDetail.freeEducation">
-                    <mat-radio-button value="yes" class="mr-2"> Yes </mat-radio-button>
-                    <mat-radio-button value="no" class="ml-2"> No </mat-radio-button>
+                <label id="freeEdu" class="radio-label">Getting free Education as per RTE education</label>
+                <mat-radio-group aria-labelledby="freeEdu" [(ngModel)]="educationDetail.freeEdu"
+                    name="educationDetail.freeEdu">
+                    <mat-radio-button value="1" class="mr-2"> Yes </mat-radio-button>
+                    <mat-radio-button value="0" class="ml-2"> No </mat-radio-button>
                 </mat-radio-group>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-11 col-md-11">
-                <div class="text-right">
-                    <button type="button" mat-button color="primary" class="btn-round" [disabled]="!education.valid"
+                <div class="mt-5">
+                    <button *ngIf="common.studentAction=='add'" type="button" mat-raised-button color="primary"
+                        [ngClass]="{'btn-gradient' : education.valid}" [disabled]="!education.valid"
                         (click)="sendEducationInfo();">Save & Continue</button>
+                    <button *ngIf="common.studentAction=='edit'" type="button" mat-raised-button color="primary"
+                        [disabled]="!education.valid" [ngClass]="{'btn-gradient' : education.valid}">Update</button>
                 </div>
 
             </div>
