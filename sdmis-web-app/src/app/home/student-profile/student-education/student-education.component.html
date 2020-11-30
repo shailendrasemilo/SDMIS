@@ -55,11 +55,16 @@
                         [ngClass]="{'btn-gradient' : education.valid}" [disabled]="!education.valid"
                         (click)="sendEducationInfo();">Save & Continue</button>
                     <button *ngIf="common.studentAction=='edit'" type="button" mat-raised-button color="primary"
-                        [disabled]="!education.valid" [ngClass]="{'btn-gradient' : education.valid}">Update</button>
+                        [disabled]="!education.valid" [ngClass]="{'btn-gradient' : education.valid}"
+                        (click)="sendEducationInfo();">Update</button>
                 </div>
 
             </div>
         </div>
 
     </form>
+</div>
+
+<div *ngIf='alertFlag'>
+    <app-alert [message]='alertMsg' [flag]='alertFlag' [count]='alertCount'></app-alert>
 </div>

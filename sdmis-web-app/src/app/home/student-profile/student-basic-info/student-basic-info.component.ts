@@ -1,7 +1,8 @@
 import { state } from '@angular/animations';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonService } from 'src/app/services/common.service';
 import { HttpService } from 'src/app/services/http.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-student-basic-info',
@@ -24,28 +25,21 @@ export class StudentBasicInfoComponent implements OnInit {
   stateList: any = [];
   districtList: any = [];
   blockList: any = [];
-  showProgress: boolean = false;
+
+  alertCount: number = 0;
+  alertMsg: String;
+  alertFlag: boolean = false;
 
   userObj: any = {};
 
   constructor(private httpService: HttpService, public common: CommonService) { }
 
+
   ngOnInit(): void {
     this.getStateList();
     this.userObj = this.common.userObj
     if (this.common.studentAction == 'edit') {
-      this.httpService.getStudentBasicInfoById(this.common.stdIdEdit, this.userObj.schoolId).subscribe(data => {
-        console.log(data)
-        if (data.studentBasicDetail) {
-          this.profileDetails = data.studentBasicDetail;
-          this.profileDetails.dob = new Date(this.profileDetails.dob)
-          this.profileDetails.doa = new Date(this.profileDetails.doa)
-        } if (data.sectionClassMapping) {
-          this.classMapping = data.sectionClassMapping;
-        }
-
-        this.getDistrictList(this.profileDetails.stateId);
-      })
+      this.getStdBasicInfo();
     }
 
   }
@@ -58,6 +52,21 @@ export class StudentBasicInfoComponent implements OnInit {
       }
     }, error => {
       console.log(error)
+    })
+  }
+
+  getStdBasicInfo() {
+    this.httpService.getStudentBasicInfoById(this.common.stdIdEdit, this.userObj.schoolId).subscribe(data => {
+      console.log(data)
+      if (data.studentBasicDetail) {
+        this.profileDetails = data.studentBasicDetail;
+        this.profileDetails.dob = new Date(this.profileDetails.dob)
+        this.profileDetails.doa = new Date(this.profileDetails.doa)
+      } if (data.sectionClassMapping) {
+        this.classMapping = data.sectionClassMapping;
+      }
+
+      this.getDistrictList(this.profileDetails.stateId);
     })
   }
 
@@ -84,13 +93,42 @@ export class StudentBasicInfoComponent implements OnInit {
   }
 
   sendBasicInfo() {
-    let userObj = this.common.userObj
-    this.classMapping.schoolId = userObj.schoolId;
-    this.classMapping.status = 'A';
-    this.classMapping.createdBy = userObj.userName;
+    if (this.common.studentAction == 'add') {
+      let userObj = this.common.userObj
+      this.classMapping.schoolId = userObj.schoolId;
+      this.classMapping.status = 'A';
+      this.classMapping.createdBy = userObj.userName;
+    }
     this.requestDTO.studentBasicDetail = this.profileDetails;
     this.requestDTO.classMapping = this.classMapping;
-    this.event.emit(this.requestDTO);
+    console.log(this.requestDTO)
+    this.saveBasicInfo();
   }
 
+  saveBasicInfo() {
+    this.httpService.saveStudentBasicInfo(this.requestDTO).subscribe(res => {
+      console.log(res);
+      if (res.statusCode == environment.successCode) {
+        let basicInfo = res.studentBasicDetail;
+        this.common.setGeneratedStdId(basicInfo.recordId);
+        if (this.common.studentAction == 'add') {
+          this.event.emit();
+        } else if (this.common.studentAction == 'edit') {
+          this.alertMsg = 'Data updated successfully.';
+          this.alertCount = this.alertCount + 1;
+          this.alertFlag = true;
+          this.getStdBasicInfo();
+        }
+      } else {
+        this.alertMsg = res.description;
+        this.alertCount = this.alertCount + 1;
+        this.alertFlag = true;
+      }
+    },
+      error => {
+        this.alertMsg = "Some problem occurred while saving data. Please try again.";
+        this.alertCount = this.alertCount + 1;
+        this.alertFlag = true;
+      })
+  }
 }

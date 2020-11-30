@@ -70,11 +70,16 @@
                         [ngClass]="{'btn-gradient' : incentive.valid}" [disabled]="!incentive.valid"
                         (click)='sendIncentiveDetail()'>Save & Continue</button>
                     <button *ngIf="common.studentAction=='edit'" type="button" mat-raised-button color="primary"
-                        [disabled]="!incentive.valid" [ngClass]="{'btn-gradient' : incentive.valid}">Update</button>
+                        [disabled]="!incentive.valid" [ngClass]="{'btn-gradient' : incentive.valid}"
+                        (click)='sendIncentiveDetail()'>Update</button>
                 </div>
 
             </div>
         </div>
 
     </form>
+</div>
+
+<div *ngIf='alertFlag'>
+    <app-alert [message]='alertMsg' [flag]='alertFlag' [count]='alertCount'></app-alert>
 </div>

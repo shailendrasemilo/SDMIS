@@ -59,11 +59,15 @@
                         [ngClass]="{'btn-gradient' : vocational.valid}" [disabled]="!vocational.valid"
                         (click)='sendVocationalDetail()'>Save & Continue</button>
                     <button *ngIf="common.studentAction=='edit'" type="button" mat-raised-button color="primary"
-                        [disabled]="!vocational.valid" [ngClass]="{'btn-gradient' : vocational.valid}">Update</button>
+                        [disabled]="!vocational.valid" [ngClass]="{'btn-gradient' : vocational.valid}" (click)='sendVocationalDetail()'>Update</button>
                 </div>
 
             </div>
         </div>
 
     </form>
+</div>
+
+<div *ngIf='alertFlag'>
+    <app-alert [message]='alertMsg' [flag]='alertFlag' [count]='alertCount'></app-alert>
 </div>

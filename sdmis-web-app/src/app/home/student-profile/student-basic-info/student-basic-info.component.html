@@ -188,7 +188,8 @@
                         [disabled]="!profile.valid" [ngClass]="{'btn-gradient' : profile.valid}"
                         (click)="sendBasicInfo();">Save & Continue</button>
                     <button *ngIf="common.studentAction=='edit'" type="button" mat-raised-button color="primary"
-                        [disabled]="!profile.valid" [ngClass]="{'btn-gradient' : profile.valid}">Update</button>
+                        [disabled]="!profile.valid" [ngClass]="{'btn-gradient' : profile.valid}"
+                        (click)="sendBasicInfo();">Update</button>
                 </div>
 
             </div>
@@ -196,4 +197,8 @@
         </div>
 
     </form>
+</div>
+
+<div *ngIf='alertFlag'>
+    <app-alert [message]='alertMsg' [flag]='alertFlag' [count]='alertCount'></app-alert>
 </div>

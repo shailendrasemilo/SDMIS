@@ -46,10 +46,14 @@
                         [disabled]="!result.valid" (click)='sendResultDetail()'>Save &
                         Continue</button>
                     <button *ngIf="common.studentAction=='edit'" type="button" mat-raised-button color="primary"
-                        [disabled]="!result.valid" [ngClass]="{'btn-gradient' : result.valid}">Update</button>
+                        [disabled]="!result.valid" [ngClass]="{'btn-gradient' : result.valid}" (click)='sendResultDetail()'>Update</button>
                 </div>
 
             </div>
         </div>
     </form>
+</div>
+
+<div *ngIf='alertFlag'>
+    <app-alert [message]='alertMsg' [flag]='alertFlag' [count]='alertCount'></app-alert>
 </div>

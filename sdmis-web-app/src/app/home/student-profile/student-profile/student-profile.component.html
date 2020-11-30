@@ -35,7 +35,7 @@
         </div>
 
         <div class="table-head" *ngIf="basicInfoList.data.length > 0">
-            <input type="text" class="custom-input" placeholder="Search...">
+            <input type="text" class="custom-input" placeholder="Search..." (keyup)="applyFilter($event.target.value)">
         </div>
 
     </div>
@@ -50,8 +50,8 @@
                 <td mat-cell *matCellDef="let element" style="width: 200px;"> {{element.studentName}} </td>
             </ng-container>
             <ng-container matColumnDef="admissionNum">
-                <th mat-header-cell *matHeaderCellDef style="width: 200px;">ADMISSION NO</th>
-                <td mat-cell *matCellDef="let element" style="width: 200px;"> {{element.admNum}} </td>
+                <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: center;">ADMISSION NO</th>
+                <td mat-cell *matCellDef="let element" style="width: 200px; text-align: center;"> {{element.admNum}} </td>
             </ng-container>
            
             <ng-container matColumnDef="doa">
@@ -84,7 +84,7 @@
             <tr mat-row *matRowDef="let element; columns: basicInfoTableHead;">
             </tr>
         </table>
-        <mat-paginator [pageSizeOptions]="[2, 5, 10]" showFirstLastButtons></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons></mat-paginator>
 
     </div>
 </div>
@@ -92,31 +92,31 @@
 
 <div *ngIf="common.studentAction=='add' || common.studentAction=='edit'" class="mr-5 mt-2">
     <div class="mt-3">
-        <mat-horizontal-stepper  #stepper>
+        <mat-horizontal-stepper [linear]="common.studentAction=='add'" #stepper >
             <mat-step [editable]="common.studentAction!='add'" [completed]='false'>
                 <!--  [completed]='false' -->
                 <ng-template matStepLabel >Basic Information</ng-template>
-                <app-student-basic-info (event)=receiveBasicInfoData($event);></app-student-basic-info>
+                <app-student-basic-info (event)="moveStepper();"></app-student-basic-info>
             </mat-step>
 
             <mat-step [editable]="common.studentAction!='add'" [completed]='false'>
                 <ng-template matStepLabel>Education Details</ng-template>
-                <app-student-education (educationEvent)=receiveEducationInfo($event);></app-student-education>
+                <app-student-education (educationEvent)=moveStepper();></app-student-education>
             </mat-step>
 
             <mat-step [editable]="common.studentAction!='add'" [completed]='false'>
                 <ng-template matStepLabel>Incentive Details</ng-template>
-                <app-student-incentive (incentiveEvent)=receiveIncentiveInfo($event);></app-student-incentive>
+                <app-student-incentive (incentiveEvent)="moveStepper()"></app-student-incentive>
             </mat-step>
 
             <mat-step [editable]="common.studentAction!='add'" [completed]='false'>
                 <ng-template matStepLabel>Vocational Details</ng-template>
-                <app-student-vocational (vocationalEvent)=receiveVocationalInfo($event);></app-student-vocational>
+                <app-student-vocational (vocationalEvent)="moveStepper()"></app-student-vocational>
             </mat-step>
 
             <mat-step [editable]="common.studentAction!='add'" [completed]='false'>
                 <ng-template matStepLabel>Results</ng-template>
-                <app-student-result (resultEvent)=receiveResultInfo($event);></app-student-result>
+                <app-student-result (resultEvent)="resultEvent()"></app-student-result>
             </mat-step>
 
 

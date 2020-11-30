@@ -35,11 +35,12 @@ export class StudentProfileComponent implements OnInit {
   classList: any = [{ name: 'Class I', id: 1 }, { name: 'Class II', id: 2 }];
 
   stdSearchParam: any = {};
-
+  userObj: any = {}
   constructor(private httpService: HttpService, public common: CommonService) { }
 
   ngOnInit(): void {
-    // this.getStudentList();
+    this.userObj = this.common.userObj;
+    this.common.studentAction = 'summaryList';
   }
 
   clearSearchObjs() {
@@ -47,6 +48,8 @@ export class StudentProfileComponent implements OnInit {
     this.common.studentAction = 'summaryList';
     this.basicInfoList = new MatTableDataSource();
   }
+
+
 
   getStudentList() {
     this.common.stdIdEdit = null;
@@ -81,30 +84,6 @@ export class StudentProfileComponent implements OnInit {
     })
   }
 
-  receiveBasicInfoData(event) {
-    this.requestDto = event;
-    console.log(this.requestDto)
-    this.httpService.saveStudentBasicInfo(this.requestDto).subscribe(res => {
-      console.log(res);
-      if (res.statusCode == environment.successCode) {
-        let basicInfo = res.studentBasicDetail;
-        this.common.setGeneratedStdId(basicInfo.recordId)
-        this.moveStepper();
-
-      } else {
-        this.alertMsg = res.description;
-        this.alertCount = this.alertCount + 1;
-        this.alertFlag = true;
-      }
-    },
-      error => {
-        this.alertMsg = "Some problem occurred while saving data. Please try again.";
-        this.alertCount = this.alertCount + 1;
-        this.alertFlag = true;
-      })
-
-  }
-
   moveStepper() {
     this.stepper.selected.completed = true;
     this.stepper.next();
@@ -112,51 +91,22 @@ export class StudentProfileComponent implements OnInit {
 
   }
 
-  receiveEducationInfo(event) {
-    this.requestDto = event;
-    console.log(this.requestDto)
-    this.httpService.saveStudentEducationInfo(this.requestDto).subscribe(res => {
-      console.log(res);
-      this.moveStepper();
-    })
-  }
-
-  receiveIncentiveInfo(event) {
-    console.log(event)
-    this.requestDto = event;
-    this.httpService.saveStudentIncentiveDetail(this.requestDto).subscribe(res => {
-      console.log(res)
-      this.moveStepper();
-    })
-  }
-
-  receiveVocationalInfo(event) {
-    console.log(event)
-    this.requestDto = event
-    this.httpService.saveStudentVocationalDetail(this.requestDto).subscribe(res => {
-      console.log(res)
-      this.moveStepper();
-    })
-
-  }
-
-  receiveResultInfo(event) {
-    console.log(event)
-    this.requestDto = event;
-    this.httpService.saveStudentResultDetail(this.requestDto).subscribe(res => {
-      console.log(res)
-      this.common.studentAction = 'summaryList';
-      this.stdSearchParam = {};
-      this.alertMsg = "Student Profile has been completed";
-      this.alertCount = this.alertCount + 1;
-      this.alertFlag = true;
-    })
-
+  resultEvent() {
+    this.moveStepper();
+    this.stdSearchParam = {};
+    this.common.studentAction = 'summaryList';
+    this.alertMsg = "Student Profile has been completed";
+    this.alertCount = this.alertCount + 1;
+    this.alertFlag = true;
   }
 
   viewStudentDetails(studentId) {
     this.common.studentAction = 'edit';
     this.common.setStdIdForEdit(studentId);
+  }
+
+  applyFilter(searchText) {
+    this.basicInfoList.filter = searchText.trim().toLowerCase();
   }
 
 }
