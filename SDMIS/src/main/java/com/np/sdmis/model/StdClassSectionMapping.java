@@ -35,6 +35,16 @@ public class StdClassSectionMapping implements Serializable {
 	Date createdTime;
 	@Column(name = "school_id")
 	long schoolId;
+	@Column(name = "mst_cls_sec_id")
+	long mstClsSecId;
+
+	public long getMstClsSecId() {
+		return mstClsSecId;
+	}
+
+	public void setMstClsSecId(long mstClsSecId) {
+		this.mstClsSecId = mstClsSecId;
+	}
 
 	public long getSchoolId() {
 		return schoolId;

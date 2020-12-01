@@ -20,9 +20,9 @@ import com.np.sdmis.model.StdVocationalDetail;
 import com.np.sdmis.model.StudentBasicDetail;
 import com.np.sdmis.model.StudentListData;
 import com.np.sdmis.model.StudentResultDetail;
+import com.np.sdmis.repository.StdClassSectionMappingRepo;
 import com.np.sdmis.repository.StdEducationDetailRepo;
 import com.np.sdmis.repository.StdIncentiveDetailRepo;
-import com.np.sdmis.repository.StdClassSectionMappingRepo;
 import com.np.sdmis.repository.StdVocationalDetailRepo;
 import com.np.sdmis.repository.StudentBasicDetailRepo;
 import com.np.sdmis.repository.StudentResultDetailRepo;
@@ -48,9 +48,10 @@ public class StudentServiceImpl {
 
 	public ResponseDTO getStudentList(String className, String section, long schoolId) {
 		ResponseDTO responseDTO = new ResponseDTO();
+		EntityManager em = null;
 		try {
-			EntityManager em = emf.createEntityManager();
-			
+			em = emf.createEntityManager();
+
 			em.getTransaction().begin();
 			String qq = "Select"
 					+ " new com.np.sdmis.model.StudentListData(s.recordId as record,s.name as studentName,s.studentId as studentId,s.admissionNum as admNum,s.gender as gender,s.doa as doa,"
@@ -88,6 +89,7 @@ public class StudentServiceImpl {
 			em.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			em.close();
 		}
 		System.out.println("Student Name :");
 
@@ -118,7 +120,7 @@ public class StudentServiceImpl {
 		return responceDto;
 	}
 
-	public ResponseDTO saveSectionClassMap(RequestDTO requestDTO) {
+	public ResponseDTO saveClassSection(RequestDTO requestDTO) {
 		ResponseDTO responceDto = new ResponseDTO();
 		responceDto.setSectionClassMapping(Optional.ofNullable(sectionClassRepo.save(requestDTO.getClassMapping())));
 		responceDto.setStatusCode(ResponceCode.App001.getStatusCode());

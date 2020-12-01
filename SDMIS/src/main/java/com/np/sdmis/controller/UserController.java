@@ -25,6 +25,7 @@ import com.np.sdmis.model.StudentBasicDetail;
 import com.np.sdmis.repository.MOIRepo;
 import com.np.sdmis.repository.StudentBasicDetailRepo;
 import com.np.sdmis.service.LocationServiceImpl;
+import com.np.sdmis.service.MasterDataService;
 import com.np.sdmis.service.StudentServiceImpl;
 
 @RestController
@@ -40,6 +41,8 @@ public class UserController {
 
 	@Autowired
 	LocationServiceImpl locationServiceImpl;
+	@Autowired
+	MasterDataService masterDataService;
 
 	@Autowired
 	MOIRepo moiRepo;
@@ -64,16 +67,16 @@ public class UserController {
 
 	}
 
-	@PostMapping(value = "/saveSectionClassMap")
-	public ResponseDTO savesaveSectionClassMap(@RequestBody RequestDTO requestDTO) {
+	@PostMapping(value = "/saveClassSection")
+	public ResponseDTO saveClassSection(@RequestBody RequestDTO requestDTO) {
 
-		return studentService.saveSectionClassMap(requestDTO);
+		return masterDataService.saveClassSection(requestDTO);
 
 	}
 
-	@GetMapping("/getStdSectionClass")
-	public ResponseDTO getStdSectionClass(@RequestParam("studentId") long studentId) {
-		return studentService.getStdSectionClass(studentId);
+	@GetMapping("/getClassSection")
+	public ResponseDTO getClassSection(@RequestParam("schoolId") long schoolId) {
+		return masterDataService.getClassSection(schoolId);
 	}
 
 	@PostMapping(value = "/saveEducationDetail")

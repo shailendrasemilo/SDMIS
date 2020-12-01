@@ -79,6 +79,16 @@ public class StudentBasicDetail implements Serializable {
 	Date dob;
 	@Column(name = "class_section_id")
 	long classSectionId;
+	@Column(name = "school_id")
+	long schoolId;
+
+	public long getSchoolId() {
+		return schoolId;
+	}
+
+	public void setSchoolId(long schoolId) {
+		this.schoolId = schoolId;
+	}
 
 	public long getClassSectionId() {
 		return classSectionId;

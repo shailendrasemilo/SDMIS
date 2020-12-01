@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.np.sdmis.model.DashboardData;
+import com.np.sdmis.model.MstClassSection;
 import com.np.sdmis.model.StdClassSectionMapping;
 import com.np.sdmis.model.StdEducationDetail;
 import com.np.sdmis.model.StdIncentiveDetail;
@@ -28,7 +30,24 @@ public class ResponseDTO {
 	private StdIncentiveDetail incentiveDetail;
 	private StdVocationalDetail vocationalDetail;
 	List<StudentListData> studentListDatas;
-	
+	List<MstClassSection> mstClassSections;
+	DashboardData dashboardData;
+
+	public DashboardData getDashboardData() {
+		return dashboardData;
+	}
+
+	public void setDashboardData(DashboardData dashboardData) {
+		this.dashboardData = dashboardData;
+	}
+
+	public List<MstClassSection> getMstClassSections() {
+		return mstClassSections;
+	}
+
+	public void setMstClassSections(List<MstClassSection> mstClassSections) {
+		this.mstClassSections = mstClassSections;
+	}
 
 	public List<StudentListData> getStudentListDatas() {
 		return studentListDatas;
