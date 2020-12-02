@@ -139,6 +139,7 @@ public class DashboardService {
 				classesData.add(classVIII);
 				classesData.add(classIX);
 				classesData.add(classX);
+				classesData.add(classXI);
 				classesData.add(classXII);
 				dashboardData.setClassesData(classesData);
 			}
