@@ -1,5 +1,6 @@
 package com.np.sdmis.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,27 +49,29 @@ public class DashboardService {
 			int inc = 0;
 			int res = 0;
 			int comlProf = 0;
-			long remProf = 0;
+			int remProf = 0;
 			boolean flag = false;
+			List<Integer> sectionWiseData = new ArrayList<>();
+			sectionWiseData.add(studentBasicDetails.size());
 			for (StudentBasicDetail studentBasicDetail : studentBasicDetails) {
 				StdEducationDetail educationDetail = eduRepo.findByStudentId(studentBasicDetail.getRecordId());
 				if (null != educationDetail) {
-					dashboardData.setCompleteEducation(edu++);
+					edu = edu++;
 				} else
 					flag = true;
 				StdVocationalDetail vocationalDetail = vocRepo.findByStudentId(studentBasicDetail.getRecordId());
 				if (null != vocationalDetail) {
-					dashboardData.setCompleteVocational(voc++);
+					voc = voc++;
 				} else
 					flag = true;
 				StdIncentiveDetail incentiveDetail = incRepo.findByStudentId(studentBasicDetail.getRecordId());
 				if (null != incentiveDetail) {
-					dashboardData.setCompleteIncentive(inc++);
+					inc = inc++;
 				} else
 					flag = true;
 				StudentResultDetail resultDetail = resRepo.findByStudentId(studentBasicDetail.getRecordId());
 				if (null != resultDetail) {
-					dashboardData.setCompleteResult(res++);
+					res = res++;
 				} else
 					flag = true;
 
@@ -76,6 +79,11 @@ public class DashboardService {
 					dashboardData.setCompleteProfile(comlProf++);
 				}
 			}
+			sectionWiseData.add(edu);
+			sectionWiseData.add(inc);
+			sectionWiseData.add(voc);
+			sectionWiseData.add(res);
+			dashboardData.setSectionWiseData(sectionWiseData);
 			remProf = studentBasicDetails.size() - dashboardData.getCompleteProfile();
 			dashboardData.setRemainingProfile(remProf);
 
@@ -93,33 +101,46 @@ public class DashboardService {
 				int classX = 0;
 				int classXI = 0;
 				int classXII = 0;
+				List<Integer> classesData = new ArrayList<>();
 				for (StdClassSectionMapping stdClassSectionMapping : classSectionMapping) {
 					if (stdClassSectionMapping.getClassName().equals("I")) {
-						dashboardData.setClassI(classI++);
+						classI = classI++;
 					} else if (stdClassSectionMapping.getClassName().equals("II")) {
-						dashboardData.setClassII(classII++);
+						classII = classII++;
 					} else if (stdClassSectionMapping.getClassName().equals("III")) {
-						dashboardData.setClassIII(classIII++);
+						classIII = classIII++;
 					} else if (stdClassSectionMapping.getClassName().equals("IV")) {
-						dashboardData.setClassIV(classIV++);
+						classIV = classIV++;
 					} else if (stdClassSectionMapping.getClassName().equals("V")) {
-						dashboardData.setClassV(classV++);
+						classV = classV++;
 					} else if (stdClassSectionMapping.getClassName().equals("VI")) {
-						dashboardData.setClassVI(classVI++);
+						classVI = classVI++;
 					} else if (stdClassSectionMapping.getClassName().equals("VII")) {
-						dashboardData.setClassVII(classVII++);
+						classVII = classVII++;
 					} else if (stdClassSectionMapping.getClassName().equals("VIII")) {
-						dashboardData.setClassVIII(classVIII++);
+						classVIII = classVIII++;
 					} else if (stdClassSectionMapping.getClassName().equals("IX")) {
-						dashboardData.setClassIX(classIX++);
+						classIX = classIX++;
 					} else if (stdClassSectionMapping.getClassName().equals("X")) {
-						dashboardData.setClassX(classX++);
+						classX = classX++;
 					} else if (stdClassSectionMapping.getClassName().equals("XI")) {
-						dashboardData.setClassXI(classXI++);
+						classXI = classXI++;
 					} else if (stdClassSectionMapping.getClassName().equals("XII")) {
-						dashboardData.setClassXII(classXII++);
+						classXII = classXII++;
 					}
 				}
+				classesData.add(classI);
+				classesData.add(classII);
+				classesData.add(classIII);
+				classesData.add(classIV);
+				classesData.add(classV);
+				classesData.add(classVI);
+				classesData.add(classVII);
+				classesData.add(classVIII);
+				classesData.add(classIX);
+				classesData.add(classX);
+				classesData.add(classXII);
+				dashboardData.setClassesData(classesData);
 			}
 			responseDTO.setDashboardData(dashboardData);
 			responseDTO.setStatusCode(ResponceCode.App001.getStatusCode());
