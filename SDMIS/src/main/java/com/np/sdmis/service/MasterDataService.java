@@ -29,7 +29,7 @@ public class MasterDataService {
 			responseDTO.setStatusCode(ResponceCode.App003.getStatusCode());
 			responseDTO.setDescription(ResponceCode.App003.getStatusDesc());
 		}
-		return null;
+		return responseDTO;
 	}
 
 	public ResponseDTO saveClassSection(RequestDTO requestDTO) {
