@@ -17,10 +17,10 @@ public class MasterDataService {
 	@Autowired
 	MstClassSectionRepo mstClassSectionRepo;
 
-	public ResponseDTO getClassSection(long schoolId) {
+	public ResponseDTO getClassSection(long schoolId, String className) {
 		ResponseDTO responseDTO = new ResponseDTO();
 
-		List<MstClassSection> mstClassSections = mstClassSectionRepo.findBySchoolId(schoolId);
+		List<MstClassSection> mstClassSections = mstClassSectionRepo.findBySchoolIdAndClassName(schoolId, className);
 		if (null != mstClassSections && mstClassSections.size() > 0) {
 			responseDTO.setMstClassSections(mstClassSections);
 			responseDTO.setStatusCode(ResponceCode.App001.getStatusCode());

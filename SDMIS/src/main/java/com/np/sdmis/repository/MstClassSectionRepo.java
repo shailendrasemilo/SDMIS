@@ -12,4 +12,6 @@ public interface MstClassSectionRepo extends CrudRepository<MstClassSection, Lon
 
 	List<MstClassSection> findBySchoolId(long schoolId);
 
+	List<MstClassSection> findBySchoolIdAndClassName(long schoolId, String className);
+
 }

@@ -22,7 +22,7 @@ import javax.persistence.Table;
 	@Column(name = "record_id")
 	private Long recordId;
 	@Column(name = "class_name")
-	private Long className;
+	private String className;
 	@Column(name = "section_name")
 	private String sectionName;
 	@Column(name = "status")
@@ -52,14 +52,6 @@ import javax.persistence.Table;
 
 	public void setRecordId(Long recordId) {
 		this.recordId = recordId;
-	}
-
-	public Long getClassName() {
-		return className;
-	}
-
-	public void setClassName(Long className) {
-		this.className = className;
 	}
 
 	public String getSectionName() {
@@ -108,6 +100,14 @@ import javax.persistence.Table;
 
 	public void setModifiedTime(Date modifiedTime) {
 		this.modifiedTime = modifiedTime;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
 }

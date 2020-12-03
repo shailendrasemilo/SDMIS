@@ -75,8 +75,9 @@ public class UserController {
 	}
 
 	@GetMapping("/getClassSection")
-	public ResponseDTO getClassSection(@RequestParam("schoolId") long schoolId) {
-		return masterDataService.getClassSection(schoolId);
+	public ResponseDTO getClassSection(@RequestParam("schoolId") long schoolId,
+			@RequestParam("className") String className) {
+		return masterDataService.getClassSection(schoolId, className);
 	}
 
 	@PostMapping(value = "/saveEducationDetail")
