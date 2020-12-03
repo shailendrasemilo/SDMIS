@@ -56,27 +56,27 @@ public class DashboardService {
 			for (StudentBasicDetail studentBasicDetail : studentBasicDetails) {
 				StdEducationDetail educationDetail = eduRepo.findByStudentId(studentBasicDetail.getRecordId());
 				if (null != educationDetail) {
-					edu = edu++;
+					edu = ++edu;
 				} else
 					flag = true;
 				StdVocationalDetail vocationalDetail = vocRepo.findByStudentId(studentBasicDetail.getRecordId());
 				if (null != vocationalDetail) {
-					voc = voc++;
+					voc = ++voc;
 				} else
 					flag = true;
 				StdIncentiveDetail incentiveDetail = incRepo.findByStudentId(studentBasicDetail.getRecordId());
 				if (null != incentiveDetail) {
-					inc = inc++;
+					inc = ++inc;
 				} else
 					flag = true;
 				StudentResultDetail resultDetail = resRepo.findByStudentId(studentBasicDetail.getRecordId());
 				if (null != resultDetail) {
-					res = res++;
+					res = ++res;
 				} else
 					flag = true;
 
 				if (!flag) {
-					dashboardData.setCompleteProfile(comlProf++);
+					dashboardData.setCompleteProfile(++comlProf);
 				}
 			}
 			sectionWiseData.add(edu);
@@ -104,29 +104,29 @@ public class DashboardService {
 				List<Integer> classesData = new ArrayList<>();
 				for (StdClassSectionMapping stdClassSectionMapping : classSectionMapping) {
 					if (stdClassSectionMapping.getClassName().equals("I")) {
-						classI = classI++;
+						classI = ++classI;
 					} else if (stdClassSectionMapping.getClassName().equals("II")) {
-						classII = classII++;
+						classII = ++classII;
 					} else if (stdClassSectionMapping.getClassName().equals("III")) {
-						classIII = classIII++;
+						classIII = ++classIII;
 					} else if (stdClassSectionMapping.getClassName().equals("IV")) {
-						classIV = classIV++;
+						classIV = ++classIV;
 					} else if (stdClassSectionMapping.getClassName().equals("V")) {
-						classV = classV++;
+						classV = ++classV;
 					} else if (stdClassSectionMapping.getClassName().equals("VI")) {
-						classVI = classVI++;
+						classVI = ++classVI;
 					} else if (stdClassSectionMapping.getClassName().equals("VII")) {
-						classVII = classVII++;
+						classVII = ++classVII;
 					} else if (stdClassSectionMapping.getClassName().equals("VIII")) {
-						classVIII = classVIII++;
+						classVIII = ++classVIII;
 					} else if (stdClassSectionMapping.getClassName().equals("IX")) {
-						classIX = classIX++;
+						classIX = ++classIX;
 					} else if (stdClassSectionMapping.getClassName().equals("X")) {
-						classX = classX++;
+						classX = ++classX;
 					} else if (stdClassSectionMapping.getClassName().equals("XI")) {
-						classXI = classXI++;
+						classXI = ++classXI;
 					} else if (stdClassSectionMapping.getClassName().equals("XII")) {
-						classXII = classXII++;
+						classXII = ++classXII;
 					}
 				}
 				classesData.add(classI);
