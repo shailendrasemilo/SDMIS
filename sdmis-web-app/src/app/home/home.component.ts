@@ -15,14 +15,15 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router, public commonService: CommonService) {
     this.screenWidth = window.innerWidth;
     window.onresize = () => {
-      // set screenWidth on screen size change
       this.screenWidth = window.innerWidth;
     };
   }
 
   ngOnInit(): void {
     this.commonService.userObj = JSON.parse(sessionStorage.getItem('user'))
-    console.log(this.commonService.userObj)
+
+    //in future, api call to get school detail
+    this.commonService.schoolDetail = { name: 'ABC Public School', schoolId: this.commonService.userObj.schoolId, classFrom: '2', classTo: '8' }    
   }
 
   toggleDrawer(drawer: MatDrawer) {

@@ -12,7 +12,7 @@ export class StudentEducationComponent implements OnInit {
   @Output() educationEvent = new EventEmitter<any>();
   educationDetail: any = {};
   requestDto: any = {};
-  classList: any = [{ name: 'Class I', id: 1 }, { name: 'Class II', id: 2 }];
+  classList: any = [];
   moiList: any = [{ name: 'Hindi', id: 1 }, { name: 'English', id: 2 }];
   userObj: any = {};
 
@@ -27,7 +27,9 @@ export class StudentEducationComponent implements OnInit {
     if (this.common.studentAction == 'edit') {
       this.getEducationDetail(this.common.stdIdEdit, this.userObj.schoolId);
     }
+    this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
   }
+
 
   sendEducationInfo() {
     if (this.common.studentAction == 'add') {

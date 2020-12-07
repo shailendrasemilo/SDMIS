@@ -35,6 +35,7 @@
     /* login field outline colour  */
     color: var(--form-field-outline) !important;
     opacity: 1 !important;
+    background-color: transparent;
 }
 
 .mat-form-field-label {
@@ -43,10 +44,6 @@
 }
 
 .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
-    color: var(--color-blue) !important;
-}
-
-.mat-form-field.mat-form-field-invalid .mat-form-field-label {
     color: var(--color-blue) !important;
 }
 

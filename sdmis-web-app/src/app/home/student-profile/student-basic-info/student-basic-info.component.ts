@@ -15,12 +15,14 @@ export class StudentBasicInfoComponent implements OnInit {
   requestDTO: any = {};
   profileDetails: any = {};
   classMapping: any = {};
+  mstClassSection: any = [];
 
   religionList: any = [{ name: 'Hindu', id: 1 }, { name: 'Muslim', id: 2 }, { name: 'Sikh', id: 3 }];
   motherTongueList: any = [{ name: 'Hindi', id: 1 }, { name: 'English', id: 2 }];
   socialCategoryList: any = [{ name: 'General', id: 1 }, { name: 'SC/ST', id: 2 }];
-  classList: any = [{ name: 'Class I', id: 1 }, { name: 'Class II', id: 2 }];
   sectionList: any = [{ name: 'Section A', id: 1 }, { name: 'Section B', id: 2 }];
+  classList: any = [];
+
 
   stateList: any = [];
   districtList: any = [];
@@ -41,7 +43,7 @@ export class StudentBasicInfoComponent implements OnInit {
     if (this.common.studentAction == 'edit') {
       this.getStdBasicInfo();
     }
-
+    this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
   }
 
   getStateList() {
@@ -52,6 +54,20 @@ export class StudentBasicInfoComponent implements OnInit {
       }
     }, error => {
       console.log(error)
+    })
+  }
+
+  getSectionList(className) {
+    console.log(className)
+    this.httpService.getClassSection(className, this.userObj.schoolId).subscribe(res=> {
+      console.log(res)
+      if(res.statusCode == environment.successCode) {
+        this.sectionList = res.mstClassSections
+      } else {
+        this.alertFlag = true;
+        this.alertCount = this.alertCount + 1
+        this.alertMsg = 'No sections have been created for this class.';
+      }
     })
   }
 
@@ -67,6 +83,7 @@ export class StudentBasicInfoComponent implements OnInit {
       }
 
       this.getDistrictList(this.profileDetails.stateId);
+      this.getSectionList(this.classMapping.className)
     })
   }
 
@@ -98,6 +115,7 @@ export class StudentBasicInfoComponent implements OnInit {
       this.classMapping.schoolId = userObj.schoolId;
       this.classMapping.status = 'A';
       this.classMapping.createdBy = userObj.userName;
+      this.profileDetails.schoolId = userObj.schoolId;
     } else if (this.common.studentAction == 'edit') {
       this.profileDetails.studentId = this.common.stdIdEdit;
     }

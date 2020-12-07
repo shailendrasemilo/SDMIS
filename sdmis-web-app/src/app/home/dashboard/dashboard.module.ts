@@ -5,6 +5,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module'
 import { MatCardModule } from '@angular/material/card';
 import { ChartsModule } from 'node_modules/ng2-charts'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { AlertModule } from 'src/app/alert/alert.module';
 
 @NgModule({
   declarations: [ DashboardComponent ],
@@ -13,7 +14,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     DashboardRoutingModule,
     MatCardModule,
     ChartsModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    AlertModule
   ]
 })
 export class DashboardModule { }

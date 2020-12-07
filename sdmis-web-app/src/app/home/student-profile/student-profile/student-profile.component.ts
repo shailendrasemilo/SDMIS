@@ -28,11 +28,13 @@ export class StudentProfileComponent implements OnInit {
   alertMsg: String;
   alertFlag: boolean = false;
   basicInfoList: any = new MatTableDataSource;
+  classList: any = [];
+
+
   basicInfoTableHead = ['name', 'admissionNum', 'doa', 'class', 'section', 'gender', 'action'];
   showProgress: boolean = false;
 
-  sectionList: any = [{ name: 'Section A', id: 1 }, { name: 'Section B', id: 2 }];
-  classList: any = [{ name: 'Class I', id: 1 }, { name: 'Class II', id: 2 }];
+  sectionList: any = [];
 
   stdSearchParam: any = {};
   userObj: any = {}
@@ -41,6 +43,7 @@ export class StudentProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userObj = this.common.userObj;
     this.common.studentAction = 'summaryList';
+    this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
   }
 
   clearSearchObjs() {
@@ -49,12 +52,25 @@ export class StudentProfileComponent implements OnInit {
     this.basicInfoList = new MatTableDataSource();
   }
 
-
+  getSectionList(className) {
+    console.log(className)
+    this.httpService.getClassSection(className, this.userObj.schoolId).subscribe(res=> {
+      console.log(res)
+      if(res.statusCode == environment.successCode) {
+        this.sectionList = res.mstClassSections
+      } else {
+        this.alertFlag = true;
+        this.alertCount = this.alertCount + 1
+        this.alertMsg = 'No sections have been created for this class.';
+      }
+    })
+  }
 
   getStudentList() {
     this.common.stdIdEdit = null;
     this.common.studentAction = 'summaryList';
     let userObj = this.common.userObj
+    this.basicInfoList = new MatTableDataSource();
     this.stdSearchParam.schoolId = userObj.schoolId;
     this.httpService.getStudentSummary(this.stdSearchParam).subscribe(data => {
       console.log(data)

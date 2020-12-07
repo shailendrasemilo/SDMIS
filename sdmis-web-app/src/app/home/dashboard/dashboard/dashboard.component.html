@@ -3,7 +3,7 @@
 </div>
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3" *ngIf="totalCreated">
         <mat-card class="dash-card">
             <div class="dashboard-card-head">
                 Total Students in school
@@ -32,7 +32,7 @@
             </div>
         </mat-card>
     </div>
-    <div class="col-md-9">
+    <div class="col-md-9" *ngIf="classWiseCreated">
         <mat-card class="dash-card">
             <div class="dashboard-card-head">
                 Students class wise
@@ -82,7 +82,7 @@
     </div>
 </div>
 
-<div class="profile-parent">
+<div class="profile-parent" *ngIf="sectionWiseCreated">
     <ul class="list-unstyled d-flex">
         <li *ngFor="let profile of profileWiseData">
             <mat-card class="profile-card">
@@ -95,4 +95,9 @@
         </li>
     </ul>
 
+</div>
+
+
+<div *ngIf='alertFlag'>
+    <app-alert [message]='alertMsg' [flag]='alertFlag' [count]='alertCount'></app-alert>
 </div>

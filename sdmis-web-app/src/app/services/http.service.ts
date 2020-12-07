@@ -93,4 +93,22 @@ export class HttpService {
     return this.http.get<any>(environment.api_base_url + '/viewResultDetail', { params });
   }
 
+  getDashboard(schoolId) {
+    let params = new HttpParams();
+    params = params.set('schoolId', schoolId)
+    return this.http.get<any>(environment.api_base_url + '/getSchoolDasboard', { params });
+  }
+
+  saveSectionMst(requestDto) {
+    return this.http.post<any>(environment.api_base_url + '/saveClassSection', requestDto);
+  }
+
+  getClassSection(className, schoolId) {
+    console.log(schoolId)
+    let params = new HttpParams();
+    params = params.set('className', className)
+    params = params.set('schoolId', schoolId)
+    return this.http.get<any>(environment.api_base_url + '/getClassSection', { params });
+  }
+
 }

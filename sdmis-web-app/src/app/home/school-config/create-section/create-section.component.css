@@ -1,0 +1,13 @@
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    color: #B8BBBF !important;
+    opacity: 1 !important;
+    background-color: white;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+    color: var(--color-red) !important
+}
+
+.mat-form-field-label, .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: #B8BBBF !important
+}
