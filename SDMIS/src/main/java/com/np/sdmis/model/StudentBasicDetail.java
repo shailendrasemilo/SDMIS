@@ -79,15 +79,45 @@ public class StudentBasicDetail implements Serializable {
 	Date dob;
 	@Column(name = "class_section_id")
 	long classSectionId;
-	@Column(name = "school_id")
-	long schoolId;
+	@Column(name = "udise_code")
+	String udiseCode;
+	@Column(name = "state_code")
+	String stateCode;
+	@Column(name = "district_code")
+	String districtCode;
+	@Column(name = "block_code")
+	String blockCode;
 
-	public long getSchoolId() {
-		return schoolId;
+	public String getUdiseCode() {
+		return udiseCode;
 	}
 
-	public void setSchoolId(long schoolId) {
-		this.schoolId = schoolId;
+	public void setUdiseCode(String udiseCode) {
+		this.udiseCode = udiseCode;
+	}
+
+	public String getStateCode() {
+		return stateCode;
+	}
+
+	public void setStateCode(String stateCode) {
+		this.stateCode = stateCode;
+	}
+
+	public String getDistrictCode() {
+		return districtCode;
+	}
+
+	public void setDistrictCode(String districtCode) {
+		this.districtCode = districtCode;
+	}
+
+	public String getBlockCode() {
+		return blockCode;
+	}
+
+	public void setBlockCode(String blockCode) {
+		this.blockCode = blockCode;
 	}
 
 	public long getClassSectionId() {

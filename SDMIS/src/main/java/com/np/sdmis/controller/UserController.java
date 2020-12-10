@@ -56,8 +56,8 @@ public class UserController {
 
 	@GetMapping("/viewStubasicDetail")
 	public ResponseDTO viewStubasicDetail(@RequestParam("studentId") long studentId,
-			@RequestParam("schoolId") long schoolId) {
-		return studentService.viewStubasicDetail(studentId, schoolId);
+			@RequestParam("udiseCode") String udiseCode) {
+		return studentService.viewStubasicDetail(studentId, udiseCode);
 	}
 
 	@PutMapping(value = "/udateStudentDetail")
@@ -139,8 +139,8 @@ public class UserController {
 
 	@GetMapping("/getStudentList")
 	public ResponseDTO getStudentList(@RequestParam("className") String className,
-			@RequestParam("section") String section, @RequestParam("schoolId") long schoolId) {
-		return studentService.getStudentList(className, section, schoolId);
+			@RequestParam("section") String section, @RequestParam("udiseCode") String udiseCode) {
+		return studentService.getStudentList(className, section, udiseCode);
 	}
 
 	@GetMapping("/test")

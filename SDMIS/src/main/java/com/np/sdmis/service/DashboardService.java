@@ -38,10 +38,10 @@ public class DashboardService {
 	@Autowired
 	StdClassSectionMappingRepo classSecRepo;
 
-	public ResponseDTO findSchoolDashboard(long schoolId) {
+	public ResponseDTO findSchoolDashboard(String udiseCode) {
 		ResponseDTO responseDTO = new ResponseDTO();
 		DashboardData dashboardData = new DashboardData();
-		List<StudentBasicDetail> studentBasicDetails = studentRepo.findBySchoolId(schoolId);
+		List<StudentBasicDetail> studentBasicDetails = studentRepo.findByUdiseCode(udiseCode);
 		if (null != studentBasicDetails && studentBasicDetails.size() > 0) {
 			dashboardData.setTotalStudent(studentBasicDetails.size());
 			int edu = 0;
@@ -87,7 +87,7 @@ public class DashboardService {
 			remProf = studentBasicDetails.size() - dashboardData.getCompleteProfile();
 			dashboardData.setRemainingProfile(remProf);
 
-			List<StdClassSectionMapping> classSectionMapping = classSecRepo.findBySchoolIdAndStatus(schoolId, "A");
+			List<StdClassSectionMapping> classSectionMapping = classSecRepo.findByUdiseCodeAndStatus(udiseCode, "A");
 			if (null != classSectionMapping && classSectionMapping.size() > 0) {
 				int classI = 0;
 				int classII = 0;
@@ -153,6 +153,125 @@ public class DashboardService {
 		}
 		return responseDTO;
 
+	}
+
+	public ResponseDTO findBlockDashboard(String blockCode) {
+
+		ResponseDTO responseDTO = new ResponseDTO();
+		DashboardData dashboardData = new DashboardData();
+		List<StudentBasicDetail> studentBasicDetails = studentRepo.findByBlockCode(blockCode);
+		if (null != studentBasicDetails && studentBasicDetails.size() > 0) {
+			dashboardData.setTotalStudent(studentBasicDetails.size());
+			int edu = 0;
+			int voc = 0;
+			int inc = 0;
+			int res = 0;
+			int comlProf = 0;
+			int remProf = 0;
+			boolean flag = false;
+			List<Integer> sectionWiseData = new ArrayList<>();
+			sectionWiseData.add(studentBasicDetails.size());
+			for (StudentBasicDetail studentBasicDetail : studentBasicDetails) {
+				StdEducationDetail educationDetail = eduRepo.findByStudentId(studentBasicDetail.getRecordId());
+				if (null != educationDetail) {
+					edu = ++edu;
+				} else
+					flag = true;
+				StdVocationalDetail vocationalDetail = vocRepo.findByStudentId(studentBasicDetail.getRecordId());
+				if (null != vocationalDetail) {
+					voc = ++voc;
+				} else
+					flag = true;
+				StdIncentiveDetail incentiveDetail = incRepo.findByStudentId(studentBasicDetail.getRecordId());
+				if (null != incentiveDetail) {
+					inc = ++inc;
+				} else
+					flag = true;
+				StudentResultDetail resultDetail = resRepo.findByStudentId(studentBasicDetail.getRecordId());
+				if (null != resultDetail) {
+					res = ++res;
+				} else
+					flag = true;
+
+				if (!flag) {
+					dashboardData.setCompleteProfile(++comlProf);
+				}
+			}
+			sectionWiseData.add(edu);
+			sectionWiseData.add(inc);
+			sectionWiseData.add(voc);
+			sectionWiseData.add(res);
+			dashboardData.setSectionWiseData(sectionWiseData);
+			remProf = studentBasicDetails.size() - dashboardData.getCompleteProfile();
+			dashboardData.setRemainingProfile(remProf);
+
+			List<StdClassSectionMapping> classSectionMapping = classSecRepo.findByBlockCodeAndStatus(blockCode, "A");
+			if (null != classSectionMapping && classSectionMapping.size() > 0) {
+				int classI = 0;
+				int classII = 0;
+				int classIII = 0;
+				int classIV = 0;
+				int classV = 0;
+				int classVI = 0;
+				int classVII = 0;
+				int classVIII = 0;
+				int classIX = 0;
+				int classX = 0;
+				int classXI = 0;
+				int classXII = 0;
+				List<Integer> classesData = new ArrayList<>();
+				for (StdClassSectionMapping stdClassSectionMapping : classSectionMapping) {
+					if (stdClassSectionMapping.getClassName().equals("I")) {
+						classI = ++classI;
+					} else if (stdClassSectionMapping.getClassName().equals("II")) {
+						classII = ++classII;
+					} else if (stdClassSectionMapping.getClassName().equals("III")) {
+						classIII = ++classIII;
+					} else if (stdClassSectionMapping.getClassName().equals("IV")) {
+						classIV = ++classIV;
+					} else if (stdClassSectionMapping.getClassName().equals("V")) {
+						classV = ++classV;
+					} else if (stdClassSectionMapping.getClassName().equals("VI")) {
+						classVI = ++classVI;
+					} else if (stdClassSectionMapping.getClassName().equals("VII")) {
+						classVII = ++classVII;
+					} else if (stdClassSectionMapping.getClassName().equals("VIII")) {
+						classVIII = ++classVIII;
+					} else if (stdClassSectionMapping.getClassName().equals("IX")) {
+						classIX = ++classIX;
+					} else if (stdClassSectionMapping.getClassName().equals("X")) {
+						classX = ++classX;
+					} else if (stdClassSectionMapping.getClassName().equals("XI")) {
+						classXI = ++classXI;
+					} else if (stdClassSectionMapping.getClassName().equals("XII")) {
+						classXII = ++classXII;
+					}
+				}
+				classesData.add(classI);
+				classesData.add(classII);
+				classesData.add(classIII);
+				classesData.add(classIV);
+				classesData.add(classV);
+				classesData.add(classVI);
+				classesData.add(classVII);
+				classesData.add(classVIII);
+				classesData.add(classIX);
+				classesData.add(classX);
+				classesData.add(classXI);
+				classesData.add(classXII);
+				dashboardData.setClassesData(classesData);
+			}
+			responseDTO.setDashboardData(dashboardData);
+			responseDTO.setStatusCode(ResponceCode.App001.getStatusCode());
+			responseDTO.setDescription(ResponceCode.App001.getStatusDesc());
+		} else {
+
+			responseDTO.setStatusCode(ResponceCode.App003.getStatusCode());
+			responseDTO.setDescription(ResponceCode.App003.getStatusDesc());
+		}
+		return responseDTO;
+
+	
 	}
 
 }

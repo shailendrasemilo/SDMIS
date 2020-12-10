@@ -19,9 +19,15 @@ public class DasboardController {
 	DashboardService dashboardService;
 
 	@GetMapping("/getSchoolDasboard")
-	public ResponseDTO getSchoolDasboard(@RequestParam("schoolId") long schoolId) {
+	public ResponseDTO getSchoolDasboard(@RequestParam("udiseCode") String udiseCode) {
 
-		return dashboardService.findSchoolDashboard(schoolId);
+		return dashboardService.findSchoolDashboard(udiseCode);
+	}
+	
+	@GetMapping("/getBlockDasboard")
+	public ResponseDTO getBlockDasboard(@RequestParam("blockCode") String blockCode) {
+
+		return dashboardService.findBlockDashboard(blockCode);
 	}
 
 }

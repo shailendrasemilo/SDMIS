@@ -46,7 +46,7 @@ public class StudentServiceImpl {
 	@Autowired
 	EntityManagerFactory emf;
 
-	public ResponseDTO getStudentList(String className, String section, long schoolId) {
+	public ResponseDTO getStudentList(String className, String section, String udiseCode) {
 		ResponseDTO responseDTO = new ResponseDTO();
 		EntityManager em = null;
 		try {
@@ -56,7 +56,7 @@ public class StudentServiceImpl {
 			String qq = "Select"
 					+ " new com.np.sdmis.model.StudentListData(s.recordId as record,s.name as studentName,s.studentId as studentId,s.admissionNum as admNum,s.gender as gender,s.doa as doa,"
 					+ "c.className as className ,c.section as section)" + " from StdClassSectionMapping  c "
-					+ "inner join StudentBasicDetail s on s.recordId = c.studentId where c.status='A' and c.schoolId=:schoolId";
+					+ "inner join StudentBasicDetail s on s.recordId = c.studentId where c.status='A' and c.udiseCode=:udiseCode";
 			System.out.println("class name:: " + className);
 			String qqq = null;
 			if (null != className) {
@@ -69,7 +69,7 @@ public class StudentServiceImpl {
 			qq.concat(" group by c.className,c.section order by c.className,c.section");
 			System.out.println(qqqq);
 			Query query = em.createQuery(qqqq);
-			query.setParameter("schoolId", schoolId);
+			query.setParameter("udiseCode", udiseCode);
 			if (null != className) {
 				query.setParameter("className", className);
 			}
@@ -163,11 +163,11 @@ public class StudentServiceImpl {
 		return responceDto;
 	}
 
-	public ResponseDTO viewStubasicDetail(long studentId, long schoolId) {
+	public ResponseDTO viewStubasicDetail(long studentId, String udiseCode) {
 		// TODO Auto-generated method stub
 		ResponseDTO responseDTO = new ResponseDTO();
-		StdClassSectionMapping classSectionMapping = sectionClassRepo.findByStudentIdAndSchoolIdAndStatus(studentId,
-				schoolId, "A");
+		StdClassSectionMapping classSectionMapping = sectionClassRepo.findByStudentIdAndUdiseCodeAndStatus(studentId,
+				udiseCode, "A");
 		if (null != classSectionMapping) {
 			Optional<StudentBasicDetail> basicDetail = basicDetailRepo.findById(studentId);
 			responseDTO.setSectionClassMapping(Optional.ofNullable(classSectionMapping));

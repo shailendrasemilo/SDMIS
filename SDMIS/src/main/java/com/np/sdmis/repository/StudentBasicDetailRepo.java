@@ -11,5 +11,9 @@ public interface StudentBasicDetailRepo extends JpaRepository<StudentBasicDetail
 	
 	List<StudentBasicDetail> findBySchoolId(long schoolId);
 
+	List<StudentBasicDetail> findByUdiseCode(String udiseCode);
+
+	List<StudentBasicDetail> findByBlockCode(String blockCode);
+
 	
 }

@@ -33,10 +33,17 @@ public class StdClassSectionMapping implements Serializable {
 	String createdBy;
 	@Column(name = "created_time")
 	Date createdTime;
-	@Column(name = "school_id")
-	long schoolId;
+
 	@Column(name = "mst_cls_sec_id")
 	long mstClsSecId;
+	@Column(name = "udise_code")
+	String udiseCode;
+	@Column(name = "state_code")
+	String stateCode;
+	@Column(name = "district_code")
+	String districtCode;
+	@Column(name = "block_code")
+	String blockCode;
 
 	public long getMstClsSecId() {
 		return mstClsSecId;
@@ -46,12 +53,36 @@ public class StdClassSectionMapping implements Serializable {
 		this.mstClsSecId = mstClsSecId;
 	}
 
-	public long getSchoolId() {
-		return schoolId;
+	public String getUdiseCode() {
+		return udiseCode;
 	}
 
-	public void setSchoolId(long schoolId) {
-		this.schoolId = schoolId;
+	public void setUdiseCode(String udiseCode) {
+		this.udiseCode = udiseCode;
+	}
+
+	public String getStateCode() {
+		return stateCode;
+	}
+
+	public void setStateCode(String stateCode) {
+		this.stateCode = stateCode;
+	}
+
+	public String getDistrictCode() {
+		return districtCode;
+	}
+
+	public void setDistrictCode(String districtCode) {
+		this.districtCode = districtCode;
+	}
+
+	public String getBlockCode() {
+		return blockCode;
+	}
+
+	public void setBlockCode(String blockCode) {
+		this.blockCode = blockCode;
 	}
 
 	public long getRecordId() {

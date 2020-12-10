@@ -10,7 +10,11 @@ import com.np.sdmis.model.StdClassSectionMapping;
 @Repository
 public interface StdClassSectionMappingRepo extends JpaRepository<StdClassSectionMapping, Long> {
 
-	StdClassSectionMapping findByStudentIdAndSchoolIdAndStatus(long studentId, long schoolId, String status);
+	StdClassSectionMapping findByStudentIdAndUdiseCodeAndStatus(long studentId, String udiseCode, String status);
 
-	List<StdClassSectionMapping> findBySchoolIdAndStatus(long schoolId, String string);
+
+	List<StdClassSectionMapping> findByUdiseCodeAndStatus(String udiseCode, String string);
+
+
+	List<StdClassSectionMapping> findByBlockCodeAndStatus(String blockCode, String string);
 }
