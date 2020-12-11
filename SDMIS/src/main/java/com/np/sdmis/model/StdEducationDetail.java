@@ -28,9 +28,9 @@ public class StdEducationDetail implements Serializable {
 	@Column(name = "free_edu")
 	String freeEdu;
 	@Column(name = "study_in_class")
-	long studyInClass;
+	String studyInClass;
 	@Column(name = "class_prev_year")
-	long classPrevYear;
+	String classPrevYear;
 	@Column(name = "class_attend")
 	long classAttend;
 	@Column(name = "moi")
@@ -80,19 +80,19 @@ public class StdEducationDetail implements Serializable {
 		this.freeEdu = freeEdu;
 	}
 
-	public long getStudyInClass() {
+	public String getStudyInClass() {
 		return studyInClass;
 	}
 
-	public void setStudyInClass(long studyInClass) {
+	public void setStudyInClass(String studyInClass) {
 		this.studyInClass = studyInClass;
 	}
 
-	public long getClassPrevYear() {
+	public String getClassPrevYear() {
 		return classPrevYear;
 	}
 
-	public void setClassPrevYear(long classPrevYear) {
+	public void setClassPrevYear(String classPrevYear) {
 		this.classPrevYear = classPrevYear;
 	}
 
