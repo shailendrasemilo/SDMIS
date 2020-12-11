@@ -42,6 +42,13 @@ export class StudentBasicInfoComponent implements OnInit {
     this.userObj = this.common.userObj
     if (this.common.studentAction == 'edit') {
       this.getStdBasicInfo();
+    } else if (this.common.studentAction == 'add') {
+      this.profileDetails.stateCode = this.common.schoolDetail.stateCode
+      this.profileDetails.districtCode = this.common.schoolDetail.districtCode;
+      this.profileDetails.blockCode = this.common.schoolDetail.blockCode;
+      this.classMapping.stateCode = this.common.schoolDetail.stateCode
+      this.classMapping.districtCode = this.common.schoolDetail.districtCode;
+      this.classMapping.blockCode = this.common.schoolDetail.blockCode;
     }
     this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
   }
@@ -59,9 +66,9 @@ export class StudentBasicInfoComponent implements OnInit {
 
   getSectionList(className) {
     console.log(className)
-    this.httpService.getClassSection(className, this.userObj.schoolId).subscribe(res=> {
+    this.httpService.getClassSection(className, this.userObj.schoolId).subscribe(res => {
       console.log(res)
-      if(res.statusCode == environment.successCode) {
+      if (res.statusCode == environment.successCode) {
         this.sectionList = res.mstClassSections
       } else {
         this.alertFlag = true;
@@ -72,7 +79,7 @@ export class StudentBasicInfoComponent implements OnInit {
   }
 
   getStdBasicInfo() {
-    this.httpService.getStudentBasicInfoById(this.common.stdIdEdit, this.userObj.schoolId).subscribe(data => {
+    this.httpService.getStudentBasicInfoById(this.common.stdIdEdit, this.common.schoolDetail.udiseCode).subscribe(data => {
       console.log(data)
       if (data.studentBasicDetail) {
         this.profileDetails = data.studentBasicDetail;
@@ -112,10 +119,10 @@ export class StudentBasicInfoComponent implements OnInit {
   sendBasicInfo() {
     if (this.common.studentAction == 'add') {
       let userObj = this.common.userObj
-      this.classMapping.schoolId = userObj.schoolId;
+      this.classMapping.udiseCode = userObj.schoolId;
       this.classMapping.status = 'A';
       this.classMapping.createdBy = userObj.userName;
-      this.profileDetails.schoolId = userObj.schoolId;
+      this.profileDetails.udiseCode = userObj.schoolId;
     } else if (this.common.studentAction == 'edit') {
       this.profileDetails.studentId = this.common.stdIdEdit;
     }

@@ -22,7 +22,7 @@ export class StudentVocationalComponent implements OnInit {
   ngOnInit(): void {
     this.userObj = this.common.userObj;
     if (this.common.studentAction == 'edit') {
-      this.getVocationDetail(this.common.stdIdEdit, this.userObj.schoolId);
+      this.getVocationDetail(this.common.stdIdEdit, this.common.schoolDetail.udiseCode);
     }
   }
 

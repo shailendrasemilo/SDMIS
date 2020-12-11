@@ -1,7 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 import { CommonService } from '../services/common.service';
+import { HttpService } from '../services/http.service';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +15,7 @@ export class HomeComponent implements OnInit {
 
   screenWidth: number;
 
-  constructor(private router: Router, public commonService: CommonService) {
+  constructor(public commonService: CommonService, private http: HttpService) {
     this.screenWidth = window.innerWidth;
     window.onresize = () => {
       this.screenWidth = window.innerWidth;
@@ -20,10 +23,11 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('inside')
     this.commonService.userObj = JSON.parse(sessionStorage.getItem('user'))
-
-    //in future, api call to get school detail
-    this.commonService.schoolDetail = { name: 'ABC Public School', schoolId: this.commonService.userObj.schoolId, classFrom: '2', classTo: '8' }    
+    if (this.commonService.userObj.userType == 'S') {
+      this.commonService.getSchoolData();
+    }
   }
 
   toggleDrawer(drawer: MatDrawer) {
@@ -35,5 +39,7 @@ export class HomeComponent implements OnInit {
 
     console.log(this.commonService.sidenavOpen)
   }
+
+
 
 }

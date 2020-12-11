@@ -10,8 +10,9 @@ import { CommonService } from '../services/common.service'
 export class NavigationComponent implements OnInit {
 
   constructor(public commonService: CommonService, private router: Router) { }
-
+  userObj: any = {};
   ngOnInit(): void {
+    this.userObj = this.commonService.userObj
   }
 
   setRoute(routeName) {

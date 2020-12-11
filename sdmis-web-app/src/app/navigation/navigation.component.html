@@ -6,12 +6,12 @@
                 <span> Dashboard </span>
             </a>
         </li>
-        <li>
+        <li *ngIf="userObj.userType == 'S'">
             <a routerLink="/home/studentProfile" routerLinkActive="active" (click)="setRoute('Student Profile')">
                 <img src="assets/images/manage.svg" width="15px"> Student Profile
             </a>
         </li>
-        <li>
+        <li *ngIf="userObj.userType == 'S'">
             <a routerLink="/home/createSection" routerLinkActive="active" (click)="setRoute('Create Section')">
                 <img src="assets/images/manage.svg" width="15px"> Create Section
             </a>

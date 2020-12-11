@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService {
+
+  constructor(private http: HttpService) {}
 
   currentRoute: String = "Dashboard";
   generatedStudentId: any;
@@ -13,23 +16,21 @@ export class CommonService {
   schoolDetail: any = {};
 
   classList: any = [
-    { name: 'Class I', id: 'I', value: '1' },
-    { name: 'Class II', id: 'II', value: '2' },
-    { name: 'Class III', id: 'III', value: '3' },
-    { name: 'Class IV', id: 'IV', value: '4' },
-    { name: 'Class V', id: 'V', value: '5' },
-    { name: 'Class VI', id: 'VI', value: '6' },
-    { name: 'Class VII', id: 'VII', value: '7' },
-    { name: 'Class VIII', id: 'VIII', value: '8' },
-    { name: 'Class IX', id: 'IX', value: '9' },
-    { name: 'Class X', id: 'X', value: '10' },
-    { name: 'Class XI', id: 'XI', value: '11' },
-    { name: 'Class XII', id: 'XII', value: '12' },
+    { name: 'Class I', id: 'I', value: 1},
+    { name: 'Class II', id: 'II', value: 2},
+    { name: 'Class III', id: 'III', value: 3},
+    { name: 'Class IV', id: 'IV', value: 4},
+    { name: 'Class V', id: 'V', value: 5},
+    { name: 'Class VI', id: 'VI', value: 6},
+    { name: 'Class VII', id: 'VII', value: 7},
+    { name: 'Class VIII', id: 'VIII', value: 8},
+    { name: 'Class IX', id: 'IX', value: 9},
+    { name: 'Class X', id: 'X', value: 10},
+    { name: 'Class XI', id: 'XI', value: 11 },
+    { name: 'Class XII', id: 'XII', value: 12 },
   ];
 
   userObj: any = {};
-
-  constructor() { }
 
   setCurrentRoute(routeName: any) {
     this.currentRoute = routeName;
@@ -44,6 +45,7 @@ export class CommonService {
   }
 
   createSchoolClassList(classFrom, classTo) {
+    console.log(classFrom + " : " + classTo)
     let mstClass = [...this.classList]
     let classList = [];
     mstClass.filter(obj => {
@@ -52,6 +54,16 @@ export class CommonService {
       }
     })
     return classList
+  }
+
+  getSchoolData() {
+    let udiseCode = this.userObj.schoolId
+    this.http.getSchoolByUdise(udiseCode).subscribe(res => {
+      console.log(res)
+      this.schoolDetail = res.data.result
+      this.schoolDetail.blockCode = '160306'
+      this.schoolDetail.districtCode = '160'
+    })
   }
 
 }

@@ -30,12 +30,17 @@ export class CreateSectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.userObj = this.common.userObj;
-    this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
+    let interval = setInterval( () => {
+      if(this.common.schoolDetail) {
+        this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
+        clearInterval(interval)
+      }
+    }, 100)
   }
 
 
   saveSection() {
-    this.mstClassSection.schoolId = this.common.schoolDetail.schoolId
+    this.mstClassSection.schoolId = this.common.schoolDetail.udiseCode
     this.mstClassSection.status = 'A'
     console.log(this.mstClassSection)
     let requestDto: any = {};
@@ -48,7 +53,8 @@ export class CreateSectionComponent implements OnInit {
 
   getSectionList(className) {
     console.log(className)
-    this.http.getClassSection(className, this.userObj.schoolId).subscribe(res=> {
+    this.http.getClassSection(className, this.common.schoolDetail.udiseCode).subscribe(res=> {
+      console.log(this.common.schoolDetail.udiseCode)
       console.log(res)
       if(res.statusCode == environment.successCode) {
         this.sectionList = new MatTableDataSource(res.mstClassSections);

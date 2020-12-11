@@ -39,6 +39,11 @@
         background-color: #fbfbfb;
     }
 
+    .container {
+        max-width: 1500px;
+        margin-top: 1.5rem;
+    }
+
     .w-90 {
         width: 90%;
     }
@@ -331,4 +336,17 @@
     .radio-label {
         font-weight: bolder;
         margin-bottom: 1.5rem;
+    }
+
+    .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+        color: #B8BBBF !important;
+        opacity: 1 !important;
+    }
+    
+    .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
+        color: var(--color-red) !important
+    }
+    
+    .mat-form-field-label {
+        color: #B8BBBF !important
     }

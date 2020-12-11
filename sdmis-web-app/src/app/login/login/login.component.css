@@ -31,21 +31,19 @@
     margin-bottom: 2rem;
 }
 
-.mat-form-field-appearance-outline .mat-form-field-outline-thick {
-    /* login field outline colour  */
+/* .mat-form-field-appearance-outline .mat-form-field-outline-thick {
     color: var(--form-field-outline) !important;
     opacity: 1 !important;
     background-color: transparent;
 }
 
 .mat-form-field-label {
-    /* login field text colour   */
     color: var(--form-field-text) !important
 }
 
 .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
     color: var(--color-blue) !important;
-}
+} */
 
 .mat-form-field-subscript-wrapper {
     margin-top: 0.3rem;
