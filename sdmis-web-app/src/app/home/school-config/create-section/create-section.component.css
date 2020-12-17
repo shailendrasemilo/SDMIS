@@ -1,7 +1,6 @@
 .mat-form-field-appearance-outline .mat-form-field-outline-thick {
     color: #B8BBBF !important;
     opacity: 1 !important;
-    background-color: white;
 }
 
 .mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {

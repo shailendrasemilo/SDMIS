@@ -49,10 +49,10 @@ export class HttpService {
     return this.http.post<any>(environment.api_base_url + '/saveVocationalDetail', requestDto);
   }
 
-  getStudentBasicInfoById(studentId, schoolId) {
+  getStudentBasicInfoById(studentId, udiseCode) {
     let params = new HttpParams();
     params = params.set('studentId', studentId)
-    params = params.set('schoolId', schoolId)
+    params = params.set('udiseCode', udiseCode)
 
     return this.http.get<any>(environment.api_base_url + '/viewStubasicDetail', { params });
   }
@@ -61,7 +61,7 @@ export class HttpService {
     let params = new HttpParams();
     params = params.set('className', stdSearchParam.class)
     params = params.set('section', stdSearchParam.section)
-    params = params.set('schoolId', stdSearchParam.schoolId)
+    params = params.set('udiseCode', stdSearchParam.udiseCode)
     return this.http.get<any>(environment.api_base_url + '/getStudentList', { params });
   }
 
@@ -93,22 +93,42 @@ export class HttpService {
     return this.http.get<any>(environment.api_base_url + '/viewResultDetail', { params });
   }
 
-  getDashboard(schoolId) {
+  getSchoolDashboard(udiseCode) {
     let params = new HttpParams();
-    params = params.set('schoolId', schoolId)
+    params = params.set('udiseCode', udiseCode)
     return this.http.get<any>(environment.api_base_url + '/getSchoolDasboard', { params });
+  }
+
+  getBlockDashboard(blockCode) {
+    let params = new HttpParams();
+    params = params.set('blockCode', blockCode)
+    return this.http.get<any>(environment.api_base_url + '/getBlockDasboard', { params });
   }
 
   saveSectionMst(requestDto) {
     return this.http.post<any>(environment.api_base_url + '/saveClassSection', requestDto);
   }
 
-  getClassSection(className, schoolId) {
-    console.log(schoolId)
+  getClassSection(className, udiseCode) {
+    console.log(udiseCode)
     let params = new HttpParams();
     params = params.set('className', className)
-    params = params.set('schoolId', schoolId)
+    params = params.set('schoolId', udiseCode)
     return this.http.get<any>(environment.api_base_url + '/getClassSection', { params });
+  }
+
+  getAllSchoolByBlock(blockCode, page, limit) {
+    let params = new HttpParams();
+    params = params.set('blockCode', blockCode)
+    params = params.set('page', page)
+    params = params.set('pageLimit', limit)
+    return this.http.get<any>('https://api.udiseplus.gov.in/v1/public/schoolMaster/byBlockCode', {params})
+  }
+
+  getSchoolByUdise(udiseCode) {
+    let params = new HttpParams();
+    params = params.set('udiseCode', udiseCode)
+    return this.http.get<any>('https://api.udiseplus.gov.in/v1/public/schoolMaster/byUdiseCode', {params})
   }
 
 }

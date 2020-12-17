@@ -6,6 +6,9 @@ import { MatCardModule } from '@angular/material/card';
 import { ChartsModule } from 'node_modules/ng2-charts'
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AlertModule } from 'src/app/alert/alert.module';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [ DashboardComponent ],
@@ -15,7 +18,10 @@ import { AlertModule } from 'src/app/alert/alert.module';
     MatCardModule,
     ChartsModule,
     MatProgressBarModule,
-    AlertModule
+    AlertModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule
   ]
 })
 export class DashboardModule { }

@@ -23,7 +23,7 @@ export class StudentIncentiveComponent implements OnInit {
   ngOnInit(): void {
     this.userObj = this.common.userObj;
     if (this.common.studentAction == 'edit') {
-      this.getIncentiveDetail(this.common.stdIdEdit, this.userObj.schoolId);
+      this.getIncentiveDetail(this.common.stdIdEdit, this.common.schoolDetail.udiseCode);
     }
   }
 
@@ -49,7 +49,7 @@ export class StudentIncentiveComponent implements OnInit {
           this.alertMsg = 'Data updated successfully.';
           this.alertCount = this.alertCount + 1;
           this.alertFlag = true;
-          this.getIncentiveDetail(this.common.stdIdEdit, this.userObj.schoolId);
+          this.getIncentiveDetail(this.common.stdIdEdit, this.common.schoolDetail.udiseCode);
 
         }
       } else {

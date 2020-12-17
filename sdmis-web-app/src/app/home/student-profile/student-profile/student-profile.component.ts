@@ -43,7 +43,14 @@ export class StudentProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userObj = this.common.userObj;
     this.common.studentAction = 'summaryList';
-    this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
+    let interval = setInterval(() => {
+      console.log('interval')
+      if (this.common.schoolDetail) {
+        console.log('found')
+        this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
+        clearInterval(interval)
+      }
+    }, 1)
   }
 
   clearSearchObjs() {
@@ -54,9 +61,9 @@ export class StudentProfileComponent implements OnInit {
 
   getSectionList(className) {
     console.log(className)
-    this.httpService.getClassSection(className, this.userObj.schoolId).subscribe(res=> {
+    this.httpService.getClassSection(className, this.userObj.schoolId).subscribe(res => {
       console.log(res)
-      if(res.statusCode == environment.successCode) {
+      if (res.statusCode == environment.successCode) {
         this.sectionList = res.mstClassSections
       } else {
         this.alertFlag = true;
@@ -71,7 +78,7 @@ export class StudentProfileComponent implements OnInit {
     this.common.studentAction = 'summaryList';
     let userObj = this.common.userObj
     this.basicInfoList = new MatTableDataSource();
-    this.stdSearchParam.schoolId = userObj.schoolId;
+    this.stdSearchParam.udiseCode = this.common.schoolDetail.udiseCode;
     this.httpService.getStudentSummary(this.stdSearchParam).subscribe(data => {
       console.log(data)
       if (data.statusCode == environment.successCode) {

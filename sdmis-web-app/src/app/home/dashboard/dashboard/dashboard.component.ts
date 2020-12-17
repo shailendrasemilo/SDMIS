@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Color } from 'ng2-charts';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { CommonService } from 'src/app/services/common.service';
 import { HttpService } from 'src/app/services/http.service';
 import { environment } from 'src/environments/environment';
@@ -11,6 +12,10 @@ import { environment } from 'src/environments/environment';
 })
 export class DashboardComponent implements OnInit {
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  viewDashLevel: any;
+
   alertCount: number = 0;
   alertMsg: String;
   alertFlag: boolean = false;
@@ -19,7 +24,10 @@ export class DashboardComponent implements OnInit {
   totalCreated: any = false;
   classWiseCreated: any = false;
   sectionWiseCreated: any = false;
+  tableDataCreated: any = false;
   dashboardData: any = {};
+  tableColumn: any = ['name', 'id']
+  tableData: any = []
 
   //api
   totalProfileData: any = {};
@@ -53,7 +61,7 @@ export class DashboardComponent implements OnInit {
 
   //default
   //element var is the key value of totalProfileData object
-  chartMasterData: any = [{ name: 'Completed Profile', class: 'complete', var: 'completeProfile' }, { name: 'Remaining Profile', class: 'remaining', var: 'remainingProfile' }];
+  schoolChartMasterData: any = [{ name: 'Completed Profile', class: 'complete', var: 'completeProfile' }, { name: 'Remaining Profile', class: 'remaining', var: 'remainingProfile' }];
   chartColors: Array<any> = [{ backgroundColor: ['#56C549', '#E93535'] }]
 
   doughnutChartLabels: string[];
@@ -78,9 +86,34 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.userObj = this.common.userObj;
     console.log(this.userObj)
-    this.http.getDashboard(this.userObj.schoolId).subscribe(res => {
+    if (this.userObj.userType == 'S') {
+      this.viewDashLevel = 'school';
+      this.getSchoolDash(this.userObj.schoolId);
+    } else if (this.userObj.userType == 'B') {
+      this.viewDashLevel = 'block';
+      this.getBlockDash(this.userObj.blockCode);
+    }
+
+  }
+
+  applyFilter(searchText) {
+    console.log(searchText)
+    this.tableData.filter = searchText.trim().toLowerCase();
+  }
+
+  clearDashData() {
+    this.totalCreated = false;
+    this.sectionWiseCreated = false;
+    this.classWiseCreated = false;
+    this.tableDataCreated = false;
+  }
+
+  getSchoolDash(udiseCode) {
+    this.http.getSchoolDashboard(udiseCode).subscribe(res => {
       console.log(res);
       if (res.statusCode == environment.successCode) {
+        this.clearDashData();
+        this.viewDashLevel = 'school';
         this.dashboardData = res.dashboardData;
         this.createTotalData();
         this.createClassWiseData();
@@ -92,8 +125,49 @@ export class DashboardComponent implements OnInit {
       }
 
     })
+  }
 
+  getBlockDash(blockCode) {
+    this.http.getBlockDashboard(blockCode).subscribe(res => {
+      console.log(res);
+      if (res.statusCode == environment.successCode) {
+        this.dashboardData = res.dashboardData;
+        this.createTotalData();
+        this.createClassWiseData();
+        this.createSectionWiseData();
+        this.createTableData(blockCode);
+      } else {
+        this.alertMsg = res.description;
+        this.alertCount = this.alertCount + 1;
+        this.alertFlag = true;
+      }
 
+    })
+  }
+
+  createTableData(blockCode) {
+    if (this.viewDashLevel == 'block') {
+      this.http.getAllSchoolByBlock(blockCode, 1, 1).subscribe(res => {
+        console.log(res)
+        if (res.statusCode == environment.httpSuccess) {
+          this.http.getAllSchoolByBlock(blockCode, 1, res.data.totalSize).subscribe(res2 => {
+            console.log(res2)
+            if (res.statusCode == environment.httpSuccess) {
+              this.tableData = res2.data.result;
+              this.tableData = new MatTableDataSource(this.tableData);
+              setTimeout(() => {
+                this.tableData.paginator = this.paginator;
+              }, 100)
+              this.tableDataCreated = true;
+            }
+          })
+        } else {
+          this.alertMsg = res.statusMessage;
+          this.alertCount = this.alertCount + 1;
+          this.alertFlag = true;
+        }
+      })
+    }
   }
 
   createTotalData() {
@@ -108,12 +182,12 @@ export class DashboardComponent implements OnInit {
       return parseInt(a) + parseInt(b);
     }, 0);
 
-    this.chartMasterData.forEach(element => {
+    this.schoolChartMasterData.forEach(element => {
       if (profileDataKeys.includes(element.var)) {
         element.count = this.totalProfileData[element.var]
       }
     });
-    console.log(this.chartMasterData);
+    console.log(this.schoolChartMasterData);
     this.totalCreated = true;
   }
 
@@ -134,4 +208,10 @@ export class DashboardComponent implements OnInit {
     this.sectionWiseCreated = true;
   }
 
+  originalDash() {
+    if (this.userObj.userType = 'B') {
+      this.viewDashLevel = 'block';
+      this.getBlockDash(this.userObj.blockCode)
+    }
+  }
 }

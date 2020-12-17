@@ -1,21 +1,3 @@
-.w-80 {
-    width: 80%;
-}
-
-.mat-form-field-appearance-outline .mat-form-field-outline-thick {
-    color: #B8BBBF !important;
-    opacity: 1 !important;
-    background-color: white;
-}
-
-.mat-form-field-appearance-outline.mat-form-field-invalid.mat-form-field-invalid .mat-form-field-outline-thick {
-    color: var(--color-red) !important
-}
-
-.mat-form-field-label {
-    color: #B8BBBF !important
-}
-
 .custom-input {
     width: 250px;
     background-position: 230px 13px;
@@ -68,4 +50,9 @@
 .view-icon {
     margin-top: 0.75rem;
     margin-bottom: 1rem;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    color: #B8BBBF !important;
+    opacity: 1 !important;
 }

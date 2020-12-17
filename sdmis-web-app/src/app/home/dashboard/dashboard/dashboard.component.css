@@ -8,7 +8,8 @@
 
 .dash-card {
     min-height: 350px;
-    max-height: 350px;;
+    max-height: 350px;
+    ;
 }
 
 .total-chart {
@@ -116,4 +117,36 @@
 
 .mat-card {
     box-shadow: 0px 2px 4px #0000000D;
+}
+
+tr.mat-header-row {
+    height: 30px !important
+}
+
+td.mat-cell:not(:first-of-type), th.mat-header-cell:not(:first-of-type) {
+    text-align: center;
+}
+
+.table-list {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    width: 40%;
+}
+
+.mat-row:hover {
+    cursor: pointer;
+}
+
+.custom-input {
+    width: 200px;
+    background-position: 170px 10px;
+    height: 35px;
+}
+
+tr.mat-row {
+    height: 30px;
+}
+
+.mat-cell {
+    font-size: 12px !important;
 }
