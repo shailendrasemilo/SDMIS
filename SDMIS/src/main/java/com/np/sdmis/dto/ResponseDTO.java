@@ -6,6 +6,7 @@ import java.util.Optional;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.np.sdmis.model.DashboardData;
+import com.np.sdmis.model.MasterConfig;
 import com.np.sdmis.model.MstClassSection;
 import com.np.sdmis.model.StdClassSectionMapping;
 import com.np.sdmis.model.StdEducationDetail;
@@ -32,6 +33,16 @@ public class ResponseDTO {
 	List<StudentListData> studentListDatas;
 	List<MstClassSection> mstClassSections;
 	DashboardData dashboardData;
+	private MasterConfig masterConfig;
+	
+
+	public MasterConfig getMasterConfig() {
+		return masterConfig;
+	}
+
+	public void setMasterConfig(MasterConfig masterConfig) {
+		this.masterConfig = masterConfig;
+	}
 
 	public DashboardData getDashboardData() {
 		return dashboardData;

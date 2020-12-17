@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.np.sdmis.model.StdEducationDetail;
 import com.np.sdmis.model.StdIncentiveDetail;
+import com.np.sdmis.model.MasterConfig;
 import com.np.sdmis.model.MstClassSection;
 import com.np.sdmis.model.StdClassSectionMapping;
 import com.np.sdmis.model.StdVocationalDetail;
@@ -22,6 +23,15 @@ public class RequestDTO {
 	private StdIncentiveDetail incentiveDetail;
 	private StdVocationalDetail vocationalDetail;
 	private MstClassSection mstClassSection;
+	private MasterConfig masterConfig;
+
+	public MasterConfig getMasterConfig() {
+		return masterConfig;
+	}
+
+	public void setMasterConfig(MasterConfig masterConfig) {
+		this.masterConfig = masterConfig;
+	}
 
 	public MstClassSection getMstClassSection() {
 		return mstClassSection;
