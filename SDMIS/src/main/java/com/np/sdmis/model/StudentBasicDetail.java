@@ -87,6 +87,40 @@ public class StudentBasicDetail implements Serializable {
 	String districtCode;
 	@Column(name = "block_code")
 	String blockCode;
+	@Column(name = "category_id")
+	long categoryId;
+	@Column(name = "management_id")
+	long managementId;
+	@Column(name = "edu_type")
+	long eduType;
+	@Column(name = "locality")
+	String locality;
+	
+	
+
+	public long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(long categoryId) {
+		this.categoryId = categoryId;
+	}
+
+	public long getManagementId() {
+		return managementId;
+	}
+
+	public void setManagementId(long managementId) {
+		this.managementId = managementId;
+	}
+
+	public long getEduType() {
+		return eduType;
+	}
+
+	public void setEduType(long eduType) {
+		this.eduType = eduType;
+	}
 
 	public String getUdiseCode() {
 		return udiseCode;
@@ -334,6 +368,14 @@ public class StudentBasicDetail implements Serializable {
 
 	public void setModifiedTime(Date modifiedTime) {
 		this.modifiedTime = modifiedTime;
+	}
+
+	public String getLocality() {
+		return locality;
+	}
+
+	public void setLocality(String locality) {
+		this.locality = locality;
 	}
 
 }

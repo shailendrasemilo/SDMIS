@@ -5,7 +5,7 @@
 -- Dumped from database version 12.4
 -- Dumped by pg_dump version 12.4
 
--- Started on 2020-12-17 14:31:30
+-- Started on 2020-12-23 13:32:03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -305,7 +305,11 @@ CREATE TABLE public.std_basic_details (
     "udise_code`" character varying(12),
     state_code character varying(10),
     district_code character varying(10),
-    block_code character varying(10)
+    block_code character varying(10),
+    category_id bigint,
+    management_id bigint,
+    edu_type bigint,
+    locality character varying(45)
 );
 
 
@@ -9226,7 +9230,7 @@ COPY public.mst_social_category (record_id, category_name) FROM stdin;
 -- Data for Name: std_basic_details; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.std_basic_details (record_id, student_id, admission_num, date_of_admission, aadhar_num, std_name, father_name, mother_name, gender, social_category, religion, mother_tongue, child_homeless, state_id, district_id, city_id, locality_id, belong_bpl, disadvantage_group, type_of_disability, status, created_by, created_time, modified_by, modified_time, date_of_birth, class_section_id, "udise_code`", state_code, district_code, block_code) FROM stdin;
+COPY public.std_basic_details (record_id, student_id, admission_num, date_of_admission, aadhar_num, std_name, father_name, mother_name, gender, social_category, religion, mother_tongue, child_homeless, state_id, district_id, city_id, locality_id, belong_bpl, disadvantage_group, type_of_disability, status, created_by, created_time, modified_by, modified_time, date_of_birth, class_section_id, "udise_code`", state_code, district_code, block_code, category_id, management_id, edu_type, locality) FROM stdin;
 \.
 
 
@@ -9596,7 +9600,7 @@ ALTER TABLE ONLY public.gis_district
     ADD CONSTRAINT fk_city_sid FOREIGN KEY (state_id) REFERENCES public.gis_state(state_id);
 
 
--- Completed on 2020-12-17 14:31:30
+-- Completed on 2020-12-23 13:32:03
 
 --
 -- PostgreSQL database dump complete
