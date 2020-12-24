@@ -5,9 +5,9 @@
     
     <div>
         <form #sec="ngForm" (ngSubmit)="saveSection()">
-            <div class="row align-items-center">
+            <div class="row align-items-center form-field">
                 <div class="col-md-2 mt-2">
-                    <mat-form-field appearance="outline" class="w-80">
+                    <mat-form-field class="w-80">
                         <mat-label>Class</mat-label>
                         <mat-select [(ngModel)]='mstClassSection.className' name='mstClassSection.className' required #class (ngModelChange)="getSectionList(class.value)">
                             <mat-option *ngFor="let class of classList" [value]="class.id">{{class.name}}</mat-option>
@@ -15,7 +15,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col-md-2 mt-2">
-                    <mat-form-field appearance="outline" class="w-80">
+                    <mat-form-field class="w-80">
                         <mat-label>Section Name</mat-label>
                         <input matInput placeholder="Section Name" [(ngModel)]="mstClassSection.sectionName"
                             name="mstClassSection.sectionName" required>

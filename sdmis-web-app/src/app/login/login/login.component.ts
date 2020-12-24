@@ -14,9 +14,13 @@ export class LoginComponent implements OnInit {
 
   defaultUser: any = [
     { 'username': 'preritSchool1', 'password': 'Admin@123', 'schoolId': '16030600201', userType: 'S', name: 'Prerit School 1', designation: 'Teacher' },
+    { 'username': 'preritSchool3', 'password': 'Admin@123', 'schoolId': '16030600206', userType: 'S', name: 'Prerit School 3', designation: 'Teacher' },
     { 'username': 'preritSchool2', 'password': 'Admin@123', 'schoolId': '16030600202', userType: 'S', name: 'Prerit School 2', designation: 'Teacher' },
+    { 'username': 'preritSchool4', 'password': 'Admin@123', 'schoolId': '01131900202', userType: 'S', name: 'Prerit School 4', designation: 'Teacher' },
     { 'username': 'preritBlock', 'password': 'Admin@123', 'blockCode': '160306', userType: 'B', name: 'Prerit Block', designation: 'Block User' }
   ];
+  
+  
   user: any = {};
   alertCount: number = 0;
   alertMsg: String;

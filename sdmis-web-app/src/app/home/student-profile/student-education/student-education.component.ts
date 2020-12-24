@@ -14,6 +14,12 @@ export class StudentEducationComponent implements OnInit {
   requestDto: any = {};
   classList: any = [];
   moiList: any = [{ name: 'Hindi', id: 1 }, { name: 'English', id: 2 }];
+  statusList: any = [
+    { name: "Not Applicable", value: "0" },
+    { name: "Same school", value: "1" },
+    { name: "Another school", value: "2" },
+    { name: "Anganwadi/ECCE centre", value: "3" },
+    { name: "None", value: "4" }]
   userObj: any = {};
 
   alertCount: number = 0;
@@ -60,16 +66,11 @@ export class StudentEducationComponent implements OnInit {
     this.http.saveStudentEducationInfo(this.requestDto).subscribe(res => {
       console.log(res);
       if (res.statusCode == environment.successCode) {
-        if (this.common.studentAction == 'add') {
-          this.educationEvent.emit();
 
-        } else if (this.common.studentAction == 'edit') {
-          this.alertMsg = 'Data updated successfully.';
-          this.alertCount = this.alertCount + 1;
-          this.alertFlag = true;
-          this.getEducationDetail(this.common.stdIdEdit, this.userObj.schoolId);
-
+        if (this.common.studentAction == 'edit') {
+          this.getEducationDetail(this.common.stdIdEdit, this.common.schoolDetail.udiseCode);
         }
+        this.educationEvent.emit();
       } else {
         this.alertMsg = res.description;
         this.alertCount = this.alertCount + 1;

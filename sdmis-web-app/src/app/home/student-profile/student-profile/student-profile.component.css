@@ -52,7 +52,12 @@
     margin-bottom: 1rem;
 }
 
-.mat-form-field-appearance-outline .mat-form-field-outline-thick {
-    color: #B8BBBF !important;
+.short-field .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+    /* color: white !important; */
     opacity: 1 !important;
+    background-color: white;
+}
+
+.short-field .mat-form-field {
+    width: 85%
 }

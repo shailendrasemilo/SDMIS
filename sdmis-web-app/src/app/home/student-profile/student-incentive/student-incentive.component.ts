@@ -16,6 +16,19 @@ export class StudentIncentiveComponent implements OnInit {
   constructor(public common: CommonService, private http: HttpService) { }
   userObj: any = {};
 
+  uniformList: any = [{ name: 'None', value: 0 }, { name: 'One Set', value: 1 }, { name: 'Two Set', value: 2 }, { name: 'Partial', value: 3 }];
+  cwsnFacility: any = [{ name: 'Not Applicable', value: "0" },
+  { name: 'Braille Books', value: "1" },
+  { name: 'Braille Kit', value: "2" },
+  { name: 'Low Vision Kit', value: "3" }]
+
+  splTrainingList: any = [{name: "Not Applicable", value: "0"},
+  {name: "KGBV", value: "1"}, 
+  {name: "Non KGBV (Government)", value: "2"},
+  {name: "Girls Hostel", value: "3"},
+  {name: "Others", value: "4"},
+  {name: "None", value: "5"}]
+
   alertCount: number = 0;
   alertMsg: String;
   alertFlag: boolean = false;
@@ -42,16 +55,10 @@ export class StudentIncentiveComponent implements OnInit {
     this.http.saveStudentIncentiveDetail(this.requestDTO).subscribe(res => {
       console.log(res)
       if (res.statusCode == environment.successCode) {
-        if (this.common.studentAction == 'add') {
-          this.incentiveEvent.emit();
-
-        } else if (this.common.studentAction == 'edit') {
-          this.alertMsg = 'Data updated successfully.';
-          this.alertCount = this.alertCount + 1;
-          this.alertFlag = true;
+        if (this.common.studentAction == 'edit') {
           this.getIncentiveDetail(this.common.stdIdEdit, this.common.schoolDetail.udiseCode);
-
         }
+        this.incentiveEvent.emit();
       } else {
         this.alertMsg = res.description;
         this.alertCount = this.alertCount + 1;

@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
   totalProfileData: any = {};
   classwiseMaxStd: any = '200'
   profileWiseMaxStd: any = 1000;
-  classWiseData: any = [
+  classWiseMst: any = [
     { classRoman: 'I', classNum: 1 },
     { classRoman: 'II', classNum: 2 },
     { classRoman: 'III', classNum: 3 },
@@ -48,11 +48,13 @@ export class DashboardComponent implements OnInit {
     { classRoman: 'XII', classNum: 12 }
   ]
 
+  classWiseData: any = [];
+
   profileWiseData: any = [
     { displayText: 'Complete Basic Info' },
     { displayText: 'Complete Education Info' },
-    { displayText: 'Complete Vocational Info' },
     { displayText: 'Complete Incentive Info' },
+    { displayText: 'Complete Vocational Info' },
     { displayText: 'Complete Result Info' },
   ]
 
@@ -85,7 +87,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.userObj = this.common.userObj;
-    console.log(this.userObj)
     if (this.userObj.userType == 'S') {
       this.viewDashLevel = 'school';
       this.getSchoolDash(this.userObj.schoolId);
@@ -97,7 +98,6 @@ export class DashboardComponent implements OnInit {
   }
 
   applyFilter(searchText) {
-    console.log(searchText)
     this.tableData.filter = searchText.trim().toLowerCase();
   }
 
@@ -109,8 +109,9 @@ export class DashboardComponent implements OnInit {
   }
 
   getSchoolDash(udiseCode) {
+    this.common.getSchoolData(udiseCode)
     this.http.getSchoolDashboard(udiseCode).subscribe(res => {
-      console.log(res);
+      console.log(res)
       if (res.statusCode == environment.successCode) {
         this.clearDashData();
         this.viewDashLevel = 'school';
@@ -135,7 +136,10 @@ export class DashboardComponent implements OnInit {
         this.createTotalData();
         this.createClassWiseData();
         this.createSectionWiseData();
-        this.createTableData(blockCode);
+        setTimeout(() => {
+          this.createTableData(blockCode);
+        }, 500)
+
       } else {
         this.alertMsg = res.description;
         this.alertCount = this.alertCount + 1;
@@ -152,7 +156,7 @@ export class DashboardComponent implements OnInit {
         if (res.statusCode == environment.httpSuccess) {
           this.http.getAllSchoolByBlock(blockCode, 1, res.data.totalSize).subscribe(res2 => {
             console.log(res2)
-            if (res.statusCode == environment.httpSuccess) {
+            if (res2.statusCode == environment.httpSuccess) {
               this.tableData = res2.data.result;
               this.tableData = new MatTableDataSource(this.tableData);
               setTimeout(() => {
@@ -187,17 +191,41 @@ export class DashboardComponent implements OnInit {
         element.count = this.totalProfileData[element.var]
       }
     });
-    console.log(this.schoolChartMasterData);
     this.totalCreated = true;
   }
 
   createClassWiseData() {
     let classArr = this.dashboardData.classesData;
-    this.classWiseData.forEach(element => {
-      element.count = classArr[element.classNum - 1]
-    });
-    console.log(this.classWiseData)
-    this.classWiseCreated = true;
+    console.log(this.userObj.userType +" : " +this.viewDashLevel )
+    this.classWiseData = [];
+    if (this.userObj.userType == 'B' && this.viewDashLevel == "block") {
+      this.classWiseData = [...this.classWiseMst]
+      this.classWiseData.forEach(element => {
+        element.count = classArr[element.classNum - 1]
+      });
+      this.classWiseCreated = true;
+
+    } else if ((this.userObj.userType == 'S' || this.userObj.userType == 'B') && this.viewDashLevel == "school") {
+      let interval = setInterval(() => {
+        console.log(interval)
+        if (this.common.schoolDetail) {
+          let schoolObj = this.common.schoolDetail;
+          console.log(schoolObj)
+          this.classWiseMst.forEach(element => {
+            if (element.classNum >= schoolObj.classFrom && element.classNum <= schoolObj.classTo) {
+              this.classWiseData.push(element);
+            }
+            this.classWiseData.forEach(element => {
+              element.count = classArr[element.classNum - 1]
+            });
+            console.log(this.classWiseData)
+            this.classWiseCreated = true;
+          });
+          clearInterval(interval)
+        }
+      }, 1)
+    }
+   
   }
 
   createSectionWiseData() {

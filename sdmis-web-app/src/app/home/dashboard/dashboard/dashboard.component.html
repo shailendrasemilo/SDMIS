@@ -13,7 +13,7 @@
         <div class="col-md-3" *ngIf="totalCreated">
             <mat-card class="dash-card">
                 <div class="dashboard-card-head">
-                    Total Students in school
+                    Total Students in {{(userObj.userType == 'S') ? 'school' : 'block'}}
                 </div>
                 <div class="total-chart">
                     <canvas baseChart chartType="doughnut" [data]="doughnutChartData" [options]="chartOptions"
@@ -46,7 +46,7 @@
                     Students class wise
                 </div>
 
-                <div class="row">
+                <div class="row" *ngIf="classWiseData.length > 6">
                     <div class="col-md-6 pr-5">
                         <div class="class-wise-head">Classes:</div>
                         <ul class="list-unstyled">
@@ -83,7 +83,24 @@
                             </li>
                         </ul>
                     </div>
+                </div>
+                <div class="row" *ngIf="classWiseData.length <= 6">
+                    <div class="col-md-12 pr-5">
+                        <div class="class-wise-head">Classes:</div>
+                        <ul class="list-unstyled">
+                            <li *ngFor='let classWise of classWiseData'>
+                                <div class="d-flex align-items-center classwise-chart">
+                                    <div class="class-wise-label">{{classWise.classRoman}}</div>
 
+                                    <mat-progress-bar class="blue-progress mr-3" mode="determinate"
+                                        [value]="classWise.count / classwiseMaxStd * 100">
+                                    </mat-progress-bar>
+
+                                    <div class="class-wise-count">{{classWise.count}}</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
 
             </mat-card>

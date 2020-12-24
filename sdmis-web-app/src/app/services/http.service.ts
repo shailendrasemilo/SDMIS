@@ -29,10 +29,6 @@ export class HttpService {
     return this.http.get<any>(environment.api_base_url + '/getBlock', { params });
   }
 
-  getStudents() {
-    return this.http.get<any>(environment.api_base_url + '/students');
-  }
-
   saveStudentEducationInfo(requestDto) {
     return this.http.post<any>(environment.api_base_url + '/saveEducationDetail', requestDto);
   }
@@ -53,7 +49,7 @@ export class HttpService {
     let params = new HttpParams();
     params = params.set('studentId', studentId)
     params = params.set('udiseCode', udiseCode)
-
+    console.log(params.toString())
     return this.http.get<any>(environment.api_base_url + '/viewStubasicDetail', { params });
   }
 
@@ -62,6 +58,7 @@ export class HttpService {
     params = params.set('className', stdSearchParam.class)
     params = params.set('section', stdSearchParam.section)
     params = params.set('udiseCode', stdSearchParam.udiseCode)
+    console.log(params.toString())
     return this.http.get<any>(environment.api_base_url + '/getStudentList', { params });
   }
 
@@ -69,6 +66,8 @@ export class HttpService {
     let params = new HttpParams();
     params = params.set('studentId', studentId)
     params = params.set('schoolId', schoolId)
+    console.log(params.toString())
+
     return this.http.get<any>(environment.api_base_url + '/viewEducationDetail', { params });
   }
 
@@ -76,6 +75,8 @@ export class HttpService {
     let params = new HttpParams();
     params = params.set('studentId', studentId)
     params = params.set('schoolId', schoolId)
+    console.log(params.toString())
+
     return this.http.get<any>(environment.api_base_url + '/viewIncentiveDetail', { params });
   }
 
@@ -83,6 +84,8 @@ export class HttpService {
     let params = new HttpParams();
     params = params.set('studentId', studentId)
     params = params.set('schoolId', schoolId)
+    console.log(params.toString())
+
     return this.http.get<any>(environment.api_base_url + '/viewVocationalDetail', { params });
   }
 
@@ -90,6 +93,7 @@ export class HttpService {
     let params = new HttpParams();
     params = params.set('studentId', studentId)
     params = params.set('schoolId', schoolId)
+    console.log(params.toString())
     return this.http.get<any>(environment.api_base_url + '/viewResultDetail', { params });
   }
 
@@ -110,10 +114,10 @@ export class HttpService {
   }
 
   getClassSection(className, udiseCode) {
-    console.log(udiseCode)
     let params = new HttpParams();
     params = params.set('className', className)
     params = params.set('schoolId', udiseCode)
+    console.log(params.toString())
     return this.http.get<any>(environment.api_base_url + '/getClassSection', { params });
   }
 
@@ -129,6 +133,18 @@ export class HttpService {
     let params = new HttpParams();
     params = params.set('udiseCode', udiseCode)
     return this.http.get<any>('https://api.udiseplus.gov.in/v1/public/schoolMaster/byUdiseCode', {params})
+  }
+
+  getSocialCategory() {
+    let params = new HttpParams();
+    params = params.set('masterType', 'SOCIAL_CATEGORY')
+    return this.http.get<any>('https://api.udiseplus.gov.in/v1/public/masters', {params})
+  }
+
+  getReligion() {
+    let params = new HttpParams();
+    params = params.set('masterType', 'RELIGION')
+    return this.http.get<any>('https://api.udiseplus.gov.in/v1/public/masters', {params})
   }
 
 }

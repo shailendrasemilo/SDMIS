@@ -1,27 +1,60 @@
 <div class="stepper-section">
     <form #profile="ngForm">
         <div class="row">
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-3">
+                <label class="radio-label">Student Details</label>
+            </div>
+        </div>
+        <div class="row form-field">
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="userObj.userType=='B'">
+                <mat-form-field class="w-75">
+                    <mat-label>School</mat-label>
+                    <mat-select [(ngModel)]="classMapping.udiseCode" name="classMapping.udiseCode" required>
+                        <mat-option *ngFor="let school of schoolList" [value]="school.udiseCode"
+                            (click)="getClassBySchoolRange(school.classFrom, school.classTo)">{{school.schName}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>School is required</mat-error>
+                </mat-form-field>
+            </div>
+
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Student Name</mat-label>
-                    <input matInput placeholder="Student Name" [(ngModel)]="profileDetails.name"
+                <mat-form-field class="w-75">
+                    <mat-label>Student Aadhar Number (1)</mat-label>
+                    <input matInput placeholder="Student Aadhar Number (1)" [(ngModel)]="profileDetails.aadharNum"
+                        name="profileDetails.aadharNum">
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <mat-form-field class="w-75">
+                    <mat-label>Student Name (2)</mat-label>
+                    <input matInput placeholder="Student Name (2)" [(ngModel)]="profileDetails.name"
                         name="profileDetails.name" required>
                     <mat-error>Student Name is required</mat-error>
                 </mat-form-field>
             </div>
 
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>School Admission Number</mat-label>
-                    <input matInput placeholder="School Admission Number" [(ngModel)]="profileDetails.admissionNum"
-                        name="profileDetails.admissionNum" required appNumberOnly>
-                    <mat-error>School Admission No. is required</mat-error>
+                <mat-form-field class="w-75">
+                    <mat-label>Father's Name (3)</mat-label>
+                    <input matInput placeholder="Father's Name (3)" [(ngModel)]="profileDetails.fatherName"
+                        name="profileDetails.fatherName" required>
+                    <mat-error>Father's Name is required</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <mat-form-field class="w-75">
+                    <mat-label>Mother's Name (4)</mat-label>
+                    <input matInput placeholder="Mother's Name (4)" [(ngModel)]="profileDetails.motherName"
+                        name="profileDetails.motherName" required>
+                    <mat-error>Mother's Name is required</mat-error>
                 </mat-form-field>
             </div>
 
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Date of Birth</mat-label>
+                <mat-form-field class="w-75">
+                    <mat-label>Date of Birth (5)</mat-label>
                     <input matInput [matDatepicker]="pickerDob" [(ngModel)]="profileDetails.dob"
                         name="profileDetails.dob" (focus)="pickerDob.open()" required>
                     <mat-datepicker-toggle matSuffix [for]="pickerDob"></mat-datepicker-toggle>
@@ -31,55 +64,22 @@
             </div>
 
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Date of Admission</mat-label>
-                    <input matInput [matDatepicker]="pickerDoa" [(ngModel)]="profileDetails.doa"
-                        name="profileDetails.doa" (focus)="pickerDoa.open()" required>
-                    <mat-datepicker-toggle matSuffix [for]="pickerDoa"></mat-datepicker-toggle>
-                    <mat-datepicker #pickerDoa [startAt]='profileDetails.doa'></mat-datepicker>
-                    <mat-error>Date of Admission is required</mat-error>
-                </mat-form-field>
-            </div>
-
-
-
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Student Class</mat-label>
-                    <mat-select [(ngModel)]="classMapping.className" name="classMapping.className" required #class (ngModelChange)="getSectionList(class.value)">
-                        <mat-option *ngFor="let class of classList" [value]="class.id">{{class.name}}</mat-option>
+                <mat-form-field class="w-75">
+                    <mat-label>Gender (6)</mat-label>
+                    <mat-select [(ngModel)]="profileDetails.gender" name="profileDetails.gender" required>
+                        <mat-option value="1">Boy</mat-option>
+                        <mat-option value="2">Girl</mat-option>
+                        <mat-option value="3">Other/Transgender</mat-option>
                     </mat-select>
-                    <mat-error>Student Class is required</mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Student Section</mat-label>
-                    <mat-select [(ngModel)]="classMapping.section" name="classMapping.section" required>
-                        <mat-option *ngFor="let section of sectionList" [value]="section.sectionName">{{section.sectionName}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error>Student Section is required</mat-error>
                 </mat-form-field>
             </div>
 
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Mother Tongue</mat-label>
-                    <mat-select [(ngModel)]="profileDetails.motherTongue" name="profileDetails.motherTongue" required>
-                        <mat-option *ngFor="let motherTongue of motherTongueList" [value]="motherTongue.id">
-                            {{motherTongue.name}} </mat-option>
-                    </mat-select>
-                    <mat-error>Mother Tongue is required</mat-error>
-                </mat-form-field>
-            </div>
-
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Social Category</mat-label>
+                <mat-form-field class="w-75">
+                    <mat-label>Social Category (7)</mat-label>
                     <mat-select [(ngModel)]="profileDetails.socialCategory" name="profileDetails.socialCategory"
                         required>
-                        <mat-option *ngFor="let socialCategory of socialCategoryList" [value]="socialCategory.id">
+                        <mat-option *ngFor="let socialCategory of socialCategoryList" [value]="socialCategory.code">
                             {{socialCategory.name}}</mat-option>
                     </mat-select>
                     <mat-error>Social Category is required</mat-error>
@@ -87,68 +87,35 @@
             </div>
 
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Gender</mat-label>
-                    <mat-select [(ngModel)]="profileDetails.gender" name="profileDetails.gender" required>
-                        <mat-option value="male">Male</mat-option>
-                        <mat-option value="female">Female</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-
-
-
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Father's Name</mat-label>
-                    <input matInput placeholder="Father's Name" [(ngModel)]="profileDetails.fatherName"
-                        name="profileDetails.fatherName" required>
-                    <mat-error>Father's Name is required</mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Mother's Name</mat-label>
-                    <input matInput placeholder="Mother's Name" [(ngModel)]="profileDetails.motherName"
-                        name="profileDetails.motherName" required>
-                    <mat-error>Mother's Name is required</mat-error>
-                </mat-form-field>
-            </div>
-
-
-            <!-- <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline"class="w-75">
-                    <mat-label>School Name</mat-label>
-                    <input matInput placeholder="School Name" [(ngModel)]="profileDetails.school"
-                        name="profileDetails.school" required>
-                    <mat-error>School Name is required</mat-error>
-                </mat-form-field>
-            </div> -->
-
-
-
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Religion</mat-label>
+                <mat-form-field class="w-75">
+                    <mat-label>Religion (8)</mat-label>
                     <mat-select [(ngModel)]="profileDetails.religion" name="profileDetails.religion" required>
-                        <mat-option *ngFor="let religion of religionList" [value]="religion.id">{{religion.name}}
+                        <mat-option *ngFor="let religion of religionList" [value]="religion.code">{{religion.name}}
                         </mat-option>
                     </mat-select>
                     <mat-error>Religion is required</mat-error>
                 </mat-form-field>
             </div>
 
-
-
-        </div>
-        <div class="row">
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-label>Address Information</mat-label>
+                <mat-form-field class="w-75">
+                    <mat-label>Mother Tongue (9)</mat-label>
+                    <mat-select [(ngModel)]="profileDetails.motherTongue" name="profileDetails.motherTongue" required>
+                        <mat-option *ngFor="let motherTongue of motherTongueList" [value]="motherTongue.id">
+                            {{motherTongue.name}} </mat-option>
+                    </mat-select>
+                    <mat-error>Mother Tongue is required</mat-error>
+                </mat-form-field>
             </div>
         </div>
         <div class="row">
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-3">
+                <label class="radio-label">Address Information</label>
+            </div>
+        </div>
+        <div class="row form-field">
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
+                <mat-form-field class="w-75">
                     <mat-label>State</mat-label>
                     <mat-select [(ngModel)]="profileDetails.stateId" name="profileDetails.stateId" required #state
                         (ngModelChange)="getDistrictList(state.value)">
@@ -159,7 +126,7 @@
 
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
+                <mat-form-field class="w-75">
                     <mat-label>District</mat-label>
                     <mat-select [(ngModel)]="profileDetails.districtId" name="profileDetails.districtId" required #dist
                         (ngModelChange)="getBlockList(dist.value)">
@@ -170,23 +137,120 @@
                 </mat-form-field>
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Block</mat-label>
-                    <mat-select [(ngModel)]="profileDetails.localityId" name="profileDetails.localityId" required>
-                        <mat-option *ngFor="let block of blockList" [value]="block.blockId">{{block.blockName}}
-                        </mat-option>
-                    </mat-select>
+                <mat-form-field class="w-75">
+                    <mat-label>Habitat/Locality (10)</mat-label>
+                    <input matInput placeholder="Habitat/Locality (10)" [(ngModel)]="profileDetails.locality"
+                        name="profileDetails.locality" required>
+                    <mat-error>Habitat/Locality is required</mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-3">
+                <label class="radio-label">Misc. Information</label>
+            </div>
+        </div>
+        <div class="row form-field">
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <mat-form-field class="w-75">
+                    <mat-label>Date of Admission (11)</mat-label>
+                    <input matInput [matDatepicker]="pickerDoa" [(ngModel)]="profileDetails.doa"
+                        name="profileDetails.doa" (focus)="pickerDoa.open()" required>
+                    <mat-datepicker-toggle matSuffix [for]="pickerDoa"></mat-datepicker-toggle>
+                    <mat-datepicker #pickerDoa [startAt]='profileDetails.doa'></mat-datepicker>
+                    <mat-error>Date of Admission is required</mat-error>
                 </mat-form-field>
             </div>
 
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <mat-form-field class="w-75">
+                    <mat-label>School Admission Number (12)</mat-label>
+                    <input matInput placeholder="School Admission Number (12)" [(ngModel)]="profileDetails.admissionNum"
+                        name="profileDetails.admissionNum" required appNumberOnly>
+                    <mat-error>School Admission No. is required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <label id="belongBPL" class="radio-label">Child belong to BPL? (13)</label>
+                <mat-radio-group aria-labelledby="belongBPL" [(ngModel)]="profileDetails.belongBPL"
+                    name="profileDetails.belongBPL">
+                    <div>
+                        <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
+                        <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
+                    </div>
+
+                </mat-radio-group>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <label id="disadvantageGroup" class="radio-label">Belong to disadvantage group? (14)</label>
+                <mat-radio-group aria-labelledby="disadvantageGroup" [(ngModel)]="profileDetails.disadvantageGroup"
+                    name="profileDetails.disadvantageGroup">
+                    <div>
+                        <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
+                        <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
+                    </div>
+                </mat-radio-group>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <mat-form-field class="w-75">
+                    <mat-label>Student Class (16)</mat-label>
+                    <mat-select [(ngModel)]="classMapping.className" name="classMapping.className" required #class
+                        (ngModelChange)="getSectionList(class.value)">
+                        <mat-option *ngFor="let class of classList" [value]="class.id">{{class.name}}</mat-option>
+                    </mat-select>
+                    <mat-error>Student Class is required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <mat-form-field class="w-75">
+                    <mat-label>Student Section</mat-label>
+                    <mat-select [(ngModel)]="classMapping.section" name="classMapping.section" required>
+                        <mat-option *ngFor="let section of sectionList" [value]="section.sectionName">
+                            {{section.sectionName}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>Student Section is required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <mat-form-field class="w-75">
+                    <mat-label>Type of Disablity (21)</mat-label>
+                    <mat-select [(ngModel)]="profileDetails.disabilityType" name="profileDetails.disabilityType"
+                        required>
+                        <mat-option *ngFor="let disability of disabilityList" [value]="disability.key">
+                            {{disability.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>Type of Disability is required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
+                <label id="childHomeless" class="radio-label mt-3">Is Child Homeless? (30)</label>
+                <mat-radio-group class="w-75" aria-labelledby="childHomeless" [(ngModel)]="profileDetails.childHomeless"
+                    name="profileDetails.childHomeless" required>
+                    <div>
+                        <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
+                        <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
+                    </div>
+                </mat-radio-group>
+            </div>
+
         </div>
+
 
         <div class="row">
             <div class="col-lg-11 col-md-11">
                 <div class="mt-4">
                     <button *ngIf="common.studentAction=='add'" type="button" mat-raised-button color="primary"
                         [disabled]="!profile.valid" [ngClass]="{'btn-gradient' : profile.valid}"
-                        (click)="sendBasicInfo();">Save & Continue</button>
+                        (click)="sendBasicInfo();">Save
+                        & Continue</button>
                     <button *ngIf="common.studentAction=='edit'" type="button" mat-raised-button color="primary"
                         [disabled]="!profile.valid" [ngClass]="{'btn-gradient' : profile.valid}"
                         (click)="sendBasicInfo();">Update</button>

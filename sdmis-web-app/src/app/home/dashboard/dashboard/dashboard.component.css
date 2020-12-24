@@ -13,18 +13,19 @@
 }
 
 .total-chart {
+    margin-top: 1.5rem;
     position: relative;
-    margin-top: 3rem;
 }
 
 .text-chart {
+    /* line-height: 2rem; */
     position: absolute;
-    top: 43%;
-    left: 44%;
-    line-height: 2rem;
     font-size: 2.2rem;
     font-weight: 900;
-    opacity: 1;
+    top: 50%;
+    left: 50%;
+    z-index: 999;
+    transform: translate(-50%,-50%);
 }
 
 .chart-legend {

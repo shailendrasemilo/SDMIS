@@ -14,17 +14,28 @@
     </div>
     
     <div *ngIf="common.studentAction=='summaryList'" class="mr-5">
-        <div class="row align-items-center">
-            <div class="col-md-2 mt-2">
-                <mat-form-field appearance="outline">
+        <div class="row align-items-center form-field">
+            <div class="col-md-4 mt-2 short-field" *ngIf="userObj.userType=='B'">
+                <mat-form-field class="w-75">
+                    <mat-label>School</mat-label>
+                    <mat-select [(ngModel)]="stdSearchParam.udiseCode" name="stdSearchParam.udiseCode" required >
+                        <mat-option *ngFor="let school of schoolList" [value]="school.udiseCode" (click)="getClassBySchoolRange(school.classFrom, school.classTo)">{{school.schName}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>School is required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-2 mt-2 short-field">
+                <mat-form-field>
                     <mat-label>Class</mat-label>
                     <mat-select [(ngModel)]='stdSearchParam.class' name='stdSearchParam.class' required #class (ngModelChange)="getSectionList(class.value)">
                         <mat-option *ngFor="let class of classList" [value]="class.id">{{class.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div class="col-md-2 mt-2">
-                <mat-form-field appearance="outline">
+            <div class="col-md-2 mt-2 short-field">
+                <mat-form-field>
                     <mat-label>Section</mat-label>
                     <mat-select [(ngModel)]='stdSearchParam.section' name='stdSearchParam.section' (ngModelChange)="getStudentList()" required>
                         <mat-option *ngFor="let section of sectionList" [value]="section.sectionName">{{section.sectionName}}
@@ -91,29 +102,29 @@
     
     <div *ngIf="common.studentAction=='add' || common.studentAction=='edit'" class="mr-5 mt-2">
         <div class="mt-3">
-            <mat-horizontal-stepper [linear]="common.studentAction=='add'" #stepper >
-                <mat-step [editable]="common.studentAction!='add'" [completed]='false'>
-                    <!--  [completed]='false' -->
+             <mat-horizontal-stepper #stepper > <!-- [linear]="common.studentAction=='add'" -->
+                <mat-step [editable]="common.studentAction!='add'" [completed]="false">
+                    <!--  [completed]="false" -->
                     <ng-template matStepLabel >Basic Information</ng-template>
                     <app-student-basic-info (event)="moveStepper();"></app-student-basic-info>
                 </mat-step>
     
-                <mat-step [editable]="common.studentAction!='add'" [completed]='false'>
+                <mat-step [editable]="common.studentAction!='add'" [completed]="false">
                     <ng-template matStepLabel>Education Details</ng-template>
                     <app-student-education (educationEvent)=moveStepper();></app-student-education>
                 </mat-step>
     
-                <mat-step [editable]="common.studentAction!='add'" [completed]='false'>
+                <mat-step [editable]="common.studentAction!='add'" [completed]="false">
                     <ng-template matStepLabel>Incentive Details</ng-template>
                     <app-student-incentive (incentiveEvent)="moveStepper()"></app-student-incentive>
                 </mat-step>
     
-                <mat-step [editable]="common.studentAction!='add'" [completed]='false'>
+                <mat-step [editable]="common.studentAction!='add'" [completed]="false" *ngIf="common.stdClass > '8'">
                     <ng-template matStepLabel>Vocational Details</ng-template>
                     <app-student-vocational (vocationalEvent)="moveStepper()"></app-student-vocational>
                 </mat-step>
     
-                <mat-step [editable]="common.studentAction!='add'" [completed]='false'>
+                <mat-step [editable]="common.studentAction!='add'" [completed]="false">
                     <ng-template matStepLabel>Results</ng-template>
                     <app-student-result (resultEvent)="resultEvent()"></app-student-result>
                 </mat-step>

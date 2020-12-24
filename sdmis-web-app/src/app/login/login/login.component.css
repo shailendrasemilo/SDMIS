@@ -31,12 +31,12 @@
     margin-bottom: 2rem;
 }
 
-/* .mat-form-field-appearance-outline .mat-form-field-outline-thick {
+ .login-field .mat-form-field-appearance-outline .mat-form-field-outline-thick {
     color: var(--form-field-outline) !important;
     opacity: 1 !important;
     background-color: transparent;
 }
-
+/*
 .mat-form-field-label {
     color: var(--form-field-text) !important
 }
@@ -47,4 +47,8 @@
 
 .mat-form-field-subscript-wrapper {
     margin-top: 0.3rem;
+}
+
+.login-field .mat-form-field-label {
+    color: #B8BBBF !important;
 }

@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     console.log('inside')
     this.commonService.userObj = JSON.parse(sessionStorage.getItem('user'))
     if (this.commonService.userObj.userType == 'S') {
-      this.commonService.getSchoolData();
+      this.commonService.getSchoolData(this.commonService.userObj.schoolId);
     }
   }
 

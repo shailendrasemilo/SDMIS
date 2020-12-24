@@ -1,50 +1,63 @@
 <div class="stepper-section">
     <form #incentive="ngForm">
 
-        <div class="row">
+        <div class="row form-field">
+
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Number of Uniform Sets</mat-label>
-                    <input matInput placeholder="Number of Uniform Sets" [(ngModel)]="incentiveDetail.uniformSet"
-                        name="incentiveDetail.uniformSet" required appNumberOnly>
-                    <mat-error>Number of Uniform sets is required</mat-error>
+                <mat-form-field class="w-75">
+                    <mat-label>Facilities given to CWSN (22)</mat-label>
+                    <mat-select [(ngModel)]="incentiveDetail.facilityCWSN" name="incentiveDetail.facilityCWSN" required>
+                        <mat-option *ngFor="let cwsn of cwsnFacility" [value]='cwsn.value'>{{cwsn.name}}</mat-option>
+                    </mat-select>
+                    <mat-error>Number of uniform sets is required</mat-error>
                 </mat-form-field>
             </div>
 
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <div><label id="freeBooks" class="radio-label">Getting free books</label></div>
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.schoolMgmt == '4'">
+                <mat-form-field class="w-75">
+                    <mat-label>Number of Uniform Sets (23)</mat-label>
+                    <mat-select [(ngModel)]="incentiveDetail.uniformSet" name="incentiveDetail.uniformSet" required>
+                        <mat-option *ngFor="let uniform of uniformList" [value]='uniform.value'>{{uniform.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>Number of uniform sets is required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.schoolMgmt == '4'">
+                <div><label id="freeBooks" class="radio-label">Getting free books (24)</label></div>
                 <mat-radio-group aria-labelledby="freeBooks" [(ngModel)]="incentiveDetail.textBook"
                     name="incentiveDetail.textBook">
                     <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
                     <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
                 </mat-radio-group>
             </div>
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <div><label id="freeTransport" class="radio-label">Getting free transport</label></div>
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.schoolMgmt == '4'">
+                <div><label id="freeTransport" class="radio-label">Getting free transport (25)</label></div>
                 <mat-radio-group aria-labelledby="freeTransport" [(ngModel)]="incentiveDetail.transFacility"
                     name="incentiveDetail.transFacility">
                     <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
                     <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
                 </mat-radio-group>
             </div>
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <div><label id="freeEscort" class="radio-label">Getting free escort</label></div>
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.schoolMgmt == '4'">
+                <div><label id="freeEscort" class="radio-label">Getting free escort (26)</label></div>
                 <mat-radio-group aria-labelledby="freeEscort" [(ngModel)]="incentiveDetail.escortFacility"
                     name="incentiveDetail.escortFacility">
                     <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
                     <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
                 </mat-radio-group>
             </div>
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <div><label id="freeBicycle" class="radio-label">Getting free bicycle</label></div>
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.schoolMgmt == '4'">
+                <div><label id="freeBicycle" class="radio-label">Getting free bicycle (27)</label></div>
                 <mat-radio-group aria-labelledby="freeBicycle" [(ngModel)]="incentiveDetail.bicycle"
                     name="incentiveDetail.bicycle">
                     <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
                     <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
                 </mat-radio-group>
             </div>
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <div><label id="freeHostel" class="radio-label">Getting free hostel</label></div>
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.schoolMgmt == '4'">
+                <div><label id="freeHostel" class="radio-label">Getting free hostel (28)</label></div>
                 <mat-radio-group aria-labelledby="freeHostel" [(ngModel)]="incentiveDetail.hostalFacility"
                     name="incentiveDetail.hostalFacility">
                     <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
@@ -52,13 +65,16 @@
                 </mat-radio-group>
             </div>
 
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <div><label id="specialTraining" class="radio-label">Receiving Special Training</label></div>
-                <mat-radio-group aria-labelledby="specialTraining" [(ngModel)]="incentiveDetail.specialTraining"
-                    name="incentiveDetail.specialTraining">
-                    <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
-                    <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
-                </mat-radio-group>
+            <div class="col-md-6 col-lg-4 col-xl-3" *ngIf="common.schoolMgmt == '4'">
+                <mat-form-field class="w-75">
+                    <mat-label>Receiving Special Training (29)</mat-label>
+                    <mat-select [(ngModel)]="incentiveDetail.specialTraining" name="incentiveDetail.specialTraining"
+                        required>
+                        <mat-option *ngFor="let training of splTrainingList" [value]='training.value'>{{training.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error>Special training is required</mat-error>
+                </mat-form-field>
             </div>
 
         </div>

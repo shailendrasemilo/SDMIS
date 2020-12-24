@@ -29,7 +29,7 @@ export class StudentProfileComponent implements OnInit {
   alertFlag: boolean = false;
   basicInfoList: any = new MatTableDataSource;
   classList: any = [];
-
+  schoolList: any = [];
 
   basicInfoTableHead = ['name', 'admissionNum', 'doa', 'class', 'section', 'gender', 'action'];
   showProgress: boolean = false;
@@ -43,14 +43,41 @@ export class StudentProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userObj = this.common.userObj;
     this.common.studentAction = 'summaryList';
-    let interval = setInterval(() => {
-      console.log('interval')
-      if (this.common.schoolDetail) {
-        console.log('found')
-        this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
-        clearInterval(interval)
+    if (this.userObj.userType == 'S') {
+      let interval = setInterval(() => {
+        console.log('interval')
+        if (this.common.schoolDetail) {
+          console.log('found')
+          this.getClassBySchoolRange(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
+          clearInterval(interval)
+        }
+      }, 1)
+    } else if (this.userObj.userType == 'B') {
+      this.getSchools(this.userObj.blockCode);
+    }
+  }
+
+  getClassBySchoolRange(classFrom, classTo) {
+    console.log(classTo, classFrom)
+    this.classList = this.common.createSchoolClassList(classFrom, classTo)
+  }
+
+  getSchools(blockCode) {
+    this.httpService.getAllSchoolByBlock(blockCode, 1, 1).subscribe(res => {
+      console.log(res)
+      if (res.statusCode == environment.httpSuccess) {
+        this.httpService.getAllSchoolByBlock(blockCode, 1, res.data.totalSize).subscribe(res2 => {
+          console.log(res2)
+          if (res2.statusCode == environment.httpSuccess) {
+            this.schoolList = res2.data.result;
+          }
+        })
+      } else {
+        this.alertMsg = res.statusMessage;
+        this.alertCount = this.alertCount + 1;
+        this.alertFlag = true;
       }
-    }, 1)
+    })
   }
 
   clearSearchObjs() {
@@ -61,7 +88,13 @@ export class StudentProfileComponent implements OnInit {
 
   getSectionList(className) {
     console.log(className)
-    this.httpService.getClassSection(className, this.userObj.schoolId).subscribe(res => {
+    let udiseCode;
+    if (this.userObj.userType == 'S') {
+      udiseCode = this.userObj.schoolId
+    } else if (this.userObj.userType == 'B') {
+      udiseCode = this.stdSearchParam.udiseCode
+    }
+    this.httpService.getClassSection(className, udiseCode).subscribe(res => {
       console.log(res)
       if (res.statusCode == environment.successCode) {
         this.sectionList = res.mstClassSections
@@ -74,11 +107,13 @@ export class StudentProfileComponent implements OnInit {
   }
 
   getStudentList() {
+    if (this.userObj.userType == 'S') {
+      this.stdSearchParam.udiseCode = this.common.schoolDetail.udiseCode;
+    }
     this.common.stdIdEdit = null;
     this.common.studentAction = 'summaryList';
-    let userObj = this.common.userObj
     this.basicInfoList = new MatTableDataSource();
-    this.stdSearchParam.udiseCode = this.common.schoolDetail.udiseCode;
+    console.log(this.stdSearchParam)
     this.httpService.getStudentSummary(this.stdSearchParam).subscribe(data => {
       console.log(data)
       if (data.statusCode == environment.successCode) {
@@ -115,9 +150,9 @@ export class StudentProfileComponent implements OnInit {
   }
 
   resultEvent() {
-    this.moveStepper();
     this.stdSearchParam = {};
-    this.common.studentAction = 'summaryList';
+    this.basicInfoList = new MatTableDataSource();
+    this.common.studentAction = 'summaryList'
     this.alertMsg = "Student Profile has been completed";
     this.alertCount = this.alertCount + 1;
     this.alertFlag = true;
@@ -127,6 +162,15 @@ export class StudentProfileComponent implements OnInit {
     console.log(studentId)
     this.common.studentAction = 'edit';
     this.common.setStdIdForEdit(studentId);
+    if (this.userObj.userType == 'B') {
+      this.schoolList.filter(schoolObj => {
+        if (schoolObj.udiseCode == this.stdSearchParam.udiseCode) {
+          this.common.schoolDetail = schoolObj;
+        }
+      })
+    }
+
+    console.log(this.common.schoolDetail)
   }
 
   applyFilter(searchText) {

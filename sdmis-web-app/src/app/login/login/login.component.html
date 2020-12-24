@@ -27,7 +27,7 @@
                         <div class="form-head">Welcome back to login!</div>
                         <form #lf="ngForm" (ngSubmit)="lf.valid && login()">
                             <div class="form-group">
-                                <div class="text-center">
+                                <div class="text-center login-field">
                                     <mat-form-field class="w-90" appearance='outline'>
                                         <mat-label>Username</mat-label>
                                         <input matInput name="username" [(ngModel)]='user.username' required>

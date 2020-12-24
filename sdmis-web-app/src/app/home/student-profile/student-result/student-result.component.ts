@@ -12,6 +12,17 @@ export class StudentResultComponent implements OnInit {
   @Output() resultEvent = new EventEmitter<any>();
   resultDetail: any = {};
   requestDTO: any = {};
+
+  resultList: any = [
+    { name: "Promoted", value: 1 },
+    { name: "Repeater", value: 2 },
+    { name: "Discontinued", value: 3 },
+    { name: "New admission in current year", value: 4 }]
+
+  schoolingStatus: any = [{ name: "Continuing in the school", value: "1" }, { name: "Left the school with Transfer Certificate", value: "2" }]
+
+  streamList: any = [{ name: "Not Applicable", value: "0" }, { name: "Arts", value: "1" }, { name: "Science", value: "2" }, { name: "Commerce", value: "3" }, { name: "Vocational", value: "4" }, { name: "Other", value: "5" }];
+
   constructor(public common: CommonService, private http: HttpService) { }
 
   userObj: any = {};
@@ -22,7 +33,7 @@ export class StudentResultComponent implements OnInit {
   ngOnInit(): void {
     this.userObj = this.common.userObj;
     if (this.common.studentAction == 'edit') {
-      this.getResultDetail(this.common.stdIdEdit, this.userObj.schoolId);
+      this.getResultDetail(this.common.stdIdEdit, this.common.schoolDetail.udiseCode);
     }
   }
 
@@ -52,14 +63,11 @@ export class StudentResultComponent implements OnInit {
     this.http.saveStudentResultDetail(this.requestDTO).subscribe(res => {
       console.log(res)
       if (res.statusCode == environment.successCode) {
-        if (this.common.studentAction == 'add') {
-          this.resultEvent.emit()
-        } else if (this.common.studentAction == 'edit') {
-          this.alertMsg = "Data updated successfully.";
-          this.alertCount = this.alertCount + 1;
-          this.alertFlag = true;
-          this.getResultDetail(this.common.stdIdEdit, this.userObj.schoolId);
+        if (this.common.studentAction == 'edit') {
+          this.getResultDetail(this.common.stdIdEdit, this.common.schoolDetail.udiseCode);
         }
+        this.resultEvent.emit()
+
       } else {
         this.alertMsg = res.description;
         this.alertCount = this.alertCount + 1;

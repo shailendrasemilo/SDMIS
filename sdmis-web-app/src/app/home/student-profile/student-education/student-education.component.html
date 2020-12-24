@@ -1,10 +1,20 @@
 <div class="stepper-section">
     <form #education="ngForm">
 
-        <div class="row">
+        <div class="row form-field">
+
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.schoolMgmt == '5'">
+                <label id="freeEdu" class="radio-label">Getting free Education as per RTE education (15)</label>
+                <mat-radio-group aria-labelledby="freeEdu" [(ngModel)]="educationDetail.freeEdu"
+                    name="educationDetail.freeEdu">
+                    <mat-radio-button value="1" class="mr-2"> Yes </mat-radio-button>
+                    <mat-radio-button value="0" class="ml-2"> No </mat-radio-button>
+                </mat-radio-group>
+            </div>
+
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline" class="w-75">
-                    <mat-label>Previous Class</mat-label>
+                <mat-form-field class="w-75">
+                    <mat-label>Previous Class (17)</mat-label>
                     <mat-select [(ngModel)]="educationDetail.classPrevYear" name="educationDetail.classPrevYear"
                         required>
                         <mat-option *ngFor="let class of classList" [value]="class.id">{{class.name}}</mat-option>
@@ -12,42 +22,38 @@
                     <mat-error>Previous Class is required</mat-error>
                 </mat-form-field>
             </div>
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline">
-                    <mat-label>Status of Previous Year</mat-label>
-                    <input matInput placeholder="Status of Previous Year" [(ngModel)]="educationDetail.statusPrev"
-                        name="educationDetail.statusPrev" required>
+
+            <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.stdClass == '1'">
+                <mat-form-field class="w-75">
+                    <mat-label>Previous year status (18)</mat-label>
+                    <mat-select [(ngModel)]="educationDetail.statusPrev" name="educationDetail.statusPrev"
+                        required>
+                        <mat-option *ngFor="let stat of statusList" [value]="stat.value">{{stat.name}}</mat-option>
+                    </mat-select>
                     <mat-error>Previous Year status is required</mat-error>
+
                 </mat-form-field>
             </div>
+
+
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline">
-                    <mat-label>Attendance</mat-label>
+                <mat-form-field class="w-75">
+                    <mat-label>Prev. year attendance (19)</mat-label>
                     <input matInput placeholder="Attendance" [(ngModel)]="educationDetail.classAttend"
                         name="educationDetail.classAttend" required>
                     <mat-error>Attendance is required</mat-error>
                 </mat-form-field>
             </div>
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <mat-form-field appearance="outline">
-                    <mat-label>Medium of Instruction</mat-label>
+            <div class="col-md-8 col-lg-4 col-xl-3 mt-4">
+                <mat-form-field class="w-75">
+                    <mat-label>Medium of Instruction (20)</mat-label>
                     <mat-select [(ngModel)]="educationDetail.moi" name="educationDetail.moi" required>
                         <mat-option *ngFor="let moi of moiList" [value]='moi.id'>{{moi.name}}</mat-option>
                     </mat-select>
                     <mat-error>Medium of Instruction is required</mat-error>
                 </mat-form-field>
             </div>
-
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
-                <label id="freeEdu" class="radio-label">Getting free Education as per RTE education</label>
-                <mat-radio-group aria-labelledby="freeEdu" [(ngModel)]="educationDetail.freeEdu"
-                    name="educationDetail.freeEdu">
-                    <mat-radio-button value="1" class="mr-2"> Yes </mat-radio-button>
-                    <mat-radio-button value="0" class="ml-2"> No </mat-radio-button>
-                </mat-radio-group>
-            </div>
         </div>
-
         <div class="row">
             <div class="col-lg-11 col-md-11">
                 <div class="mt-5">
@@ -61,7 +67,6 @@
 
             </div>
         </div>
-
     </form>
 </div>
 

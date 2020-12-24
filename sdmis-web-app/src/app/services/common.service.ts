@@ -14,6 +14,8 @@ export class CommonService {
   stdIdEdit: any;
   sidenavOpen: any = true;
   schoolDetail: any = {};
+  schoolMgmt: any;
+  stdClass: any;
 
   classList: any = [
     { name: 'Class I', id: 'I', value: 1},
@@ -56,13 +58,11 @@ export class CommonService {
     return classList
   }
 
-  getSchoolData() {
-    let udiseCode = this.userObj.schoolId
+  getSchoolData(udiseCode) {
     this.http.getSchoolByUdise(udiseCode).subscribe(res => {
       console.log(res)
       this.schoolDetail = res.data.result
-      this.schoolDetail.blockCode = '160306'
-      this.schoolDetail.districtCode = '160'
+      this.schoolMgmt = this.schoolDetail.schoolManagementState;
     })
   }
 
