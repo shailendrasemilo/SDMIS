@@ -14,13 +14,16 @@ export class HttpService {
   }
 
   getStates() {
-    return this.http.get<any>(environment.api_base_url + '/getState');
+    let params = new HttpParams();
+    params = params.set('type', 'STATE');
+    return this.http.get<any>(environment.mhrd_base_url + '/regionMasters', {params});
   }
 
   getDistrictsByState(stateId) {
     let params = new HttpParams();
-    params = params.set('stateId', stateId);
-    return this.http.get<any>(environment.api_base_url + '/getDistrict', { params });
+    params = params.set('type', 'DISTRICT');
+    params = params.set('stateCode', stateId);
+    return this.http.get<any>(environment.mhrd_base_url + '/regionMasters', {params});
   }
 
   getBlocksByDistrict(districtId) {
@@ -126,25 +129,31 @@ export class HttpService {
     params = params.set('blockCode', blockCode)
     params = params.set('page', page)
     params = params.set('pageLimit', limit)
-    return this.http.get<any>('https://api.udiseplus.gov.in/v1/public/schoolMaster/byBlockCode', {params})
+    return this.http.get<any>(environment.mhrd_base_url + '/schoolMaster/byBlockCode', {params})
   }
 
   getSchoolByUdise(udiseCode) {
     let params = new HttpParams();
     params = params.set('udiseCode', udiseCode)
-    return this.http.get<any>('https://api.udiseplus.gov.in/v1/public/schoolMaster/byUdiseCode', {params})
+    return this.http.get<any>(environment.mhrd_base_url + '/schoolMaster/byUdiseCode', {params})
   }
 
   getSocialCategory() {
     let params = new HttpParams();
     params = params.set('masterType', 'SOCIAL_CATEGORY')
-    return this.http.get<any>('https://api.udiseplus.gov.in/v1/public/masters', {params})
+    return this.http.get<any>(environment.mhrd_base_url + '/masters', {params})
   }
 
   getReligion() {
     let params = new HttpParams();
     params = params.set('masterType', 'RELIGION')
-    return this.http.get<any>('https://api.udiseplus.gov.in/v1/public/masters', {params})
+    return this.http.get<any>(environment.mhrd_base_url + '/masters', {params})
+  }
+  getMoiMaster(stateCode) {
+    let params = new HttpParams();
+    params = params.set('masterType', 'MEDIUM_OF_INSTRUCTION')
+    params = params.set('stateCode', stateCode)
+    return this.http.get<any>(environment.mhrd_base_url + '/masters', {params})
   }
 
 }

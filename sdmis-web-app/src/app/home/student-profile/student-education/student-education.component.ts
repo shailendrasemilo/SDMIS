@@ -33,6 +33,12 @@ export class StudentEducationComponent implements OnInit {
     if (this.common.studentAction == 'edit') {
       this.getEducationDetail(this.common.stdIdEdit, this.common.schoolDetail.udiseCode);
     }
+    this.http.getMoiMaster(this.common.schoolDetail.stateCode).subscribe(res => {
+      console.log(res)
+      if(res.statusCode == environment.httpSuccess) {
+        this.moiList = res.data.result;
+      }
+    })
     this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
   }
 
