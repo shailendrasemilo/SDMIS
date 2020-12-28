@@ -16,7 +16,7 @@ public interface StudentBasicDetailRepo extends JpaRepository<StudentBasicDetail
 
 	List<StudentBasicDetail> findByGender(String gender);
 
-	List<StudentBasicDetail> findBySocialCategory(int socialCategory);
+	List<StudentBasicDetail> findBySocialCategory(long socialCategory);
 
 	
 }
