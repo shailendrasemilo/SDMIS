@@ -261,6 +261,38 @@ public class DashboardService {
 				classesData.add(classXII);
 				dashboardData.setClassesData(classesData);
 			}
+
+			List<StudentBasicDetail> studentBoysDetails = studentRepo.findByGender("1");
+			List<StudentBasicDetail> studentGirlsDetails = studentRepo.findByGender("2");
+			List<StudentBasicDetail> studentTransDetails = studentRepo.findByGender("3");
+			List<Integer> genderList = new ArrayList<>();
+			if (null != studentBoysDetails)
+				genderList.add(studentBoysDetails.size());
+			if (null != studentGirlsDetails)
+				genderList.add(studentGirlsDetails.size());
+			if (null != studentTransDetails)
+				genderList.add(studentTransDetails.size());
+			dashboardData.setGenderWiseData(genderList);
+			List<StudentBasicDetail> studentGenral = studentRepo.findBySocialCategory(1);
+			List<StudentBasicDetail> studentSc = studentRepo.findBySocialCategory(2);
+			List<StudentBasicDetail> studentST = studentRepo.findBySocialCategory(3);
+			List<StudentBasicDetail> studentOBC = studentRepo.findBySocialCategory(4);
+			List<StudentBasicDetail> studentORC = studentRepo.findBySocialCategory(5);
+			List<StudentBasicDetail> studentOthers = studentRepo.findBySocialCategory(6);
+			List<Integer> socialCatList = new ArrayList<>();
+			if (null != studentGenral)
+				socialCatList.add(studentGenral.size());
+			if (null != studentSc)
+				socialCatList.add(studentSc.size());
+			if (null != studentST)
+				socialCatList.add(studentST.size());
+			if (null != studentOBC)
+				socialCatList.add(studentOBC.size());
+			if (null != studentORC)
+				socialCatList.add(studentORC.size());
+			if (null != studentOthers)
+				socialCatList.add(studentOthers.size());
+			dashboardData.setSocialCatData(socialCatList);
 			responseDTO.setDashboardData(dashboardData);
 			responseDTO.setStatusCode(ResponceCode.App001.getStatusCode());
 			responseDTO.setDescription(ResponceCode.App001.getStatusDesc());
@@ -271,7 +303,6 @@ public class DashboardService {
 		}
 		return responseDTO;
 
-	
 	}
 
 }

@@ -15,6 +15,25 @@ public class DashboardData {
 	 * private long classXI; private long classXII;
 	 */
 	private List<Integer> sectionWiseData;
+	private List<Integer> genderWiseData;
+	private List<Integer> socialCatData;
+	
+
+	public List<Integer> getGenderWiseData() {
+		return genderWiseData;
+	}
+
+	public void setGenderWiseData(List<Integer> genderWiseData) {
+		this.genderWiseData = genderWiseData;
+	}
+
+	public List<Integer> getSocialCatData() {
+		return socialCatData;
+	}
+
+	public void setSocialCatData(List<Integer> socialCatData) {
+		this.socialCatData = socialCatData;
+	}
 
 	/*
 	 * private long completeEducation; private long completeIncentive; private long
