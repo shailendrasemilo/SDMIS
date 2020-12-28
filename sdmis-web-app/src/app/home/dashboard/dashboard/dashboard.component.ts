@@ -129,6 +129,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getBlockDash(blockCode) {
+    this.createTableData(blockCode);
+
     this.http.getBlockDashboard(blockCode).subscribe(res => {
       console.log(res);
       if (res.statusCode == environment.successCode) {
@@ -136,9 +138,8 @@ export class DashboardComponent implements OnInit {
         this.createTotalData();
         this.createClassWiseData();
         this.createSectionWiseData();
-        setTimeout(() => {
-          this.createTableData(blockCode);
-        }, 500)
+        // setTimeout(() => {
+        // }, 500)
 
       } else {
         this.alertMsg = res.description;

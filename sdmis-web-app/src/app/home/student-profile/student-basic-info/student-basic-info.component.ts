@@ -147,8 +147,9 @@ export class StudentBasicInfoComponent implements OnInit {
   getStateList() {
     this.httpService.getStates().subscribe(res => {
       console.log(res);
-      if (res.length > 0) {
-        this.stateList = res;
+      if (res.statusCode == environment.httpSuccess && res.data.result.length > 0) {
+        this.stateList = res.data.result;
+        console.log(this.stateList)
       }
     }, error => {
       console.log(error)
@@ -207,21 +208,9 @@ export class StudentBasicInfoComponent implements OnInit {
   getDistrictList(stateId) {
     console.log(stateId)
     this.httpService.getDistrictsByState(stateId).subscribe(res => {
-      if (res.length > 0) {
+      if (res.statusCode == environment.httpSuccess && res.data.result.length > 0) {
         console.log(res)
-        this.districtList = res;
-        if (this.common.studentAction == 'edit') {
-          this.getBlockList(this.profileDetails.districtId)
-        }
-      }
-    })
-  }
-
-  getBlockList(districtId) {
-    this.httpService.getBlocksByDistrict(districtId).subscribe(res => {
-      if (res.length > 0) {
-        console.log(res)
-        this.blockList = res;
+        this.districtList = res.data.result;
       }
     })
   }

@@ -21,8 +21,10 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Student Aadhar Number (1)</mat-label>
-                    <input matInput placeholder="Student Aadhar Number (1)" [(ngModel)]="profileDetails.aadharNum"
+                    <input matInput placeholder="Student Aadhar Number (1)" [(ngModel)]="profileDetails.aadharNum" maxlength="12" minlength="12" appNumberOnly
                         name="profileDetails.aadharNum">
+                    <mat-error>Please provide valid Aadhar Number</mat-error>
+
                 </mat-form-field>
             </div>
 
@@ -119,7 +121,7 @@
                     <mat-label>State</mat-label>
                     <mat-select [(ngModel)]="profileDetails.stateId" name="profileDetails.stateId" required #state
                         (ngModelChange)="getDistrictList(state.value)">
-                        <mat-option *ngFor="let state of stateList" [value]="state.id">{{state.stateName}}</mat-option>
+                        <mat-option *ngFor="let state of stateList" [value]="state.regionCode">{{state.regionName}}</mat-option>
                     </mat-select>
 
                 </mat-form-field>
@@ -128,10 +130,9 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>District</mat-label>
-                    <mat-select [(ngModel)]="profileDetails.districtId" name="profileDetails.districtId" required #dist
-                        (ngModelChange)="getBlockList(dist.value)">
-                        <mat-option *ngFor="let district of districtList" [value]="district.districtId">
-                            {{district.districtName}}
+                    <mat-select [(ngModel)]="profileDetails.districtId" name="profileDetails.districtId" required #dist>
+                        <mat-option *ngFor="let district of districtList" [value]="district.regionCode">
+                            {{district.regionName}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

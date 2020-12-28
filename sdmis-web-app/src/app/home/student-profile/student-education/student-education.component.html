@@ -48,7 +48,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>Medium of Instruction (20)</mat-label>
                     <mat-select [(ngModel)]="educationDetail.moi" name="educationDetail.moi" required>
-                        <mat-option *ngFor="let moi of moiList" [value]='moi.id'>{{moi.name}}</mat-option>
+                        <mat-option *ngFor="let moi of moiList" [value]='moi.code'>{{moi.name}}</mat-option>
                     </mat-select>
                     <mat-error>Medium of Instruction is required</mat-error>
                 </mat-form-field>
