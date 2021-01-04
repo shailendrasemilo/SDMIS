@@ -52,13 +52,13 @@ public class StudentBasicDetail implements Serializable {
 	@Column(name = "child_homeless")
 	long childHomeless;
 	@Column(name = "state_id")
-	long stateId;
+	String stateId;
 	@Column(name = "district_id")
-	long districtId;
+	String districtId;
 	@Column(name = "city_id")
-	long cityId;
+	String cityId;
 	@Column(name = "locality_id")
-	long localityId;
+	String localityId;
 	@Column(name = "belong_bpl")
 	long belongBPL;
 	@Column(name = "disadvantage_group")
@@ -95,8 +95,6 @@ public class StudentBasicDetail implements Serializable {
 	long eduType;
 	@Column(name = "locality")
 	String locality;
-	
-	
 
 	public long getCategoryId() {
 		return categoryId;
@@ -274,35 +272,35 @@ public class StudentBasicDetail implements Serializable {
 		this.childHomeless = childHomeless;
 	}
 
-	public long getStateId() {
+	public String getStateId() {
 		return stateId;
 	}
 
-	public void setStateId(long stateId) {
+	public void setStateId(String stateId) {
 		this.stateId = stateId;
 	}
 
-	public long getDistrictId() {
+	public String getDistrictId() {
 		return districtId;
 	}
 
-	public void setDistrictId(long districtId) {
+	public void setDistrictId(String districtId) {
 		this.districtId = districtId;
 	}
 
-	public long getCityId() {
+	public String getCityId() {
 		return cityId;
 	}
 
-	public void setCityId(long cityId) {
+	public void setCityId(String cityId) {
 		this.cityId = cityId;
 	}
 
-	public long getLocalityId() {
+	public String getLocalityId() {
 		return localityId;
 	}
 
-	public void setLocalityId(long localityId) {
+	public void setLocalityId(String localityId) {
 		this.localityId = localityId;
 	}
 
