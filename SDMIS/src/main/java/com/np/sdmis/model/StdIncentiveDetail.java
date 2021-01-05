@@ -38,7 +38,7 @@ public class StdIncentiveDetail implements Serializable {
 	@Column(name = "free_hostal_facility")
 	int hostalFacility;
 	@Column(name = "special_training")
-	int specialTraining;
+	String specialTraining;
 	@Column(name = "created_by")
 	String createdBy;
 	@Column(name = "created_time")
@@ -128,11 +128,11 @@ public class StdIncentiveDetail implements Serializable {
 		this.hostalFacility = hostalFacility;
 	}
 
-	public int getSpecialTraining() {
+	public String getSpecialTraining() {
 		return specialTraining;
 	}
 
-	public void setSpecialTraining(int specialTraining) {
+	public void setSpecialTraining(String specialTraining) {
 		this.specialTraining = specialTraining;
 	}
 
