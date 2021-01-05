@@ -81,12 +81,13 @@ export class DashboardComponent implements OnInit {
     hover: { mode: null },
   };
 
-  constructor(private common: CommonService, private http: HttpService) {
+  constructor(public common: CommonService, private http: HttpService) {
     console.log('initilized')
   }
 
   ngOnInit(): void {
     this.userObj = this.common.userObj;
+    this.common.schoolDetail = JSON.parse(sessionStorage.getItem('schoolDetail'))
     if (this.userObj.userType == 'S') {
       this.viewDashLevel = 'school';
       this.getSchoolDash(this.userObj.schoolId);
@@ -94,7 +95,6 @@ export class DashboardComponent implements OnInit {
       this.viewDashLevel = 'block';
       this.getBlockDash(this.userObj.blockCode);
     }
-
   }
 
   applyFilter(searchText) {
@@ -109,7 +109,19 @@ export class DashboardComponent implements OnInit {
   }
 
   getSchoolDash(udiseCode) {
-    this.common.getSchoolData(udiseCode)
+    if (this.userObj.userType == 'B') {
+      this.http.getSchoolByUdise(udiseCode).subscribe(res => {
+        console.log(res)
+        sessionStorage.setItem('schoolDetail', JSON.stringify(res.data.result))
+        this.common.schoolDetail = res.data.result
+        this.hitSchoolDash(udiseCode)
+      })
+    } else {
+      this.hitSchoolDash(udiseCode)
+    }
+  }
+
+  hitSchoolDash(udiseCode) {
     this.http.getSchoolDashboard(udiseCode).subscribe(res => {
       console.log(res)
       if (res.statusCode == environment.successCode) {
@@ -129,7 +141,9 @@ export class DashboardComponent implements OnInit {
   }
 
   getBlockDash(blockCode) {
-    this.createTableData(blockCode);
+    setTimeout(() => {
+      this.createTableData(blockCode);
+    }, 500)
 
     this.http.getBlockDashboard(blockCode).subscribe(res => {
       console.log(res);
@@ -138,8 +152,7 @@ export class DashboardComponent implements OnInit {
         this.createTotalData();
         this.createClassWiseData();
         this.createSectionWiseData();
-        // setTimeout(() => {
-        // }, 500)
+
 
       } else {
         this.alertMsg = res.description;
@@ -196,8 +209,9 @@ export class DashboardComponent implements OnInit {
   }
 
   createClassWiseData() {
+    console.log('creating classWise: ', this.common.schoolDetail)
     let classArr = this.dashboardData.classesData;
-    console.log(this.userObj.userType +" : " +this.viewDashLevel )
+    console.log(this.userObj.userType + " : " + this.viewDashLevel)
     this.classWiseData = [];
     if (this.userObj.userType == 'B' && this.viewDashLevel == "block") {
       this.classWiseData = [...this.classWiseMst]
@@ -207,26 +221,22 @@ export class DashboardComponent implements OnInit {
       this.classWiseCreated = true;
 
     } else if ((this.userObj.userType == 'S' || this.userObj.userType == 'B') && this.viewDashLevel == "school") {
-      let interval = setInterval(() => {
-        console.log(interval)
-        if (this.common.schoolDetail) {
-          let schoolObj = this.common.schoolDetail;
-          console.log(schoolObj)
-          this.classWiseMst.forEach(element => {
-            if (element.classNum >= schoolObj.classFrom && element.classNum <= schoolObj.classTo) {
-              this.classWiseData.push(element);
-            }
-            this.classWiseData.forEach(element => {
-              element.count = classArr[element.classNum - 1]
-            });
-            console.log(this.classWiseData)
-            this.classWiseCreated = true;
+
+      if (this.common.schoolDetail.udiseCode) {
+        let schoolObj = this.common.schoolDetail;
+        console.log(schoolObj)
+        this.classWiseMst.forEach(element => {
+          if (element.classNum >= schoolObj.classFrom && element.classNum <= schoolObj.classTo) {
+            this.classWiseData.push(element);
+          }
+          this.classWiseData.forEach(element => {
+            element.count = classArr[element.classNum - 1]
           });
-          clearInterval(interval)
-        }
-      }, 1)
+          console.log(this.classWiseData)
+          this.classWiseCreated = true;
+        });
+      }
     }
-   
   }
 
   createSectionWiseData() {

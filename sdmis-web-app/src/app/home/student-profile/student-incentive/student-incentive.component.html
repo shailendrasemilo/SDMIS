@@ -7,7 +7,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>Facilities given to CWSN (22)</mat-label>
                     <mat-select [(ngModel)]="incentiveDetail.facilityCWSN" name="incentiveDetail.facilityCWSN" required>
-                        <mat-option *ngFor="let cwsn of cwsnFacility" [value]='cwsn.value'>{{cwsn.name}}</mat-option>
+                        <mat-option *ngFor="let cwsn of cwsnFacility" [value]='cwsn.code'>{{cwsn.name}}</mat-option>
                     </mat-select>
                     <mat-error>Number of uniform sets is required</mat-error>
                 </mat-form-field>

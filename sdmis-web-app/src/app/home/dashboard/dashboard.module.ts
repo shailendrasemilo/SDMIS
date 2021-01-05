@@ -9,9 +9,10 @@ import { AlertModule } from 'src/app/alert/alert.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
+import { Dashboard2Component } from './dashboard/dashboard2/dashboard2.component';
 
 @NgModule({
-  declarations: [ DashboardComponent ],
+  declarations: [ DashboardComponent, Dashboard2Component ],
   imports: [
     CommonModule,
     DashboardRoutingModule,

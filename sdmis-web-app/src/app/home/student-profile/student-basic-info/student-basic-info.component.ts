@@ -21,14 +21,7 @@ export class StudentBasicInfoComponent implements OnInit {
 
   religionList: any = [];
   motherTongueList: any = [{ name: 'Hindi', id: 1 }, { name: 'English', id: 2 }];
-  disabilityList: any = [{ name: "Not Applicable", key: 0 },
-  { name: "Blindness", key: 1 },
-  { name: "Low-vision", key: 2 },
-  { name: "Hearing impairment(deafandhardofhearing)", key: 3 },
-  { name: "Speech and Language disability", key: 4 },
-  { name: "Locomotor Disability", key: 5 },
-  { name: "Mental Illness", key: 6 },
-  ]
+  disabilityList: any = [];
   socialCategoryList: any = [];
   sectionList: any = [];
   classList: any = [];
@@ -48,7 +41,10 @@ export class StudentBasicInfoComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.common.schoolDetail = JSON.parse(sessionStorage.getItem('schoolDetail'))
+    console.log(this.common.schoolDetail)
     this.getStateList();
+    this.getMasterData();
     this.userObj = this.common.userObj;
     if (this.userObj.userType == 'B') {
       this.getSchoolByBlock(this.userObj.blockCode);
@@ -56,29 +52,29 @@ export class StudentBasicInfoComponent implements OnInit {
     if (this.common.studentAction == 'edit') {
       this.getStdBasicInfo();
     } else if (this.common.studentAction == 'add') {
-      this.profileDetails.stateCode = this.common.schoolDetail.stateCode
+      this.setSchoolLocData();
+    }
+
+    if (this.userObj.userType == 'S') {
+      if (this.common.schoolDetail.udiseCode) {
+        this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
+      }
+    }
+  }
+
+  setSchoolLocData() {
+    this.profileDetails.stateCode = this.common.schoolDetail.stateCode
       this.profileDetails.districtCode = this.common.schoolDetail.districtCode;
       this.profileDetails.blockCode = this.common.schoolDetail.blockCode;
       this.classMapping.stateCode = this.common.schoolDetail.stateCode
       this.classMapping.districtCode = this.common.schoolDetail.districtCode;
       this.classMapping.blockCode = this.common.schoolDetail.blockCode;
-      this.getMasterData();
-
-    }
-
-    if (this.userObj.userType == 'S') {
-      let interval = setInterval(() => {
-        console.log('interval')
-        if (this.common.schoolDetail) {
-          console.log('found')
-          this.getClassBySchoolRange(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
-          clearInterval(interval)
-        }
-      }, 1)
-    }
   }
-  getClassBySchoolRange(classFrom, classTo) {
-    this.classList = this.common.createSchoolClassList(classFrom, classTo);
+
+  getClassBySchoolRange(school) {
+    this.common.schoolDetail = school;
+    this.setSchoolLocData();
+    this.classList = this.common.createSchoolClassList(school.classFrom, school.classTo);
     this.schoolList.filter(schoolObj => {
       if (schoolObj.udiseCode == this.classMapping.udiseCode) {
         this.common.schoolDetail = schoolObj;
@@ -107,6 +103,21 @@ export class StudentBasicInfoComponent implements OnInit {
   getMasterData() {
     this.getSocialCategory();
     this.getReligionList();
+    this.getDisabilityList();
+  }
+
+  getDisabilityList() {
+    this.httpService.getDisability().subscribe(res => {
+      console.log('disability', res)
+      if (res.statusCode == environment.httpSuccess) {
+        this.disabilityList = res.data.result;
+      } else {
+        console.log('error')
+      }
+    }, error => {
+      console.log(error)
+
+    })
   }
 
   getSocialCategory() {
@@ -139,8 +150,6 @@ export class StudentBasicInfoComponent implements OnInit {
       }
     }, error => {
       console.log(error)
-
-
     })
   }
 
@@ -157,6 +166,7 @@ export class StudentBasicInfoComponent implements OnInit {
   }
 
   checkStdClass(className) {
+    console.log(className)
     this.classList.filter(obj => {
       if (obj.id == className) {
         this.common.stdClass = obj.value
@@ -187,10 +197,10 @@ export class StudentBasicInfoComponent implements OnInit {
   }
 
   getStdBasicInfo() {
+    this.getClassBySchoolRange(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
     this.httpService.getStudentBasicInfoById(this.common.stdIdEdit, this.common.schoolDetail.udiseCode).subscribe(data => {
       console.log(data)
       if (data.studentBasicDetail) {
-
         this.profileDetails = data.studentBasicDetail;
         this.profileDetails.dob = new Date(this.profileDetails.dob)
         this.profileDetails.doa = new Date(this.profileDetails.doa)
@@ -198,7 +208,6 @@ export class StudentBasicInfoComponent implements OnInit {
         this.classMapping = data.sectionClassMapping;
         this.checkStdClass(this.classMapping.className)
       }
-
       this.getDistrictList(this.profileDetails.stateId);
       this.getSectionList(this.classMapping.className)
       this.getMasterData()
@@ -211,6 +220,10 @@ export class StudentBasicInfoComponent implements OnInit {
       if (res.statusCode == environment.httpSuccess && res.data.result.length > 0) {
         console.log(res)
         this.districtList = res.data.result;
+      } else {
+        this.alertMsg = "No Districts Found";
+        this.alertCount = this.alertCount + 1;
+        this.alertFlag = true;
       }
     })
   }

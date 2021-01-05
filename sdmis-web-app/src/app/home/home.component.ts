@@ -14,6 +14,7 @@ import { HttpService } from '../services/http.service';
 export class HomeComponent implements OnInit {
 
   screenWidth: number;
+  schoolHead: any;
 
   constructor(public commonService: CommonService, private http: HttpService) {
     this.screenWidth = window.innerWidth;
@@ -25,9 +26,13 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     console.log('inside')
     this.commonService.userObj = JSON.parse(sessionStorage.getItem('user'))
-    if (this.commonService.userObj.userType == 'S') {
+    if (this.commonService.userObj.userType == 'S' && (!this.commonService.schoolDetail?.udiseCode)) {
+      console.log('school not found')
       this.commonService.getSchoolData(this.commonService.userObj.schoolId);
+    } else {
+      console.log('found', this.commonService.schoolDetail)
     }
+
   }
 
   toggleDrawer(drawer: MatDrawer) {

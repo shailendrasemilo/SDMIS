@@ -28,7 +28,7 @@
                     <mat-label>Previous year status (18)</mat-label>
                     <mat-select [(ngModel)]="educationDetail.statusPrev" name="educationDetail.statusPrev"
                         required>
-                        <mat-option *ngFor="let stat of statusList" [value]="stat.value">{{stat.name}}</mat-option>
+                        <mat-option *ngFor="let stat of statusList" [value]="stat.code">{{stat.name}}</mat-option>
                     </mat-select>
                     <mat-error>Previous Year status is required</mat-error>
 

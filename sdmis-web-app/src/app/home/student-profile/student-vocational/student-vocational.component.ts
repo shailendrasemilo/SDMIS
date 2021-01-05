@@ -13,13 +13,13 @@ export class StudentVocationalComponent implements OnInit {
   vocationalDetail: any = {};
   requestDTO: any = {};
 
-  tradeList: any = [{ name: "Not Applicable", value: "0" }, { name: "Agriculture", value: "61" }, { name: "Apparel", value: "62" }, { name: "Automotive", value: "63" }]
-  jobRole: any = [{ name: "Dairy Worker", value: "1"}, { name: "Floriculturist (Open Cultivation)", value: "2"}]
-  nsqfLevels: any = [{ name: "Level 1", value: "1"}, { name: "Level 2", value: "2"}, { name: "Level 3", value: "3"}, { name: "Level 4", value: "4"}]
+  tradeList: any = []
+  jobRole: any = []
+  nsqfLevels: any = [{ name: "Level 1", value: 1}, { name: "Level 2", value: 2}, { name: "Level 3", value: 3}, { name: "Level 4", value: 4}]
   stdOptFor: any = [{ name: "Opted for Placement", value: "1"}, { name: "Opted for Higher/Secondary Education in vocational Field", value: "2"}, { name: "Opted for Higher Education in Field other than vocational Field", value: "3"}]
   
-  employmentStatus: any = [{ name: "Got Placement", value: "1"}, { name: "Did not get placed", value: "2"}, { name: "Self employed", value: "3"}]
-  salaryList: any = [{ name: "Less than Rs. 5000", value: "1"}, { name: "Rs. 5000 to Rs. 9999", value: "2"}, { name: "Rs. 10,000 or above", value: "3"}]
+  employmentStatus: any = [{ name: "Got Placement", value: 1}, { name: "Did not get placed", value: 2}, { name: "Self employed", value: 3}]
+  salaryList: any = [{ name: "Less than Rs. 5000", value: 1}, { name: "Rs. 5000 to Rs. 9999", value: 2}, { name: "Rs. 10,000 or above", value: 3}]
 
   constructor(public common: CommonService, private http: HttpService) { }
 
@@ -30,9 +30,33 @@ export class StudentVocationalComponent implements OnInit {
 
   ngOnInit(): void {
     this.userObj = this.common.userObj;
+    this.getMasters();
     if (this.common.studentAction == 'edit') {
       this.getVocationDetail(this.common.stdIdEdit, this.common.schoolDetail.udiseCode);
     }
+  }
+
+  getMasters() {
+    this.getJobRole();
+    this.getTradeList();
+  }
+
+  getJobRole() {
+    this.http.getJobRole().subscribe(res => {
+      console.log('job role', res)
+      if(res.statusCode == environment.httpSuccess) {
+        this.jobRole = res.data.result
+      }
+    })
+  }
+
+  getTradeList() {
+    this.http.getTradeList().subscribe(res => {
+      console.log('trade list', res)
+      if(res.statusCode == environment.httpSuccess) {
+        this.tradeList = res.data.result
+      }
+    }) 
   }
 
   getVocationDetail(studentId, schoolId) {

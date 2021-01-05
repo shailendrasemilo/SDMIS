@@ -1,0 +1,55 @@
+.boy {
+    background-color: var(--color-green);
+}
+
+.girl {
+    background-color: var(--color-red);
+}
+
+.trans {
+    background-color: #7c3aab;
+}
+
+.mat-card> :last-child:not(.mat-card-footer) {
+    margin-bottom: 2rem !important;
+}
+
+.chart-legend>ul>li {
+    margin-bottom: 1rem !important;
+}
+
+.label-name {
+    font-weight: 500;
+}
+
+.label-count {
+    font-weight: 900;
+}
+
+.mat-progress-bar {
+    height: 6px !important;
+}
+
+.class-wise-label {
+    margin-right: 1.5rem;
+    font-size: 1.3rem;
+    color: var(--color-grey)
+}
+
+.mat-card {
+    box-shadow: 0px 2px 4px #0000000D;
+}
+
+
+.class-wise-label, .class-wise-count {
+    text-align: left;
+    min-width: 4rem;
+}
+
+.total-highlight {
+    margin-top: 3rem;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--color-green);
+    
+}

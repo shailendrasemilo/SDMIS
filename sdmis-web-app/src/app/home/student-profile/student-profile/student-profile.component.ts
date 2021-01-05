@@ -42,16 +42,12 @@ export class StudentProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.userObj = this.common.userObj;
+    this.common.schoolDetail = JSON.parse(sessionStorage.getItem('schoolDetail'))
     this.common.studentAction = 'summaryList';
     if (this.userObj.userType == 'S') {
-      let interval = setInterval(() => {
-        console.log('interval')
-        if (this.common.schoolDetail) {
-          console.log('found')
-          this.getClassBySchoolRange(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
-          clearInterval(interval)
-        }
-      }, 1)
+      if (this.common.schoolDetail.udiseCode) {
+        this.getClassBySchoolRange(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
+      }
     } else if (this.userObj.userType == 'B') {
       this.getSchools(this.userObj.blockCode);
     }
@@ -159,18 +155,17 @@ export class StudentProfileComponent implements OnInit {
   }
 
   viewStudentDetails(studentId) {
+    console.log(this.stdSearchParam)
     console.log(studentId)
     this.common.studentAction = 'edit';
     this.common.setStdIdForEdit(studentId);
     if (this.userObj.userType == 'B') {
       this.schoolList.filter(schoolObj => {
         if (schoolObj.udiseCode == this.stdSearchParam.udiseCode) {
-          this.common.schoolDetail = schoolObj;
+          sessionStorage.setItem('schoolDetail', JSON.stringify(schoolObj))
         }
       })
     }
-
-    console.log(this.common.schoolDetail)
   }
 
   applyFilter(searchText) {

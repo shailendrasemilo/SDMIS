@@ -1,7 +1,9 @@
 <div class="container">
-    <div class="mb-5 d-flex align-items-center">
-        <div class="mb-5">
-            <span class="page-head">Dashboard</span>
+    <div class="mb-4 d-flex align-items-center">
+        <div class="ml-4 mb-4">
+            <span class="page-head">DASHBOARD</span>
+            <div *ngIf="common.schoolDetail?.udiseCode && viewDashLevel== 'school'" class="page-head font-low mt-3">
+                {{common.schoolDetail.schoolName}} ({{common.schoolDetail?.udiseCode}})</div>
         </div>
         <div class="ml-auto mr-5" *ngIf="(userObj.userType=='B' && viewDashLevel== 'school')">
             <button type="button" mat-raised-button color="primary" class="btn-gradient"

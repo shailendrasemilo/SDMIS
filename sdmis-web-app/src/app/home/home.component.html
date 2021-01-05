@@ -7,9 +7,12 @@
             <img src="assets/images/right_arrow.svg" width="20px" alt="Menu" class="img-fluid"
                 *ngIf="!commonService.sidenavOpen">
         </a>
-        <!-- <span class="route-head">{{commonService.currentRoute}}</span> -->
+        <span class="route-head"
+            *ngIf="commonService.userObj.userType == 'S' && commonService.schoolDetail?.udiseCode">{{(commonService.schoolDetail.stateName |
+            titlecase) + ' / ' +
+            (commonService.schoolDetail.districtName | titlecase) + ' / ' + (commonService.schoolDetail.blockName |
+            titlecase)}}</span>
         <div class="ml-auto">
-
             <input type="text" class="custom-input" placeholder="Enter admission number to search...">
         </div>
 

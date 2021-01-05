@@ -17,11 +17,7 @@ export class StudentIncentiveComponent implements OnInit {
   userObj: any = {};
 
   uniformList: any = [{ name: 'None', value: 0 }, { name: 'One Set', value: 1 }, { name: 'Two Set', value: 2 }, { name: 'Partial', value: 3 }];
-  cwsnFacility: any = [{ name: 'Not Applicable', value: "0" },
-  { name: 'Braille Books', value: "1" },
-  { name: 'Braille Kit', value: "2" },
-  { name: 'Low Vision Kit', value: "3" }]
-
+  cwsnFacility: any = [];
   splTrainingList: any = [{name: "Not Applicable", value: "0"},
   {name: "KGBV", value: "1"}, 
   {name: "Non KGBV (Government)", value: "2"},
@@ -38,6 +34,16 @@ export class StudentIncentiveComponent implements OnInit {
     if (this.common.studentAction == 'edit') {
       this.getIncentiveDetail(this.common.stdIdEdit, this.common.schoolDetail.udiseCode);
     }
+    this.getCwsnList();
+  }
+
+  getCwsnList() {
+    this.http.getCwsnList().subscribe(res => {
+      console.log('cwsn', res)
+      if(res.statusCode == environment.httpSuccess) {
+        this.cwsnFacility = res.data.result
+      }
+    }) 
   }
 
   sendIncentiveDetail() {

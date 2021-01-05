@@ -30,12 +30,9 @@ export class CreateSectionComponent implements OnInit {
 
   ngOnInit(): void {
     this.userObj = this.common.userObj;
-    let interval = setInterval( () => {
-      if(this.common.schoolDetail) {
-        this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
-        clearInterval(interval)
-      }
-    }, 100)
+    this.common.schoolDetail = JSON.parse(sessionStorage.getItem('schoolDetail'))
+    this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
+
   }
 
 
@@ -52,11 +49,12 @@ export class CreateSectionComponent implements OnInit {
   }
 
   getSectionList(className) {
+    this.sectionList = new MatTableDataSource();
     console.log(className)
-    this.http.getClassSection(className, this.common.schoolDetail.udiseCode).subscribe(res=> {
+    this.http.getClassSection(className, this.common.schoolDetail.udiseCode).subscribe(res => {
       console.log(this.common.schoolDetail.udiseCode)
       console.log(res)
-      if(res.statusCode == environment.successCode) {
+      if (res.statusCode == environment.successCode) {
         this.sectionList = new MatTableDataSource(res.mstClassSections);
         console.log(this.sectionList.data)
         setTimeout(() => {

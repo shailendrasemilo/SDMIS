@@ -61,8 +61,8 @@ export class CommonService {
   getSchoolData(udiseCode) {
     this.http.getSchoolByUdise(udiseCode).subscribe(res => {
       console.log(res)
-      this.schoolDetail = res.data.result
-      this.schoolMgmt = this.schoolDetail.schoolManagementState;
+      sessionStorage.setItem('schoolDetail', JSON.stringify(res.data.result))
+      this.schoolMgmt = res.data.result.schoolManagementState;
     })
   }
 

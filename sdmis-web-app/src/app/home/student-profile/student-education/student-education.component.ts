@@ -14,12 +14,7 @@ export class StudentEducationComponent implements OnInit {
   requestDto: any = {};
   classList: any = [];
   moiList: any = [{ name: 'Hindi', id: 1 }, { name: 'English', id: 2 }];
-  statusList: any = [
-    { name: "Not Applicable", value: "0" },
-    { name: "Same school", value: "1" },
-    { name: "Another school", value: "2" },
-    { name: "Anganwadi/ECCE centre", value: "3" },
-    { name: "None", value: "4" }]
+  statusList: any = []
   userObj: any = {};
 
   alertCount: number = 0;
@@ -29,17 +24,42 @@ export class StudentEducationComponent implements OnInit {
   constructor(public common: CommonService, private http: HttpService) { }
 
   ngOnInit(): void {
+    this.common.schoolDetail = JSON.parse(sessionStorage.getItem('schoolDetail'))
     this.userObj = this.common.userObj;
     if (this.common.studentAction == 'edit') {
       this.getEducationDetail(this.common.stdIdEdit, this.common.schoolDetail.udiseCode);
     }
     this.http.getMoiMaster(this.common.schoolDetail.stateCode).subscribe(res => {
       console.log(res)
-      if(res.statusCode == environment.httpSuccess) {
+      if (res.statusCode == environment.httpSuccess) {
         this.moiList = res.data.result;
       }
     })
-    this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
+    let classinterval = setInterval(() => {
+      if (this.common.stdClass) {
+        if (this.common.stdClass == '1') {
+          this.http.getSchoolingStatus().subscribe(res => {
+            if (res.statusCode == environment.httpSuccess) {
+              this.statusList = res.data.result;
+              console.log(this.statusList)
+            } else {
+              console.log("prev status error")
+            }
+            clearInterval(classinterval);
+
+          })
+        } else {
+          clearInterval(classinterval);
+        }
+      } else {
+        clearInterval(classinterval);
+      }
+    }, 1)
+
+
+      if (this.common.schoolDetail) {
+        this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
+      }
   }
 
 

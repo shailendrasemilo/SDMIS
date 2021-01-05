@@ -1,9 +1,15 @@
 <div *ngIf="commonService.sidenavOpen">
     <ul class="list-unstyled menu-list">
-        <li>
-            <a routerLink="/home/dashboard" routerLinkActive="active" (click)="setRoute('Dashboard')">
+        <li *ngIf="userObj.userType == 'B'">
+            <a routerLink="/home/dashboard/2" routerLinkActive="active" (click)="setRoute('Dashboard 2')">
                 <img src="assets/images/dashboard.svg" alt="Dashboard" width="15px">
-                <span> Dashboard </span>
+                <span> Block Dashboard </span>
+            </a>
+        </li>
+        <li>
+            <a routerLink="/home/dashboard/1" routerLinkActive="active" (click)="setRoute('Dashboard 2')">
+                <img src="assets/images/dashboard.svg" alt="Dashboard" width="15px">
+                <span> Enrollment Dashboard </span>
             </a>
         </li>
         <li>
