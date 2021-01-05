@@ -262,9 +262,9 @@ public class DashboardService {
 				dashboardData.setClassesData(classesData);
 			}
 
-			List<StudentBasicDetail> studentBoysDetails = studentRepo.findByGenderAndBlockCode(blockCode, "1");
-			List<StudentBasicDetail> studentGirlsDetails = studentRepo.findByGenderAndBlockCode(blockCode, "2");
-			List<StudentBasicDetail> studentTransDetails = studentRepo.findByGenderAndBlockCode(blockCode, "3");
+			List<StudentBasicDetail> studentBoysDetails = studentRepo.findByGenderAndBlockCode("1", blockCode);
+			List<StudentBasicDetail> studentGirlsDetails = studentRepo.findByGenderAndBlockCode("2", blockCode);
+			List<StudentBasicDetail> studentTransDetails = studentRepo.findByGenderAndBlockCode("3", blockCode);
 			List<Integer> genderList = new ArrayList<>();
 			if (null != studentBoysDetails)
 				genderList.add(studentBoysDetails.size());
@@ -273,12 +273,12 @@ public class DashboardService {
 			if (null != studentTransDetails)
 				genderList.add(studentTransDetails.size());
 			dashboardData.setGenderWiseData(genderList);
-			List<StudentBasicDetail> studentGenral = studentRepo.findBySocialCategoryAndBlockCode(blockCode, 1);
-			List<StudentBasicDetail> studentSc = studentRepo.findBySocialCategoryAndBlockCode(blockCode, 2);
-			List<StudentBasicDetail> studentST = studentRepo.findBySocialCategoryAndBlockCode(blockCode, 3);
-			List<StudentBasicDetail> studentOBC = studentRepo.findBySocialCategoryAndBlockCode(blockCode, 4);
-			List<StudentBasicDetail> studentORC = studentRepo.findBySocialCategoryAndBlockCode(blockCode, 5);
-			List<StudentBasicDetail> studentOthers = studentRepo.findBySocialCategoryAndBlockCode(blockCode, 6);
+			List<StudentBasicDetail> studentGenral = studentRepo.findBySocialCategoryAndBlockCode(1, blockCode);
+			List<StudentBasicDetail> studentSc = studentRepo.findBySocialCategoryAndBlockCode(2, blockCode);
+			List<StudentBasicDetail> studentST = studentRepo.findBySocialCategoryAndBlockCode(3, blockCode);
+			List<StudentBasicDetail> studentOBC = studentRepo.findBySocialCategoryAndBlockCode(4, blockCode);
+			List<StudentBasicDetail> studentORC = studentRepo.findBySocialCategoryAndBlockCode(5, blockCode);
+			List<StudentBasicDetail> studentOthers = studentRepo.findBySocialCategoryAndBlockCode(6, blockCode);
 			List<Integer> socialCatList = new ArrayList<>();
 			if (null != studentGenral)
 				socialCatList.add(studentGenral.size());
