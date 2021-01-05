@@ -64,7 +64,7 @@ public class StudentBasicDetail implements Serializable {
 	@Column(name = "disadvantage_group")
 	long disadvantageGroup;
 	@Column(name = "type_of_disability")
-	long disabilityType;
+	String disabilityType;
 	@Column(name = "status")
 	String status;
 	@Column(name = "created_by")
@@ -320,11 +320,11 @@ public class StudentBasicDetail implements Serializable {
 		this.disadvantageGroup = disadvantageGroup;
 	}
 
-	public long getDisabilityType() {
+	public String getDisabilityType() {
 		return disabilityType;
 	}
 
-	public void setDisabilityType(long disabilityType) {
+	public void setDisabilityType(String disabilityType) {
 		this.disabilityType = disabilityType;
 	}
 

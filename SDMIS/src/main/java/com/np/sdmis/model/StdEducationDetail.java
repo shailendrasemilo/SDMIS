@@ -34,7 +34,7 @@ public class StdEducationDetail implements Serializable {
 	@Column(name = "class_attend")
 	long classAttend;
 	@Column(name = "moi")
-	long moi;
+	String moi;
 	@Column(name = "academic_year")
 	long academicYear;
 	@Column(name = "created_by")
@@ -104,11 +104,11 @@ public class StdEducationDetail implements Serializable {
 		this.classAttend = classAttend;
 	}
 
-	public long getMoi() {
+	public String getMoi() {
 		return moi;
 	}
 
-	public void setMoi(long moi) {
+	public void setMoi(String moi) {
 		this.moi = moi;
 	}
 
