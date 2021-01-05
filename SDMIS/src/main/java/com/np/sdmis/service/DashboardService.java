@@ -262,9 +262,9 @@ public class DashboardService {
 				dashboardData.setClassesData(classesData);
 			}
 
-			List<StudentBasicDetail> studentBoysDetails = studentRepo.findByGender("1");
-			List<StudentBasicDetail> studentGirlsDetails = studentRepo.findByGender("2");
-			List<StudentBasicDetail> studentTransDetails = studentRepo.findByGender("3");
+			List<StudentBasicDetail> studentBoysDetails = studentRepo.findByGenderAndBlockCode(blockCode, "1");
+			List<StudentBasicDetail> studentGirlsDetails = studentRepo.findByGenderAndBlockCode(blockCode, "2");
+			List<StudentBasicDetail> studentTransDetails = studentRepo.findByGenderAndBlockCode(blockCode, "3");
 			List<Integer> genderList = new ArrayList<>();
 			if (null != studentBoysDetails)
 				genderList.add(studentBoysDetails.size());
@@ -273,12 +273,12 @@ public class DashboardService {
 			if (null != studentTransDetails)
 				genderList.add(studentTransDetails.size());
 			dashboardData.setGenderWiseData(genderList);
-			List<StudentBasicDetail> studentGenral = studentRepo.findBySocialCategory(1);
-			List<StudentBasicDetail> studentSc = studentRepo.findBySocialCategory(2);
-			List<StudentBasicDetail> studentST = studentRepo.findBySocialCategory(3);
-			List<StudentBasicDetail> studentOBC = studentRepo.findBySocialCategory(4);
-			List<StudentBasicDetail> studentORC = studentRepo.findBySocialCategory(5);
-			List<StudentBasicDetail> studentOthers = studentRepo.findBySocialCategory(6);
+			List<StudentBasicDetail> studentGenral = studentRepo.findBySocialCategoryAndBlockCode(blockCode, 1);
+			List<StudentBasicDetail> studentSc = studentRepo.findBySocialCategoryAndBlockCode(blockCode, 2);
+			List<StudentBasicDetail> studentST = studentRepo.findBySocialCategoryAndBlockCode(blockCode, 3);
+			List<StudentBasicDetail> studentOBC = studentRepo.findBySocialCategoryAndBlockCode(blockCode, 4);
+			List<StudentBasicDetail> studentORC = studentRepo.findBySocialCategoryAndBlockCode(blockCode, 5);
+			List<StudentBasicDetail> studentOthers = studentRepo.findBySocialCategoryAndBlockCode(blockCode, 6);
 			List<Integer> socialCatList = new ArrayList<>();
 			if (null != studentGenral)
 				socialCatList.add(studentGenral.size());

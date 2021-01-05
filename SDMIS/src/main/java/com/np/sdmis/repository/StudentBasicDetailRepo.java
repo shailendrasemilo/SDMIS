@@ -8,15 +8,12 @@ import com.np.sdmis.model.StudentBasicDetail;
 
 public interface StudentBasicDetailRepo extends JpaRepository<StudentBasicDetail, Long> {
 
-	
-
 	List<StudentBasicDetail> findByUdiseCode(String udiseCode);
 
 	List<StudentBasicDetail> findByBlockCode(String blockCode);
 
-	List<StudentBasicDetail> findByGender(String gender);
+	List<StudentBasicDetail> findByGenderAndBlockCode(String blockCode, String gender);
 
-	List<StudentBasicDetail> findBySocialCategory(long socialCategory);
+	List<StudentBasicDetail> findBySocialCategoryAndBlockCode(String blockCode, long socialCategory);
 
-	
 }
