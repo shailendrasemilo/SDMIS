@@ -305,4 +305,73 @@ public class DashboardService {
 
 	}
 
+	public ResponseDTO getclassStdCount(String udiseCode) {
+		ResponseDTO responseDTO = new ResponseDTO();
+		List<StdClassSectionMapping> classSectionMapping = classSecRepo.findByUdiseCodeAndStatus(udiseCode, "A");
+		if (null != classSectionMapping && classSectionMapping.size() > 0) {
+			int classI = 0;
+			int classII = 0;
+			int classIII = 0;
+			int classIV = 0;
+			int classV = 0;
+			int classVI = 0;
+			int classVII = 0;
+			int classVIII = 0;
+			int classIX = 0;
+			int classX = 0;
+			int classXI = 0;
+			int classXII = 0;
+			List<Integer> classesData = new ArrayList<>();
+			for (StdClassSectionMapping stdClassSectionMapping : classSectionMapping) {
+				if (stdClassSectionMapping.getClassName().equals("I")) {
+					classI = ++classI;
+				} else if (stdClassSectionMapping.getClassName().equals("II")) {
+					classII = ++classII;
+				} else if (stdClassSectionMapping.getClassName().equals("III")) {
+					classIII = ++classIII;
+				} else if (stdClassSectionMapping.getClassName().equals("IV")) {
+					classIV = ++classIV;
+				} else if (stdClassSectionMapping.getClassName().equals("V")) {
+					classV = ++classV;
+				} else if (stdClassSectionMapping.getClassName().equals("VI")) {
+					classVI = ++classVI;
+				} else if (stdClassSectionMapping.getClassName().equals("VII")) {
+					classVII = ++classVII;
+				} else if (stdClassSectionMapping.getClassName().equals("VIII")) {
+					classVIII = ++classVIII;
+				} else if (stdClassSectionMapping.getClassName().equals("IX")) {
+					classIX = ++classIX;
+				} else if (stdClassSectionMapping.getClassName().equals("X")) {
+					classX = ++classX;
+				} else if (stdClassSectionMapping.getClassName().equals("XI")) {
+					classXI = ++classXI;
+				} else if (stdClassSectionMapping.getClassName().equals("XII")) {
+					classXII = ++classXII;
+				}
+			}
+			classesData.add(classI);
+			classesData.add(classII);
+			classesData.add(classIII);
+			classesData.add(classIV);
+			classesData.add(classV);
+			classesData.add(classVI);
+			classesData.add(classVII);
+			classesData.add(classVIII);
+			classesData.add(classIX);
+			classesData.add(classX);
+			classesData.add(classXI);
+			classesData.add(classXII);
+			DashboardData dashboardData = new DashboardData();
+			dashboardData.setClassesData(classesData);
+			responseDTO.setDashboardData(dashboardData);
+			responseDTO.setStatusCode(ResponceCode.App001.getStatusCode());
+			responseDTO.setDescription(ResponceCode.App001.getStatusDesc());
+		}
+		else
+		{
+			responseDTO.setStatusCode(ResponceCode.App003.getStatusCode());
+			responseDTO.setDescription(ResponceCode.App003.getStatusDesc());
+		}
+		return responseDTO;
+	}
 }

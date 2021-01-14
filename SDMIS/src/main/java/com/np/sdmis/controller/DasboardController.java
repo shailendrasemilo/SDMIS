@@ -23,11 +23,16 @@ public class DasboardController {
 
 		return dashboardService.findSchoolDashboard(udiseCode);
 	}
-	
+
 	@GetMapping("/getBlockDasboard")
 	public ResponseDTO getBlockDasboard(@RequestParam("blockCode") String blockCode) {
 
 		return dashboardService.findBlockDashboard(blockCode);
 	}
 
+	@GetMapping("/getclassStdCount")
+	public ResponseDTO getclassStdCount(@RequestParam("udiseCode") String udiseCode) {
+
+		return dashboardService.getclassStdCount(udiseCode);
+	}
 }
