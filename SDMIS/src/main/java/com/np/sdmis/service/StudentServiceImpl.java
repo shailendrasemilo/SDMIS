@@ -64,9 +64,9 @@ public class StudentServiceImpl {
 			}
 			String qqqq = null;
 			if (null != section) {
-				qqqq = qqq + " and c.section=:section";
+				qqqq = qqq + " or c.section=:section";
 			}
-			qq.concat(" group by c.className,c.section order by c.className,c.section");
+			qq.concat(" group by c.className,c.section order by c.className");
 			System.out.println(qqqq);
 			Query query = em.createQuery(qqqq);
 			query.setParameter("udiseCode", udiseCode);
