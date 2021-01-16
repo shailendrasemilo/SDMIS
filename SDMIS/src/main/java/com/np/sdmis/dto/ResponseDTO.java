@@ -34,7 +34,15 @@ public class ResponseDTO {
 	List<MstClassSection> mstClassSections;
 	DashboardData dashboardData;
 	private MasterConfig masterConfig;
-	
+	int schoolCount;
+
+	public int getSchoolCount() {
+		return schoolCount;
+	}
+
+	public void setSchoolCount(int schoolCount) {
+		this.schoolCount = schoolCount;
+	}
 
 	public MasterConfig getMasterConfig() {
 		return masterConfig;

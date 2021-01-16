@@ -366,12 +366,61 @@ public class DashboardService {
 			responseDTO.setDashboardData(dashboardData);
 			responseDTO.setStatusCode(ResponceCode.App001.getStatusCode());
 			responseDTO.setDescription(ResponceCode.App001.getStatusDesc());
-		}
-		else
-		{
+		} else {
 			responseDTO.setStatusCode(ResponceCode.App003.getStatusCode());
 			responseDTO.setDescription(ResponceCode.App003.getStatusDesc());
 		}
+		return responseDTO;
+	}
+
+	public ResponseDTO findSchoolCount(String blockCode) {
+		ResponseDTO responseDTO = new ResponseDTO();
+		int count = studentRepo.countDistinctUdiseCodeByBlockCode(blockCode);
+		responseDTO.setSchoolCount(count);
+		responseDTO.setStatusCode(ResponceCode.App001.getStatusCode());
+		responseDTO.setDescription(ResponceCode.App001.getStatusDesc());
+
+		return responseDTO;
+	}
+
+	public ResponseDTO getGenderAndCategoryData(String blockCode) {
+		ResponseDTO responseDTO = new ResponseDTO();
+		DashboardData dashboardData = new DashboardData();
+		List<StudentBasicDetail> studentBoysDetails = studentRepo.findByGenderAndBlockCode("1", blockCode);
+		List<StudentBasicDetail> studentGirlsDetails = studentRepo.findByGenderAndBlockCode("2", blockCode);
+		List<StudentBasicDetail> studentTransDetails = studentRepo.findByGenderAndBlockCode("3", blockCode);
+		List<Integer> genderList = new ArrayList<>();
+		if (null != studentBoysDetails)
+			genderList.add(studentBoysDetails.size());
+		if (null != studentGirlsDetails)
+			genderList.add(studentGirlsDetails.size());
+		if (null != studentTransDetails)
+			genderList.add(studentTransDetails.size());
+		dashboardData.setGenderWiseData(genderList);
+		List<StudentBasicDetail> studentGenral = studentRepo.findBySocialCategoryAndBlockCode(1, blockCode);
+		List<StudentBasicDetail> studentSc = studentRepo.findBySocialCategoryAndBlockCode(2, blockCode);
+		List<StudentBasicDetail> studentST = studentRepo.findBySocialCategoryAndBlockCode(3, blockCode);
+		List<StudentBasicDetail> studentOBC = studentRepo.findBySocialCategoryAndBlockCode(4, blockCode);
+		List<StudentBasicDetail> studentORC = studentRepo.findBySocialCategoryAndBlockCode(5, blockCode);
+		List<StudentBasicDetail> studentOthers = studentRepo.findBySocialCategoryAndBlockCode(6, blockCode);
+		List<Integer> socialCatList = new ArrayList<>();
+		if (null != studentGenral)
+			socialCatList.add(studentGenral.size());
+		if (null != studentSc)
+			socialCatList.add(studentSc.size());
+		if (null != studentST)
+			socialCatList.add(studentST.size());
+		if (null != studentOBC)
+			socialCatList.add(studentOBC.size());
+		if (null != studentORC)
+			socialCatList.add(studentORC.size());
+		if (null != studentOthers)
+			socialCatList.add(studentOthers.size());
+		dashboardData.setSocialCatData(socialCatList);
+		responseDTO.setDashboardData(dashboardData);
+		responseDTO.setStatusCode(ResponceCode.App001.getStatusCode());
+		responseDTO.setDescription(ResponceCode.App001.getStatusDesc());
+
 		return responseDTO;
 	}
 }

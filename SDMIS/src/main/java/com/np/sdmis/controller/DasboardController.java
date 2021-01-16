@@ -35,4 +35,14 @@ public class DasboardController {
 
 		return dashboardService.getclassStdCount(udiseCode);
 	}
+	@GetMapping("/getSchoolCount")
+	public ResponseDTO getSchoolCount(@RequestParam("blockCode") String blockCode) {
+
+		return dashboardService.findSchoolCount(blockCode);
+	}
+	@GetMapping("/getGenderAndCategoryData")
+	public ResponseDTO getGenderAndCategoryData(@RequestParam("blockCode") String blockCode) {
+
+		return dashboardService.getGenderAndCategoryData(blockCode);
+	}	
 }
