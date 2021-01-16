@@ -1,138 +1,255 @@
 <div class="container">
     <div class="mb-4 d-flex align-items-center">
         <div class="page-head ml-4">Student Profile</div>
-        <div class="ml-auto mr-5">
-            <button *ngIf="common.studentAction=='summaryList'" type="button" mat-raised-button color="primary"
-                class="btn-gradient" (click)="common.studentAction = 'add'">Add Student</button>
-    
-            <button *ngIf="common.studentAction=='add' || common.studentAction=='edit'" type="button" mat-raised-button
-                color="primary" class="btn-gradient" (click)="clearSearchObjs()">Student
-                List</button>
+        <div class="ml-auto mr-5 d-flex">
+            <button type="button" mat-raised-button color="primary" class="btn-gradient"
+            *ngIf="common.studentAction == 'add' || common.studentAction == 'edit'" (click)="common.studentAction='classList'">Class List</button>
         </div>
-    
-    
     </div>
-    
-    <div *ngIf="common.studentAction=='summaryList'" class="mr-5">
-        <div class="row align-items-center form-field">
-            <div class="col-md-4 mt-2 short-field" *ngIf="userObj.userType=='B'">
-                <mat-form-field class="w-75">
-                    <mat-label>School</mat-label>
-                    <mat-select [(ngModel)]="stdSearchParam.udiseCode" name="stdSearchParam.udiseCode" required >
-                        <mat-option *ngFor="let school of schoolList" [value]="school.udiseCode" (click)="getClassBySchoolRange(school.classFrom, school.classTo)">{{school.schName}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error>School is required</mat-error>
-                </mat-form-field>
+    <div class="ml-4 mr-5">
+        <div *ngIf="common.studentAction != 'schoolList'">
+            <div class="school-details">
+                <ul class="d-flex flex-wrap list-unstyled">
+                    <li>
+                        <label>School Name</label>
+                        <div>{{common.schoolDetail.schName ? common.schoolDetail.schName :
+                            common.schoolDetail.schoolName}}</div>
+                    </li>
+                    <li>
+                        <label>UDISE Code</label>
+                        <div>{{common.schoolDetail.udiseCode}}</div>
+                    </li>
+                    <li>
+                        <label>Block</label>
+                        <div>{{common.schoolDetail.blockName}}</div>
+                    </li>
+                    <li>
+                        <label>District</label>
+                        <div>{{common.schoolDetail.districtName}}</div>
+                    </li>
+                    <li>
+                        <label>State</label>
+                        <div>{{common.schoolDetail.stateName}}</div>
+                    </li>
+                    <li>
+                        <label>Class From</label>
+                        <div>{{common.schoolDetail.classFrom}}</div>
+                    </li>
+                    <li>
+                        <label>Class To</label>
+                        <div>{{common.schoolDetail.classTo}}</div>
+                    </li>
+                </ul>
             </div>
-
-            <div class="col-md-2 mt-2 short-field">
-                <mat-form-field>
-                    <mat-label>Class</mat-label>
-                    <mat-select [(ngModel)]='stdSearchParam.class' name='stdSearchParam.class' required #class (ngModelChange)="getSectionList(class.value)">
-                        <mat-option *ngFor="let class of classList" [value]="class.id">{{class.name}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div class="col-md-2 mt-2 short-field">
-                <mat-form-field>
-                    <mat-label>Section</mat-label>
-                    <mat-select [(ngModel)]='stdSearchParam.section' name='stdSearchParam.section' (ngModelChange)="getStudentList()" required>
-                        <mat-option *ngFor="let section of sectionList" [value]="section.sectionName">{{section.sectionName}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-    
-            <div class="table-head" *ngIf="basicInfoList.data.length > 0">
-                <input type="text" class="custom-input" placeholder="Search..." (keyup)="applyFilter($event.target.value)">
-            </div>
-    
         </div>
-    
-        <div *ngIf="basicInfoList.data.length > 0" class="fadeIn">
+
+        <div *ngIf="common.studentAction=='schoolList' && schoolTable.data.length > 0" class="mb-5">
+            <div class="school-table pl-4">
+                <div class=" w-100 align-items-center d-flex school-details table-panel">
+                    <div class="font-weight-bold ml-4">Please select a school from the below list to view all classes
+                        and students</div>
+                    <input type="text" class="custom-input ml-auto m-3" [(ngModel)]="schoolFilter" name="schoolFilter"
+                        placeholder="Search..." (keyup)="applySchoolFilter($event.target.value)">
+                </div>
+                <table mat-table [dataSource]="schoolTable" class="w-100 mt-3">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef>School Name</th>
+                        <td mat-cell *matCellDef="let element"> {{element.schName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef>UDISE Code</th>
+                        <td mat-cell *matCellDef="let element"> {{element.udiseCode}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="type">
+                        <th mat-header-cell *matHeaderCellDef>School Type</th>
+                        <td mat-cell *matCellDef="let element"> {{element.schTypeDesc}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="range">
+                        <th mat-header-cell *matHeaderCellDef>Classes Available</th>
+                        <td mat-cell *matCellDef="let element"> {{element.classFrom + ' - ' + element.classTo}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="tableColumn"></tr>
+                    <tr mat-row *matRowDef="let element; columns: tableColumn;"
+                        (click)="getClassBySchoolRange(element);">
+                    </tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[10, 15, 20, 15, 30]" class="w-100"></mat-paginator>
+            </div>
+        </div>
+        <div *ngIf="common.studentAction == 'classList'" class="classTable">
+            <div class="std-details mt-5 d-flex">
+                <ul class="d-flex flex-wrap list-unstyled">
+                    <li>
+                        <label class="table-panel">List of classes in the school</label>
+                    </li>
+                </ul>
+                <ul class="d-flex flex-wrap list-unstyled ml-auto">
+                    <li>
+                        <div *ngIf="userObj.userType == 'B' && common.studentAction=='classList'">
+                            <button *ngIf="!showSchools" type="button" mat-raised-button color="primary"
+                                class="btn-gradient"
+                                (click)="common.studentAction = 'schoolList'; setSchoolPaginator();">School
+                                List</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <table mat-table [dataSource]="classList" class="mt-3">
+                <ng-container matColumnDef="class">
+                    <th mat-header-cell *matHeaderCellDef>Class</th>
+                    <td mat-cell *matCellDef="let element">{{element.name}}</td>
+                </ng-container>
+                <ng-container matColumnDef="std">
+                    <th mat-header-cell *matHeaderCellDef>Students</th>
+                    <td mat-cell *matCellDef="let element">
+                        <span *ngIf="classStudentCount?.length > 0"> {{classStudentCount[element.value-1]}}</span>
+                        <span *ngIf="!classStudentCount">0</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="view">
+                    <th mat-header-cell *matHeaderCellDef [ngStyle]="{'text-align': 'right'}"> Action </th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="d-flex align-items-center table-action" (click)="getStudentList(element.id); openProfile(element.id);">
+                            <mat-icon>list</mat-icon>
+                            <span class="ml-3">View Students</span>
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="add">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                        <div class="d-flex align-items-center table-action"
+                            (click)="common.studentAction='add'; openProfile(element.id);">
+                            <mat-icon>add</mat-icon>
+                            <span class="ml-3">Add Students</span>
+                        </div>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="classColumn"></tr>
+                <tr mat-row *matRowDef="let element; columns: classColumn;">
+                </tr>
+            </table>
+        </div>
+
+        <div *ngIf="common.studentAction == 'summaryList' && basicInfoList.data.length > 0" class="fadeIn">
             <!-- <div class="w-100 table-panel">
                 Basic Information of students
             </div> -->
+            <div class="std-details mt-5 d-flex">
+                <ul class="d-flex flex-wrap list-unstyled">
+                    <li>
+                        <label class="table-panel">Showing data for Class {{stdSearchParam.class}}</label>
+                    </li>
+                </ul>
+                <ul class="d-flex flex-wrap list-unstyled ml-auto">
+                    <li *ngIf="common.studentAction !='schoolList' && common.studentAction !='classList'">
+                        <button type="button" mat-raised-button color="primary" class="btn-gradient"
+                            (click)="common.studentAction = 'classList'">Class List</button>
+                    </li>
+                    <li>
+                        <button type="button" mat-raised-button color="primary" class="btn-gradient"
+                            (click)="common.studentAction='add';">Add Students</button>
+                    </li>
+                </ul>
+
+            </div>
             <table mat-table [dataSource]="basicInfoList" class="w-100">
-                <ng-container matColumnDef="name" >
+                <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef style="width: 200px;">STUDENTS</th>
                     <td mat-cell *matCellDef="let element" style="width: 200px;"> {{element.studentName}} </td>
                 </ng-container>
                 <ng-container matColumnDef="admissionNum">
-                    <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: center;">ADMISSION NO</th>
-                    <td mat-cell *matCellDef="let element" style="width: 200px; text-align: center;"> {{element.admNum}} </td>
+                    <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: center;">ADMISSION NO
+                    </th>
+                    <td mat-cell *matCellDef="let element" style="width: 200px; text-align: center;">
+                        {{element.admNum}}
+                    </td>
                 </ng-container>
-               
+
                 <ng-container matColumnDef="doa">
-                    <th mat-header-cell *matHeaderCellDef style="width: 230px; text-align: center;">DATE OF ADMISSION</th>
-                    <td mat-cell *matCellDef="let element" style="width: 230px; text-align: center;"> {{element.doa | date:'dd/MM/yyyy'}} </td>
+                    <th mat-header-cell *matHeaderCellDef style="width: 230px; text-align: center;">DATE OF
+                        ADMISSION
+                    </th>
+                    <td mat-cell *matCellDef="let element" style="width: 230px; text-align: center;"> {{element.doa
+                        |
+                        date:'dd/MM/yyyy'}} </td>
                 </ng-container>
                 <ng-container matColumnDef="class">
                     <th mat-header-cell *matHeaderCellDef style="width: 180px; text-align: center;">CLASS</th>
-                    <td mat-cell *matCellDef="let element" style="width: 180px; text-align: center;"> {{element.className}} </td>
+                    <td mat-cell *matCellDef="let element" style="width: 180px; text-align: center;">
+                        {{element.className}}
+                    </td>
                 </ng-container>
                 <ng-container matColumnDef="section">
                     <th mat-header-cell *matHeaderCellDef style="width: 180px; text-align: center;">SECTION</th>
-                    <td mat-cell *matCellDef="let element" style="width: 180px; text-align: center;"> {{element.section}} </td>
+                    <td mat-cell *matCellDef="let element" style="width: 180px; text-align: center;">
+                        {{element.section}}
+                    </td>
                 </ng-container>
                 <ng-container matColumnDef="gender">
                     <th mat-header-cell *matHeaderCellDef style="width: 180px; text-align: center;">GENDER</th>
-                    <td mat-cell *matCellDef="let element" style="width: 180px; text-align: center;"> {{element.gender == 1 ? 'Boy' : ( element.gender == 2 ? 'Girl' : 'Other/Transgender') }} </td>
+                    <td mat-cell *matCellDef="let element" style="width: 180px; text-align: center;">
+                        {{element.gender
+                        == 1
+                        ? 'Boy' : ( element.gender == 2 ? 'Girl' : 'Other/Transgender') }} </td>
                 </ng-container>
                 <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: right; padding-right: 7rem;">Action</th>
-                    <td mat-cell *matCellDef="let element" style="width: 200px; text-align: right; padding-right: 6rem;">
+                    <th mat-header-cell *matHeaderCellDef style="width: 200px; text-align: right; padding-right: 7rem;">
+                        Action</th>
+                    <td mat-cell *matCellDef="let element"
+                        style="width: 200px; text-align: right; padding-right: 6rem;">
                         <a href="javascript:void(0);" (click)='viewStudentDetails(element.record);'>
                             <img src="assets/images/eye.svg" width="17px" class="view-icon">
                             <span class="icon-text">View</span>
                         </a>
                     </td>
                 </ng-container>
-    
+
                 <tr mat-header-row *matHeaderRowDef="basicInfoTableHead"></tr>
                 <tr mat-row *matRowDef="let element; columns: basicInfoTableHead;">
                 </tr>
             </table>
             <mat-paginator [pageSizeOptions]="[5, 10, 15, 20]" showFirstLastButtons></mat-paginator>
-    
+
         </div>
     </div>
-    
-    
-    <div *ngIf="common.studentAction=='add' || common.studentAction=='edit'" class="mr-5 mt-2">
+
+    <div *ngIf="common.studentAction=='add' || common.studentAction=='edit'" class="mt-2">
         <div class="mt-3">
-             <mat-horizontal-stepper #stepper > <!-- [linear]="common.studentAction=='add'" -->
+            <mat-horizontal-stepper #stepper>
+                <!-- [linear]="common.studentAction=='add'" -->
                 <mat-step [editable]="common.studentAction!='add'" [completed]="false">
                     <!--  [completed]="false" -->
-                    <ng-template matStepLabel >Basic Information</ng-template>
+                    <ng-template matStepLabel>Basic Information</ng-template>
                     <app-student-basic-info (event)="moveStepper();"></app-student-basic-info>
                 </mat-step>
-    
+
                 <mat-step [editable]="common.studentAction!='add'" [completed]="false">
                     <ng-template matStepLabel>Education Details</ng-template>
                     <app-student-education (educationEvent)=moveStepper();></app-student-education>
                 </mat-step>
-    
+
                 <mat-step [editable]="common.studentAction!='add'" [completed]="false">
                     <ng-template matStepLabel>Incentive Details</ng-template>
                     <app-student-incentive (incentiveEvent)="moveStepper()"></app-student-incentive>
                 </mat-step>
-    
+
                 <mat-step [editable]="common.studentAction!='add'" [completed]="false" *ngIf="common.stdClass > '8'">
                     <ng-template matStepLabel>Vocational Details</ng-template>
                     <app-student-vocational (vocationalEvent)="moveStepper()"></app-student-vocational>
                 </mat-step>
-    
+
                 <mat-step [editable]="common.studentAction!='add'" [completed]="false">
                     <ng-template matStepLabel>Results</ng-template>
                     <app-student-result (resultEvent)="resultEvent()"></app-student-result>
                 </mat-step>
-    
-    
+
+
             </mat-horizontal-stepper>
         </div>
     </div>
+
 </div>
 
 <div *ngIf='alertFlag'>

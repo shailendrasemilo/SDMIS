@@ -404,16 +404,15 @@
         border-radius: 5px;
     }
 
-    
     .class-wise-count {
         margin-left: 1.5rem;
         font-weight: bolder;
     }
-    
+
     .classwise-chart {
         margin-top: 2rem;
     }
-    
+
     .class-wise-head {
         margin-top: 1.5rem;
         color: #5F6C7E

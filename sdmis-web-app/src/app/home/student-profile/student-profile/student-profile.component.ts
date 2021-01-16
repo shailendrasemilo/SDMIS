@@ -30,9 +30,14 @@ export class StudentProfileComponent implements OnInit {
   basicInfoList: any = new MatTableDataSource;
   classList: any = [];
   schoolList: any = [];
-
+  schoolTable: any = new MatTableDataSource;
+  tableColumn: any = ['name', 'id', 'type', 'range']
+  classColumn: any = ['class', 'std', 'view', 'add']
+  showSchools: boolean = false;
   basicInfoTableHead = ['name', 'admissionNum', 'doa', 'class', 'section', 'gender', 'action'];
   showProgress: boolean = false;
+  classStudentCount: any = [];
+  schoolFilter: any;
 
   sectionList: any = [];
 
@@ -42,20 +47,32 @@ export class StudentProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.userObj = this.common.userObj;
-    this.common.schoolDetail = JSON.parse(sessionStorage.getItem('schoolDetail'))
-    this.common.studentAction = 'summaryList';
     if (this.userObj.userType == 'S') {
+      this.common.schoolDetail = JSON.parse(sessionStorage.getItem('schoolDetail'))
       if (this.common.schoolDetail.udiseCode) {
-        this.getClassBySchoolRange(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
+        this.getClassBySchoolRange(this.common.schoolDetail)
       }
     } else if (this.userObj.userType == 'B') {
+      this.common.studentAction = 'schoolList';
       this.getSchools(this.userObj.blockCode);
     }
   }
 
-  getClassBySchoolRange(classFrom, classTo) {
-    console.log(classTo, classFrom)
-    this.classList = this.common.createSchoolClassList(classFrom, classTo)
+  getClassBySchoolRange(school) {
+    if(this.userObj.userType == 'B') {
+      this.common.schoolDetail = school;
+      sessionStorage.setItem('schoolDetail', JSON.stringify(school))
+    }
+    this.classList = new MatTableDataSource(this.common.createSchoolClassList(school.classFrom, school.classTo))
+    this.httpService.getStdClassCount(school.udiseCode).subscribe(res => {
+      console.log(res)
+      if (res.statusCode) {
+        this.classStudentCount = res.dashboardData?.classesData
+        this.common.studentAction = 'classList'
+      }
+      console.log(this.classStudentCount)
+    })
+    console.log(this.classList.data)
   }
 
   getSchools(blockCode) {
@@ -66,6 +83,8 @@ export class StudentProfileComponent implements OnInit {
           console.log(res2)
           if (res2.statusCode == environment.httpSuccess) {
             this.schoolList = res2.data.result;
+            this.schoolTable = new MatTableDataSource(this.schoolList)
+            this.setSchoolPaginator();
           }
         })
       } else {
@@ -76,38 +95,23 @@ export class StudentProfileComponent implements OnInit {
     })
   }
 
+  setSchoolPaginator() {
+    setTimeout(() => {
+      this.schoolTable.paginator = this.paginator;
+    }, 100)
+  }
+
   clearSearchObjs() {
     this.stdSearchParam = {};
     this.common.studentAction = 'summaryList';
     this.basicInfoList = new MatTableDataSource();
   }
 
-  getSectionList(className) {
-    console.log(className)
-    let udiseCode;
-    if (this.userObj.userType == 'S') {
-      udiseCode = this.userObj.schoolId
-    } else if (this.userObj.userType == 'B') {
-      udiseCode = this.stdSearchParam.udiseCode
-    }
-    this.httpService.getClassSection(className, udiseCode).subscribe(res => {
-      console.log(res)
-      if (res.statusCode == environment.successCode) {
-        this.sectionList = res.mstClassSections
-      } else {
-        this.alertFlag = true;
-        this.alertCount = this.alertCount + 1
-        this.alertMsg = 'No sections have been created for this class.';
-      }
-    })
-  }
-
-  getStudentList() {
-    if (this.userObj.userType == 'S') {
-      this.stdSearchParam.udiseCode = this.common.schoolDetail.udiseCode;
-    }
+  getStudentList(className) {
+    console.log(className, this.common.schoolDetail.udiseCode)
+    this.stdSearchParam.udiseCode = this.common.schoolDetail.udiseCode;
+    this.stdSearchParam.class = className;
     this.common.stdIdEdit = null;
-    this.common.studentAction = 'summaryList';
     this.basicInfoList = new MatTableDataSource();
     console.log(this.stdSearchParam)
     this.httpService.getStudentSummary(this.stdSearchParam).subscribe(data => {
@@ -119,6 +123,7 @@ export class StudentProfileComponent implements OnInit {
           setTimeout(() => {
             this.basicInfoList.paginator = this.paginator;
           }, 100);
+          this.common.studentAction = 'summaryList'
         } else {
           this.alertCount = this.alertCount + 1;
           this.alertFlag = true;
@@ -148,7 +153,6 @@ export class StudentProfileComponent implements OnInit {
   resultEvent() {
     this.stdSearchParam = {};
     this.basicInfoList = new MatTableDataSource();
-    this.common.studentAction = 'summaryList'
     this.alertMsg = "Student Profile has been completed";
     this.alertCount = this.alertCount + 1;
     this.alertFlag = true;
@@ -159,17 +163,21 @@ export class StudentProfileComponent implements OnInit {
     console.log(studentId)
     this.common.studentAction = 'edit';
     this.common.setStdIdForEdit(studentId);
-    if (this.userObj.userType == 'B') {
-      this.schoolList.filter(schoolObj => {
-        if (schoolObj.udiseCode == this.stdSearchParam.udiseCode) {
-          sessionStorage.setItem('schoolDetail', JSON.stringify(schoolObj))
-        }
-      })
-    }
   }
 
   applyFilter(searchText) {
     this.basicInfoList.filter = searchText.trim().toLowerCase();
+  }
+
+  applySchoolFilter(searchText) {
+    this.schoolTable.filter = searchText.trim().toLowerCase();
+    console.log(this.schoolTable.data)
+    console.log(this.schoolTable.filteredData)
+
+  }
+
+  openProfile(className) {
+    this.common.stdForClass = className
   }
 
 }

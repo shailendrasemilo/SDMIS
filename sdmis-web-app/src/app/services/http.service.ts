@@ -59,7 +59,7 @@ export class HttpService {
   getStudentSummary(stdSearchParam) {
     let params = new HttpParams();
     params = params.set('className', stdSearchParam.class)
-    params = params.set('section', stdSearchParam.section)
+    params = params.set('section', '')
     params = params.set('udiseCode', stdSearchParam.udiseCode)
     console.log(params.toString())
     return this.http.get<any>(environment.api_base_url + '/getStudentList', { params });
@@ -183,6 +183,12 @@ export class HttpService {
     let params = new HttpParams();
     params = params.set('masterType', 'DIS_TYPE')
     return this.http.get<any>(environment.mhrd_base_url + '/masters', { params })
+  }
+
+  getStdClassCount(udiseCode) {
+    let params = new HttpParams();
+    params = params.set('udiseCode', udiseCode)
+    return this.http.get<any>(environment.api_base_url + '/getclassStdCount', { params })
   }
 
 }

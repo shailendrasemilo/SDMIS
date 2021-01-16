@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="row form-field">
-            <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="userObj.userType=='B'">
+            <!-- <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="userObj.userType=='B'">
                 <mat-form-field class="w-75">
                     <mat-label>School</mat-label>
                     <mat-select [(ngModel)]="classMapping.udiseCode" name="classMapping.udiseCode" required>
@@ -16,13 +16,13 @@
                     </mat-select>
                     <mat-error>School is required</mat-error>
                 </mat-form-field>
-            </div>
+            </div> -->
 
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Student Aadhar Number (1)</mat-label>
-                    <input matInput placeholder="Student Aadhar Number (1)" [(ngModel)]="profileDetails.aadharNum" maxlength="12" minlength="12" appNumberOnly
-                        name="profileDetails.aadharNum">
+                    <input matInput placeholder="Student Aadhar Number (1)" [(ngModel)]="profileDetails.aadharNum"
+                        maxlength="12" minlength="12" appNumberOnly name="profileDetails.aadharNum">
                     <mat-error>Please provide valid Aadhar Number</mat-error>
 
                 </mat-form-field>
@@ -122,7 +122,8 @@
                     <mat-label>State</mat-label>
                     <mat-select [(ngModel)]="profileDetails.stateId" name="profileDetails.stateId" required #state
                         (ngModelChange)="getDistrictList(state.value)">
-                        <mat-option *ngFor="let state of stateList" [value]="state.regionCode">{{state.regionName}}</mat-option>
+                        <mat-option *ngFor="let state of stateList" [value]="state.regionCode">{{state.regionName}}
+                        </mat-option>
                     </mat-select>
                     <mat-error>State is required</mat-error>
 
@@ -201,11 +202,8 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Student Class (16)</mat-label>
-                    <mat-select [(ngModel)]="classMapping.className" name="classMapping.className" required #class
-                        (ngModelChange)="getSectionList(class.value)">
-                        <mat-option *ngFor="let class of classList" [value]="class.id">{{class.name}}</mat-option>
-                    </mat-select>
-                    <mat-error>Student Class is required</mat-error>
+                    <input matInput placeholder="Student Class (16)" [(ngModel)]="classMapping.className" disabled
+                        name="classMapping.className">
                 </mat-form-field>
             </div>
 

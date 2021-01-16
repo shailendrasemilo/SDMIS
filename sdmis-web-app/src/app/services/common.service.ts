@@ -16,6 +16,7 @@ export class CommonService {
   schoolDetail: any = {};
   schoolMgmt: any;
   stdClass: any;
+  stdForClass: any;
 
   classList: any = [
     { name: 'Class I', id: 'I', value: 1},

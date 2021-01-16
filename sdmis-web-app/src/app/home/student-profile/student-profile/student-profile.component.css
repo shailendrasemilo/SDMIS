@@ -1,7 +1,8 @@
-.custom-input {
+.table-panel .custom-input {
     width: 250px;
-    background-position: 230px 13px;
+    background-position: 220px 13px;
     height: 43px;
+    border: 2px solid #E8EEF6;
 }
 
 .table-head {
@@ -60,4 +61,58 @@
 
 .short-field .mat-form-field {
     width: 85%
+}
+
+.school-table .mat-row:hover {
+    cursor: pointer;
+}
+
+.school-table .mat-row {
+    height: 35px;
+}
+
+.classTable tr.mat-header-row {
+    height: 20px !important
+}
+
+.school-details, .std-details {
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.school-details ul li, .std-details ul li {
+    margin: 1.5rem;
+    text-align: center;
+}
+
+.school-details ul li {
+    width: 220px;
+}
+
+.school-details ul li label {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.std-details label {
+    font-weight: 600;
+    margin: 1rem;
+}
+
+.table-action:hover {
+    cursor: pointer;
+}
+
+.classTable table {
+    width: 65%
+}
+
+.table-action {
+    width: 50%;
+}
+
+.table-panel {
+    font-size: 1.5rem;
+    color: var(--color-blue);
 }

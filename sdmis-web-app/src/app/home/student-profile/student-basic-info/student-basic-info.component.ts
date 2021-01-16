@@ -46,29 +46,23 @@ export class StudentBasicInfoComponent implements OnInit {
     this.getStateList();
     this.getMasterData();
     this.userObj = this.common.userObj;
-    if (this.userObj.userType == 'B') {
-      this.getSchoolByBlock(this.userObj.blockCode);
-    }
     if (this.common.studentAction == 'edit') {
       this.getStdBasicInfo();
     } else if (this.common.studentAction == 'add') {
+      this.classMapping.className = this.common.stdForClass
+      this.classMapping.udiseCode = this.common.schoolDetail.udiseCode
+      this.getSectionList(this.classMapping.className)
       this.setSchoolLocData();
-    }
-
-    if (this.userObj.userType == 'S') {
-      if (this.common.schoolDetail.udiseCode) {
-        this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
-      }
     }
   }
 
   setSchoolLocData() {
     this.profileDetails.stateCode = this.common.schoolDetail.stateCode
-      this.profileDetails.districtCode = this.common.schoolDetail.districtCode;
-      this.profileDetails.blockCode = this.common.schoolDetail.blockCode;
-      this.classMapping.stateCode = this.common.schoolDetail.stateCode
-      this.classMapping.districtCode = this.common.schoolDetail.districtCode;
-      this.classMapping.blockCode = this.common.schoolDetail.blockCode;
+    this.profileDetails.districtCode = this.common.schoolDetail.districtCode;
+    this.profileDetails.blockCode = this.common.schoolDetail.blockCode;
+    this.classMapping.stateCode = this.common.schoolDetail.stateCode
+    this.classMapping.districtCode = this.common.schoolDetail.districtCode;
+    this.classMapping.blockCode = this.common.schoolDetail.blockCode;
   }
 
   getClassBySchoolRange(school) {
@@ -178,11 +172,12 @@ export class StudentBasicInfoComponent implements OnInit {
   getSectionList(className) {
     console.log(className)
     let udiseCode;
-    if (this.userObj.userType == 'S') {
-      udiseCode = this.userObj.schoolId
-    } else if (this.userObj.userType == 'B') {
-      udiseCode = this.classMapping.udiseCode;
-    }
+    udiseCode = this.common.schoolDetail.udiseCode
+    // if (this.userObj.userType == 'S') {
+    //   udiseCode = this.common.schoolDetail.udiseCode
+    // } else if (this.userObj.userType == 'B') {
+    //   udiseCode = this.classMapping.udiseCode;
+    // }
     this.httpService.getClassSection(className, udiseCode).subscribe(res => {
       console.log(res)
       if (res.statusCode == environment.successCode) {
@@ -197,7 +192,7 @@ export class StudentBasicInfoComponent implements OnInit {
   }
 
   getStdBasicInfo() {
-    this.getClassBySchoolRange(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
+    // this.getClassBySchoolRange(this.common.schoolDetail)
     this.httpService.getStudentBasicInfoById(this.common.stdIdEdit, this.common.schoolDetail.udiseCode).subscribe(data => {
       console.log(data)
       if (data.studentBasicDetail) {
@@ -206,7 +201,7 @@ export class StudentBasicInfoComponent implements OnInit {
         this.profileDetails.doa = new Date(this.profileDetails.doa)
       } if (data.sectionClassMapping) {
         this.classMapping = data.sectionClassMapping;
-        this.checkStdClass(this.classMapping.className)
+        // this.checkStdClass(this.classMapping.className)
       }
       this.getDistrictList(this.profileDetails.stateId);
       this.getSectionList(this.classMapping.className)
@@ -230,12 +225,7 @@ export class StudentBasicInfoComponent implements OnInit {
 
   sendBasicInfo() {
     if (this.common.studentAction == 'add') {
-      if (this.userObj.userType == 'S') {
-        this.classMapping.udiseCode = this.userObj.schoolId;
-        this.profileDetails.udiseCode = this.userObj.schoolId;
-      } else if (this.userObj.userType == 'B') {
-        this.profileDetails.udiseCode = this.classMapping.udiseCode;
-      }
+      this.profileDetails.udiseCode = this.common.schoolDetail.udiseCode;
       this.profileDetails.stateCode = this.common.schoolDetail.stateCode;
       this.profileDetails.districtCode = this.common.schoolDetail.districtCode;
       this.profileDetails.blockCode = this.common.schoolDetail.blockCode;
@@ -257,7 +247,6 @@ export class StudentBasicInfoComponent implements OnInit {
       if (res.statusCode == environment.successCode) {
         let basicInfo = res.studentBasicDetail;
         this.common.setGeneratedStdId(basicInfo.recordId);
-        this.checkStdClass(this.classMapping.className);
         if (this.common.stdClass < 9) {
           console.log('send empty vocational')
           let vocationalDetail: any = {};
