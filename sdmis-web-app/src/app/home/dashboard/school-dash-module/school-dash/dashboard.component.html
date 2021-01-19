@@ -8,175 +8,180 @@
                 routerLink="/home/dashboard/2">Back</button>
         </div>
     </div>
+    <!-- <div class="school-details" *ngIf="common.schoolDetail?.udiseCode"> -->
+    <div class="ml-4 mr-4">
 
-    <div class="ml-4 mr-5 mb-5 school-details" *ngIf="common.schoolDetail?.udiseCode">
-        <ul class="d-flex flex-wrap list-unstyled">
-            <li>
-                <label>School Name</label>
-                <div>{{common.schoolDetail.schName ? common.schoolDetail.schName :
-                    common.schoolDetail.schoolName}}</div>
-            </li>
-            <li>
-                <label>UDISE Code</label>
-                <div>{{common.schoolDetail.udiseCode}}</div>
-            </li>
-            <li>
-                <label>Category</label>
-                <div>{{common.schoolDetail.schCatDesc ? common.schoolDetail.schCatDesc : common.schoolDetail.schoolCategoryDesc}}</div>
-            </li>
-            <li>
-                <label>Management</label>
-                <div>{{common.schoolDetail.schMgmtDesc ? common.schoolDetail.schMgmtDesc : common.schoolDetail.schoolManagementCenterDesc}}</div>
-            </li>
-            <li>
-                <label>Block</label>
-                <div>{{common.schoolDetail.blockName}}</div>
-            </li>
-            <li>
-                <label>District</label>
-                <div>{{common.schoolDetail.districtName}}</div>
-            </li>
-            <li>
-                <label>State</label>
-                <div>{{common.schoolDetail.stateName}}</div>
-            </li>
-            <li>
-                <label>Class From</label>
-                <div>{{common.schoolDetail.classFrom}}</div>
-            </li>
-            <li>
-                <label>Class To</label>
-                <div>{{common.schoolDetail.classTo}}</div>
-            </li>
-        </ul>
-    </div>
-
-
-    <div class="row">
-        <div class="col-md-3" *ngIf="totalCreated">
-            <mat-card class="dash-card">
-                <div class="dashboard-card-head">
-                    Total Students in {{(viewDashLevel== 'school') ? 'school' : 'block'}}
-                </div>
-                <div class="total-chart">
-                    <canvas baseChart chartType="doughnut" [data]="doughnutChartData" [options]="chartOptions"
-                        [legend]="false" [colors]="chartColors">
-                    </canvas>
-                    <div class="text-chart">
-                        {{profileSum}}
-                    </div>
-                </div>
-                <div class="chart-legend">
-                    <ul class="list-unstyled">
-                        <li *ngFor='let label of schoolChartMasterData' class="mr-3 mb-2 d-flex align-items-center">
-                            <div [ngClass]="label.class=='complete' ? 'complete-profile' : 'remaining-profile'"
-                                class="legend-layout"></div>
-                            <div class="label-name">
-                                {{label.name}}
-                            </div>
-                            <div class="ml-auto label-count">
-                                {{label.count}}
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </mat-card>
-        </div>
-
-        <div class="col-md-9" *ngIf="classWiseCreated">
-            <mat-card class="dash-card">
-                <div class="d-flex">
-                    <div class="dashboard-card-head">
-                        Class wise
-                    </div>
-                    <div class="ml-auto mr-5"> Class from 1 - {{classWiseData.length}} </div>
-                </div>
-
-
-                <div class="row" *ngIf="classWiseData.length > 6">
-                    <div class="col-md-6 pr-5">
-                        <div class="class-wise-head">Classes</div>
-                        <ul class="list-unstyled">
-                            <li *ngFor='let classWise of classWiseData'>
-                                <div class="d-flex align-items-center classwise-chart"
-                                    *ngIf="classWise.classNum % 2 != 0">
-                                    <div class="class-wise-label"
-                                        [ngClass]="viewDashLevel=='school' ? 'pointer' : 'pointer-none'"
-                                        (click)="viewDashLevel=='school' && viewStudents(classWise.classRoman);">
-                                        {{classWise.classRoman}}</div>
-
-                                    <mat-progress-bar class="blue-progress mr-3" mode="determinate"
-                                        [value]="classWise.count / classwiseMaxStd * 100">
-                                    </mat-progress-bar>
-
-                                    <div class="class-wise-count">{{classWise.count}}</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6 pl-5">
-                        <div class=" class-wise-head">Classes</div>
-                        <ul class="list-unstyled">
-                            <li *ngFor='let classWise of classWiseData'>
-                                <div class="d-flex align-items-center classwise-chart"
-                                    *ngIf="classWise.classNum % 2 == 0">
-                                    <div class="class-wise-label"
-                                        [ngClass]="viewDashLevel=='school' ? 'pointer' : 'pointer-none'"
-                                        (click)="viewDashLevel=='school' && viewStudents(classWise.classRoman);">
-                                        {{classWise.classRoman}}</div>
-
-                                    <mat-progress-bar class="blue-progress mr-3" mode="determinate"
-                                        [value]="classWise.count / classwiseMaxStd * 100">
-                                    </mat-progress-bar>
-
-                                    <div class="class-wise-count">{{classWise.count}}</div>
-                                </div>
-
-
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row" *ngIf="classWiseData.length <= 6">
-                    <div class="col-md-12 pr-5">
-                        <div class="class-wise-head">Classes</div>
-                        <ul class="list-unstyled">
-                            <li *ngFor='let classWise of classWiseData'>
-                                <div class="d-flex align-items-center classwise-chart">
-                                    <div class="class-wise-label"
-                                        [ngClass]="viewDashLevel=='school' ? 'pointer' : 'pointer-none'"
-                                        (click)="viewDashLevel=='school' && viewStudents(classWise.classRoman);">
-                                        {{classWise.classRoman}}</div>
-
-                                    <mat-progress-bar class="blue-progress mr-3" mode="determinate"
-                                        [value]="classWise.count / classwiseMaxStd * 100">
-                                    </mat-progress-bar>
-
-                                    <div class="class-wise-count">{{classWise.count}}</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-            </mat-card>
-        </div>
-    </div>
-    <div class="row">
-        <div class="profile-parent w-100" *ngIf="sectionWiseCreated">
-            <ul class="list-unstyled d-flex">
-                <li *ngFor="let profile of profileWiseData" style="width: 20%">
-                    <mat-card class="profile-card">
-                        <div class="profile-head">{{profile.count}}</div>
-                        <div class="mt-3">{{profile.displayText}}</div>
-                        <mat-progress-bar class="green-progress mt-3" mode="determinate"
-                            [value]="profile.count / profileWiseMaxStd * 100">
-                        </mat-progress-bar>
-                    </mat-card>
+        <div *ngIf="common.schoolDetail?.udiseCode" class="school-details mb-5">
+            <ul class="d-flex flex-wrap list-unstyled">
+                <li>
+                    <label>School Name</label>
+                    <div>{{common.schoolDetail.schName ? common.schoolDetail.schName :
+                        common.schoolDetail.schoolName}}</div>
+                </li>
+                <li>
+                    <label>UDISE Code</label>
+                    <div>{{common.schoolDetail.udiseCode}}</div>
+                </li>
+                <li>
+                    <label>Category</label>
+                    <div>{{common.schoolDetail.schCatDesc ? common.schoolDetail.schCatDesc :
+                        common.schoolDetail.schoolCategoryDesc}}</div>
+                </li>
+                <li>
+                    <label>Management</label>
+                    <div>{{common.schoolDetail.schMgmtDesc ? common.schoolDetail.schMgmtDesc :
+                        common.schoolDetail.schoolManagementCenterDesc}}</div>
+                </li>
+                <li>
+                    <label>Block</label>
+                    <div>{{common.schoolDetail.blockName}}</div>
+                </li>
+                <li>
+                    <label>District</label>
+                    <div>{{common.schoolDetail.districtName}}</div>
+                </li>
+                <li>
+                    <label>State</label>
+                    <div>{{common.schoolDetail.stateName}}</div>
+                </li>
+                <li>
+                    <label>Class From</label>
+                    <div>{{common.schoolDetail.classFrom}}</div>
+                </li>
+                <li>
+                    <label>Class To</label>
+                    <div>{{common.schoolDetail.classTo}}</div>
                 </li>
             </ul>
         </div>
+
+        <div class="row">
+            <div class="col-md-3" *ngIf="totalCreated">
+                <mat-card class="dash-card">
+                    <div class="dashboard-card-head">
+                        Total Students in {{(viewDashLevel== 'school') ? 'school' : 'block'}}
+                    </div>
+                    <div class="total-chart">
+                        <canvas baseChart chartType="doughnut" [data]="doughnutChartData" [options]="chartOptions"
+                            [legend]="false" [colors]="chartColors">
+                        </canvas>
+                        <div class="text-chart">
+                            {{profileSum}}
+                        </div>
+                    </div>
+                    <div class="chart-legend">
+                        <ul class="list-unstyled">
+                            <li *ngFor='let label of schoolChartMasterData' class="mr-3 mb-2 d-flex align-items-center">
+                                <div [ngClass]="label.class=='complete' ? 'complete-profile' : 'remaining-profile'"
+                                    class="legend-layout"></div>
+                                <div class="label-name">
+                                    {{label.name}}
+                                </div>
+                                <div class="ml-auto label-count">
+                                    {{label.count}}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </mat-card>
+            </div>
+
+            <div class="col-md-9" *ngIf="classWiseCreated">
+                <mat-card class="dash-card">
+                    <div class="d-flex">
+                        <div class="dashboard-card-head">
+                            Class wise
+                        </div>
+                        <div class="ml-auto mr-5"> Class from 1 - {{classWiseData.length}} </div>
+                    </div>
+
+
+                    <div class="row" *ngIf="classWiseData.length > 6">
+                        <div class="col-md-6 pr-5">
+                            <div class="class-wise-head">Classes</div>
+                            <ul class="list-unstyled">
+                                <li *ngFor='let classWise of classWiseData'>
+                                    <div class="d-flex align-items-center classwise-chart"
+                                        *ngIf="classWise.classNum % 2 != 0">
+                                        <div class="class-wise-label"
+                                            [ngClass]="viewDashLevel=='school' ? 'pointer' : 'pointer-none'"
+                                            (click)="viewDashLevel=='school' && viewStudents(classWise.classRoman);">
+                                            {{classWise.classRoman}}</div>
+
+                                        <mat-progress-bar class="blue-progress mr-3" mode="determinate"
+                                            [value]="classWise.count / classwiseMaxStd * 100">
+                                        </mat-progress-bar>
+
+                                        <div class="class-wise-count">{{classWise.count}}</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6 pl-5">
+                            <div class=" class-wise-head">Classes</div>
+                            <ul class="list-unstyled">
+                                <li *ngFor='let classWise of classWiseData'>
+                                    <div class="d-flex align-items-center classwise-chart"
+                                        *ngIf="classWise.classNum % 2 == 0">
+                                        <div class="class-wise-label"
+                                            [ngClass]="viewDashLevel=='school' ? 'pointer' : 'pointer-none'"
+                                            (click)="viewDashLevel=='school' && viewStudents(classWise.classRoman);">
+                                            {{classWise.classRoman}}</div>
+
+                                        <mat-progress-bar class="blue-progress mr-3" mode="determinate"
+                                            [value]="classWise.count / classwiseMaxStd * 100">
+                                        </mat-progress-bar>
+
+                                        <div class="class-wise-count">{{classWise.count}}</div>
+                                    </div>
+
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="classWiseData.length <= 6">
+                        <div class="col-md-12 pr-5">
+                            <div class="class-wise-head">Classes</div>
+                            <ul class="list-unstyled">
+                                <li *ngFor='let classWise of classWiseData'>
+                                    <div class="d-flex align-items-center classwise-chart">
+                                        <div class="class-wise-label"
+                                            [ngClass]="viewDashLevel=='school' ? 'pointer' : 'pointer-none'"
+                                            (click)="viewDashLevel=='school' && viewStudents(classWise.classRoman);">
+                                            {{classWise.classRoman}}</div>
+
+                                        <mat-progress-bar class="blue-progress mr-3" mode="determinate"
+                                            [value]="classWise.count / classwiseMaxStd * 100">
+                                        </mat-progress-bar>
+
+                                        <div class="class-wise-count">{{classWise.count}}</div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </mat-card>
+            </div>
+        </div>
+        <div class="row">
+            <div class="profile-parent w-100" *ngIf="sectionWiseCreated">
+                <ul class="list-unstyled d-flex">
+                    <li *ngFor="let profile of profileWiseData" style="width: 20%">
+                        <mat-card class="profile-card">
+                            <div class="profile-head">{{profile.count}}</div>
+                            <div class="mt-3">{{profile.displayText}}</div>
+                            <mat-progress-bar class="green-progress mt-3" mode="determinate"
+                                [value]="profile.count / profileWiseMaxStd * 100">
+                            </mat-progress-bar>
+                        </mat-card>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
+
 </div>
 
 

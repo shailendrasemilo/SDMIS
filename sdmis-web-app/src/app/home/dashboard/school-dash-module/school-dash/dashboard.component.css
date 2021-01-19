@@ -28,7 +28,6 @@
 
 .profile-parent {
     margin-top: 3rem;
-    margin-left: 1.5rem;
 }
 
 .profile-parent>ul>li {
@@ -37,10 +36,6 @@
 
 .profile-parent>ul>li:not(:last-child) {
     margin-right: 3rem;
-}
-
-.profile-parent>ul>li:last-child {
-    margin-right: 1.5rem;
 }
 
 .profile-head {
@@ -61,18 +56,6 @@ td.mat-cell:not(:first-of-type), th.mat-header-cell:not(:first-of-type) {
     text-align: center;
 }
 
-/* .table-list {
-    margin-top: 1rem;
-    margin-left: 1rem;
-    width: 40%;
-} */
-
-/* .mat-row:hover {
-    cursor: pointer;
-} */
-
-
-
 .class-wise-label {
     margin-right: 1.5rem;
     font-size: 1.3rem;
@@ -90,4 +73,8 @@ td.mat-cell:not(:first-of-type), th.mat-header-cell:not(:first-of-type) {
 
 .pointer-none {
     cursor: default;
+}
+
+.col-md-9 {
+    padding-right: 0px !important;
 }

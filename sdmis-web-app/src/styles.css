@@ -336,7 +336,7 @@
     }
 
     .stepper-section {
-        margin: 1rem 1rem 2rem 1rem
+        margin: 2rem 2rem 3rem 3rem
     }
 
     .mat-radio-button {
@@ -448,4 +448,9 @@
     .school-details ul li label {
         font-weight: 600;
         margin-bottom: 1rem;
+    }
+
+    .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-11, .col-lg-11 {
+        padding-left: 0;
+        padding-right: 20px;
     }
