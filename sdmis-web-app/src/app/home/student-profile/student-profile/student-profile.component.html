@@ -20,6 +20,14 @@
                         <div>{{common.schoolDetail.udiseCode}}</div>
                     </li>
                     <li>
+                        <label>Category</label>
+                        <div>{{common.schoolDetail.schCatDesc ? common.schoolDetail.schCatDesc : common.schoolDetail.schoolCategoryDesc}}</div>
+                    </li>
+                    <li>
+                        <label>Management</label>
+                        <div>{{common.schoolDetail.schMgmtDesc ? common.schoolDetail.schMgmtDesc : common.schoolDetail.schoolManagementCenterDesc}}</div>
+                    </li>
+                    <li>
                         <label>Block</label>
                         <div>{{common.schoolDetail.blockName}}</div>
                     </li>
@@ -143,7 +151,7 @@
             <div class="std-details mt-5 d-flex">
                 <ul class="d-flex flex-wrap list-unstyled">
                     <li>
-                        <label class="table-panel">Showing data for Class {{stdSearchParam.class}}</label>
+                        <label class="table-panel">Showing students for Class {{stdSearchParam.class}}</label>
                     </li>
                 </ul>
                 <ul class="d-flex flex-wrap list-unstyled ml-auto">
