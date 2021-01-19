@@ -13,10 +13,10 @@ import { HttpService } from 'src/app/services/http.service';
 export class LoginComponent implements OnInit {
 
   defaultUser: any = [
-    { 'username': 'preritSchool1', 'password': 'Admin@123', 'schoolId': '16010300101', userType: 'S', name: 'Prerit School 1', designation: 'Teacher' },
-    { 'username': 'preritSchool2', 'password': 'Admin@123', 'schoolId': '16010300709', userType: 'S', name: 'Prerit School 2', designation: 'Teacher' },
-    { 'username': 'preritSchool3', 'password': 'Admin@123', 'schoolId': '16010300701', userType: 'S', name: 'Prerit School 3', designation: 'Teacher' },
-    { 'username': 'preritBlock2', 'password': 'Admin@123', 'blockCode': '160103', userType: 'B', name: 'Prerit Block', designation: 'Block User 3' },
+    { 'username': '16010300101', 'password': 'Admin@123', 'schoolId': '16010300101', userType: 'S', name: 'Prerit School 1', designation: 'Teacher' },
+    { 'username': '16010300709', 'password': 'Admin@123', 'schoolId': '16010300709', userType: 'S', name: 'Prerit School 2', designation: 'Teacher' },
+    { 'username': '16010300701', 'password': 'Admin@123', 'schoolId': '16010300701', userType: 'S', name: 'Prerit School 3', designation: 'Teacher' },
+    { 'username': '160103', 'password': 'Admin@123', 'blockCode': '160103', userType: 'B', name: 'Prerit Block', designation: 'Block User 3' },
   ];
 
 
