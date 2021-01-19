@@ -13,12 +13,10 @@ import { HttpService } from 'src/app/services/http.service';
 export class LoginComponent implements OnInit {
 
   defaultUser: any = [
-    { 'username': 'preritSchool1', 'password': 'Admin@123', 'schoolId': '16050503009', userType: 'S', name: 'Prerit School 1', designation: 'Teacher' },
+    { 'username': 'preritSchool1', 'password': 'Admin@123', 'schoolId': '16010300101', userType: 'S', name: 'Prerit School 1', designation: 'Teacher' },
     { 'username': 'preritSchool2', 'password': 'Admin@123', 'schoolId': '16010300709', userType: 'S', name: 'Prerit School 2', designation: 'Teacher' },
-    { 'username': 'preritSchool3', 'password': 'Admin@123', 'schoolId': '16040900120', userType: 'S', name: 'Prerit School 3', designation: 'Teacher' },
-    { 'username': 'preritBlock1', 'password': 'Admin@123', 'blockCode': '160505', userType: 'B', name: 'Prerit Block', designation: 'Block User 1' },
+    { 'username': 'preritSchool3', 'password': 'Admin@123', 'schoolId': '16010300701', userType: 'S', name: 'Prerit School 3', designation: 'Teacher' },
     { 'username': 'preritBlock2', 'password': 'Admin@123', 'blockCode': '160103', userType: 'B', name: 'Prerit Block', designation: 'Block User 3' },
-    { 'username': 'preritBlock3', 'password': 'Admin@123', 'blockCode': '160409', userType: 'B', name: 'Prerit Block', designation: 'Block User 2' },
   ];
 
 
@@ -35,11 +33,8 @@ export class LoginComponent implements OnInit {
 
   login() {
     let login = false;
-    console.log(this.user)
     this.defaultUser.forEach(element => {
-      console.log(element)
       if (this.user.username == element.username && this.user.password == element.password) {
-        console.log('inside')
         sessionStorage.setItem('user', JSON.stringify(element))
         if (element.userType == 'S') {
           this.http.getSchoolByUdise(element.schoolId).subscribe(res => {

@@ -49,7 +49,7 @@ export class StudentBasicInfoComponent implements OnInit {
     if (this.common.studentAction == 'edit') {
       this.getStdBasicInfo();
     } else if (this.common.studentAction == 'add') {
-      this.classMapping.className = this.common.stdForClass
+      this.classMapping.className = this.common.stdClassName
       this.classMapping.udiseCode = this.common.schoolDetail.udiseCode
       this.getSectionList(this.classMapping.className)
       this.setSchoolLocData();

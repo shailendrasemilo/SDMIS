@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { Dashboard2Component } from './dashboard/dashboard2/dashboard2.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '1', pathMatch: 'full'},
-  { path: '1', component: DashboardComponent},
-  { path: '2', component: Dashboard2Component}
+  { path: '1', loadChildren: () => import('./school-dash-module/school-dash-module.module').then(m => m.SchoolDashModuleModule)},
+  { path: '2', loadChildren: () => import('./block-dash-module/block-dash-module.module').then(m => m.BlockDashModuleModule)}
 ];
 
 @NgModule({

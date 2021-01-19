@@ -1,10 +1,3 @@
-.table-panel .custom-input {
-    width: 250px;
-    background-position: 220px 13px;
-    height: 43px;
-    border: 2px solid #E8EEF6;
-}
-
 .table-head {
     padding-bottom: 1.3rem;
     margin-left: auto;
@@ -67,32 +60,8 @@
     cursor: pointer;
 }
 
-.school-table .mat-row {
-    height: 35px;
-}
-
 .classTable tr.mat-header-row {
     height: 20px !important
-}
-
-.school-details, .std-details {
-    width: 100%;
-    background-color: white;
-    border-radius: 10px;
-}
-
-.school-details ul li, .std-details ul li {
-    margin: 1.5rem;
-    text-align: center;
-}
-
-.school-details ul li {
-    width: 220px;
-}
-
-.school-details ul li label {
-    font-weight: 600;
-    margin-bottom: 1rem;
 }
 
 .std-details label {
@@ -112,7 +81,3 @@
     width: 50%;
 }
 
-.table-panel {
-    font-size: 1.5rem;
-    color: var(--color-blue);
-}

@@ -61,29 +61,17 @@ td.mat-cell:not(:first-of-type), th.mat-header-cell:not(:first-of-type) {
     text-align: center;
 }
 
-.table-list {
+/* .table-list {
     margin-top: 1rem;
     margin-left: 1rem;
     width: 40%;
-}
+} */
 
-.mat-row:hover {
+/* .mat-row:hover {
     cursor: pointer;
-}
+} */
 
-.custom-input {
-    width: 200px;
-    background-position: 170px 10px;
-    height: 35px;
-}
 
-tr.mat-row {
-    height: 30px;
-}
-
-.mat-cell {
-    font-size: 12px !important;
-}
 
 .class-wise-label {
     margin-right: 1.5rem;
@@ -91,8 +79,15 @@ tr.mat-row {
     color: var(--color-grey)
 }
 
-
 .class-wise-label, .class-wise-count {
     text-align: center;
     min-width: 2rem;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.pointer-none {
+    cursor: default;
 }

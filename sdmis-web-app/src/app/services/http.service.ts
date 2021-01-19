@@ -106,7 +106,13 @@ export class HttpService {
     return this.http.get<any>(environment.api_base_url + '/getSchoolDasboard', { params });
   }
 
-  getBlockDashboard(blockCode) {
+  getBlockMoreDashboard(blockCode) {
+    let params = new HttpParams();
+    params = params.set('blockCode', blockCode)
+    return this.http.get<any>(environment.api_base_url + '/getGenderAndCategoryData', { params });
+  }
+
+  getBlockEnrollment(blockCode) {
     let params = new HttpParams();
     params = params.set('blockCode', blockCode)
     return this.http.get<any>(environment.api_base_url + '/getBlockDasboard', { params });
@@ -189,6 +195,19 @@ export class HttpService {
     let params = new HttpParams();
     params = params.set('udiseCode', udiseCode)
     return this.http.get<any>(environment.api_base_url + '/getclassStdCount', { params })
+  }
+
+  getSchoolProgress(blockCode) {
+    let params = new HttpParams();
+    params = params.set('blockCode', blockCode)
+    return this.http.get<any>(environment.api_base_url + '/getSchoolCount', { params })
+  }
+
+  getBlockByBlockCode(blockCode) {
+    let params = new HttpParams();
+    params = params.set('regionType', 'BLOCK')
+    params = params.set('blockCode', blockCode)
+    return this.http.get<any>(environment.mhrd_base_url + '/regionDetails', { params })
   }
 
 }

@@ -1,12 +1,12 @@
-.boy {
+.green-chart {
     background-color: var(--color-green);
 }
 
-.girl {
+.red-chart {
     background-color: var(--color-red);
 }
 
-.trans {
+.violet-chart {
     background-color: #7c3aab;
 }
 
@@ -40,7 +40,6 @@
     box-shadow: 0px 2px 4px #0000000D;
 }
 
-
 .class-wise-label, .class-wise-count {
     text-align: left;
     min-width: 4rem;
@@ -51,5 +50,29 @@
     font-size: 4rem;
     font-weight: 900;
     color: var(--color-green);
-    
+}
+
+.text-highlight {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-left: 1.3rem;
+}
+
+.progress-chart .chart-legend {
+    margin: 2rem auto 0 1rem !important;
+}
+
+.school-table tr.mat-header-row {
+    height: 30px !important;
+}
+
+.school-table tr.mat-row:hover {
+    cursor: pointer;
+}
+
+.custom-input {
+    width: 250px;
+    background-position: 220px 10px;
+    height: 35px;
 }

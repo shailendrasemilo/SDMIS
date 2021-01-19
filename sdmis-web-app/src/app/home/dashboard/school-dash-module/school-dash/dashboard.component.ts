@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/services/common.service';
 import { HttpService } from 'src/app/services/http.service';
 import { environment } from 'src/environments/environment';
@@ -12,8 +11,6 @@ import { environment } from 'src/environments/environment';
 })
 export class DashboardComponent implements OnInit {
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
   viewDashLevel: any;
 
   alertCount: number = 0;
@@ -24,10 +21,7 @@ export class DashboardComponent implements OnInit {
   totalCreated: any = false;
   classWiseCreated: any = false;
   sectionWiseCreated: any = false;
-  tableDataCreated: any = false;
   dashboardData: any = {};
-  tableColumn: any = ['name', 'id']
-  tableData: any = []
 
   //api
   totalProfileData: any = {};
@@ -81,31 +75,32 @@ export class DashboardComponent implements OnInit {
     hover: { mode: null },
   };
 
-  constructor(public common: CommonService, private http: HttpService) {
+  constructor(public common: CommonService, private http: HttpService, private router: Router) {
     console.log('initilized')
   }
 
   ngOnInit(): void {
     this.userObj = this.common.userObj;
-    this.common.schoolDetail = JSON.parse(sessionStorage.getItem('schoolDetail'))
-    if (this.userObj.userType == 'S') {
+    if (this.userObj.userType == 'B' && this.common.schoolDetail?.udiseCode) {
       this.viewDashLevel = 'school';
-      this.getSchoolDash(this.userObj.schoolId);
-    } else if (this.userObj.userType == 'B') {
-      this.viewDashLevel = 'block';
-      this.getBlockDash(this.userObj.blockCode);
+      this.hitSchoolDash(this.common.schoolDetail?.udiseCode);
+    } else {
+      if (this.userObj.userType == 'S') {
+        this.common.schoolDetail = JSON.parse(sessionStorage.getItem('schoolDetail'))
+        this.viewDashLevel = 'school';
+        this.getSchoolDash(this.userObj.schoolId);
+      } else if (this.userObj.userType == 'B') {
+        this.viewDashLevel = 'block';
+        this.getBlockDash(this.userObj.blockCode);
+      }
     }
-  }
 
-  applyFilter(searchText) {
-    this.tableData.filter = searchText.trim().toLowerCase();
   }
 
   clearDashData() {
     this.totalCreated = false;
     this.sectionWiseCreated = false;
     this.classWiseCreated = false;
-    this.tableDataCreated = false;
   }
 
   getSchoolDash(udiseCode) {
@@ -141,19 +136,13 @@ export class DashboardComponent implements OnInit {
   }
 
   getBlockDash(blockCode) {
-    setTimeout(() => {
-      this.createTableData(blockCode);
-    }, 500)
-
-    this.http.getBlockDashboard(blockCode).subscribe(res => {
+    this.http.getBlockEnrollment(blockCode).subscribe(res => {
       console.log(res);
       if (res.statusCode == environment.successCode) {
         this.dashboardData = res.dashboardData;
         this.createTotalData();
         this.createClassWiseData();
         this.createSectionWiseData();
-
-
       } else {
         this.alertMsg = res.description;
         this.alertCount = this.alertCount + 1;
@@ -161,31 +150,6 @@ export class DashboardComponent implements OnInit {
       }
 
     })
-  }
-
-  createTableData(blockCode) {
-    if (this.viewDashLevel == 'block') {
-      this.http.getAllSchoolByBlock(blockCode, 1, 1).subscribe(res => {
-        console.log(res)
-        if (res.statusCode == environment.httpSuccess) {
-          this.http.getAllSchoolByBlock(blockCode, 1, res.data.totalSize).subscribe(res2 => {
-            console.log(res2)
-            if (res2.statusCode == environment.httpSuccess) {
-              this.tableData = res2.data.result;
-              this.tableData = new MatTableDataSource(this.tableData);
-              setTimeout(() => {
-                this.tableData.paginator = this.paginator;
-              }, 100)
-              this.tableDataCreated = true;
-            }
-          })
-        } else {
-          this.alertMsg = res.statusMessage;
-          this.alertCount = this.alertCount + 1;
-          this.alertFlag = true;
-        }
-      })
-    }
   }
 
   createTotalData() {
@@ -209,9 +173,7 @@ export class DashboardComponent implements OnInit {
   }
 
   createClassWiseData() {
-    console.log('creating classWise: ', this.common.schoolDetail)
     let classArr = this.dashboardData.classesData;
-    console.log(this.userObj.userType + " : " + this.viewDashLevel)
     this.classWiseData = [];
     if (this.userObj.userType == 'B' && this.viewDashLevel == "block") {
       this.classWiseData = [...this.classWiseMst]
@@ -224,7 +186,6 @@ export class DashboardComponent implements OnInit {
 
       if (this.common.schoolDetail.udiseCode) {
         let schoolObj = this.common.schoolDetail;
-        console.log(schoolObj)
         this.classWiseMst.forEach(element => {
           if (element.classNum >= schoolObj.classFrom && element.classNum <= schoolObj.classTo) {
             this.classWiseData.push(element);
@@ -232,7 +193,6 @@ export class DashboardComponent implements OnInit {
           this.classWiseData.forEach(element => {
             element.count = classArr[element.classNum - 1]
           });
-          console.log(this.classWiseData)
           this.classWiseCreated = true;
         });
       }
@@ -247,10 +207,14 @@ export class DashboardComponent implements OnInit {
     this.sectionWiseCreated = true;
   }
 
-  originalDash() {
-    if (this.userObj.userType = 'B') {
-      this.viewDashLevel = 'block';
-      this.getBlockDash(this.userObj.blockCode)
+  viewStudents(className) {
+    this.router.navigateByUrl('/home/studentProfile', { state: { className: className, school: this.common.schoolDetail } });
+  }
+  
+  ngOnDestroy() {
+    if(this.userObj.userType == 'B' && this.common.schoolDetail?.udiseCode) {
+      console.log('school found')
+      this.common.schoolDetail = {};
     }
   }
 }

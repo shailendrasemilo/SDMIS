@@ -1,24 +1,24 @@
 <div *ngIf="commonService.sidenavOpen">
     <ul class="list-unstyled menu-list">
         <li *ngIf="userObj.userType == 'B'">
-            <a routerLink="/home/dashboard/2" routerLinkActive="active" (click)="setRoute('Dashboard 2')">
+            <a routerLink="/home/dashboard/2" routerLinkActive="active">
                 <img src="assets/images/dashboard.svg" alt="Dashboard" width="15px">
                 <span> Block Dashboard </span>
             </a>
         </li>
         <li>
-            <a routerLink="/home/dashboard/1" routerLinkActive="active" (click)="setRoute('Dashboard 2')">
+            <a routerLink="/home/dashboard/1" routerLinkActive="active">
                 <img src="assets/images/dashboard.svg" alt="Dashboard" width="15px">
                 <span> Enrollment Dashboard </span>
             </a>
         </li>
         <li>
-            <a routerLink="/home/studentProfile" routerLinkActive="active" (click)="setRoute('Student Profile')">
+            <a routerLink="/home/studentProfile" routerLinkActive="active">
                 <img src="assets/images/manage.svg" width="15px"> Student Profile
             </a>
         </li>
         <li *ngIf="userObj.userType == 'S'">
-            <a routerLink="/home/createSection" routerLinkActive="active" (click)="setRoute('Create Section')">
+            <a routerLink="/home/createSection" routerLinkActive="active">
                 <img src="assets/images/manage.svg" width="15px"> Create Section
             </a>
         </li>
@@ -33,12 +33,12 @@
 <div *ngIf="!commonService.sidenavOpen">
     <ul class="list-unstyled menu-list">
         <li>
-            <a routerLink="/home/dashboard" routerLinkActive="active" (click)="setRoute('Dashboard')">
+            <a routerLink="/home/dashboard" routerLinkActive="active">
                 <img src="assets/images/dashboard.svg" alt="Dashboard" width="15px">
             </a>
         </li>
         <li>
-            <a routerLink="/home/studentProfile" routerLinkActive="active" (click)="setRoute('Student Profile')">
+            <a routerLink="/home/studentProfile" routerLinkActive="active">
                 <img src="assets/images/manage.svg" width="15px">
             </a>
         </li>

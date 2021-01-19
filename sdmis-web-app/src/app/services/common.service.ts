@@ -16,7 +16,7 @@ export class CommonService {
   schoolDetail: any = {};
   schoolMgmt: any;
   stdClass: any;
-  stdForClass: any;
+  stdClassName: any;
 
   classList: any = [
     { name: 'Class I', id: 'I', value: 1},
@@ -34,10 +34,6 @@ export class CommonService {
   ];
 
   userObj: any = {};
-
-  setCurrentRoute(routeName: any) {
-    this.currentRoute = routeName;
-  }
 
   setGeneratedStdId(studentId: any) {
     this.generatedStudentId = studentId;

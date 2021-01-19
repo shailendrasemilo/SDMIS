@@ -15,10 +15,6 @@ export class NavigationComponent implements OnInit {
     this.userObj = this.commonService.userObj
   }
 
-  setRoute(routeName) {
-    this.commonService.setCurrentRoute(routeName);
-  }
-
   logout() {
     sessionStorage.clear();
     this.router.navigate(['./login'])

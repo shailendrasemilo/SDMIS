@@ -8,9 +8,9 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('./login/login.module').then(m => m.LoginModule) },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard], children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', loadChildren: () => import('./home/dashboard/dashboard.module').then(m => m.DashboardModule), data: {routeName: 'Dashboard'}},
-      { path: 'studentProfile', loadChildren: () => import('./home/student-profile/student-profile.module').then(m => m.StudentProfileModule), data: {routeName: 'Student Profile'} },
-      { path: 'createSection', loadChildren: () => import('./home/school-config/school-config.module').then(m => m.SchoolConfigModule), data: {routeName: 'School Configuration'} },
+      { path: 'dashboard', loadChildren: () => import('./home/dashboard/dashboard.module').then(m => m.DashboardModule)},
+      { path: 'studentProfile', loadChildren: () => import('./home/student-profile/student-profile.module').then(m => m.StudentProfileModule) },
+      { path: 'createSection', loadChildren: () => import('./home/school-config/school-config.module').then(m => m.SchoolConfigModule) },
     ]
   }
 ];
