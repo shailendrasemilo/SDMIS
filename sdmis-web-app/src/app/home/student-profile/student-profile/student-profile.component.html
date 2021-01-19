@@ -231,31 +231,36 @@
 
     <div *ngIf="common.studentAction=='add' || common.studentAction=='edit'" class="mt-2">
         <div class="mt-3 ml-4 mr-4">
-            <mat-horizontal-stepper #stepper>
+            <mat-horizontal-stepper #stepper [linear]="common.studentAction=='add'">
                 <!-- [linear]="common.studentAction=='add'" -->
                 <mat-step [editable]="common.studentAction!='add'" [completed]="false">
                     <!--  [completed]="false" -->
                     <ng-template matStepLabel>Basic Information</ng-template>
+                    <div class="mt-5 ml-5 mb-3"> Please fill the mandatory details marked by <span class="caret">*</span></div>
                     <app-student-basic-info (event)="moveStepper();"></app-student-basic-info>
                 </mat-step>
 
                 <mat-step [editable]="common.studentAction!='add'" [completed]="false">
                     <ng-template matStepLabel>Education Details</ng-template>
+                    <div class="mt-5 ml-5 mb-3"> Please fill the mandatory details marked by <span class="caret">*</span></div>
                     <app-student-education (educationEvent)=moveStepper();></app-student-education>
                 </mat-step>
 
                 <mat-step [editable]="common.studentAction!='add'" [completed]="false">
                     <ng-template matStepLabel>Incentive Details</ng-template>
+                    <div class="mt-5 ml-5 mb-3"> Please fill the mandatory details marked by <span class="caret">*</span></div>
                     <app-student-incentive (incentiveEvent)="moveStepper()"></app-student-incentive>
                 </mat-step>
 
                 <mat-step [editable]="common.studentAction!='add'" [completed]="false" *ngIf="common.stdClass > '8'">
                     <ng-template matStepLabel>Vocational Details</ng-template>
+                    <div class="mt-5 ml-5 mb-3"> Please fill the mandatory details marked by <span class="caret">*</span></div>
                     <app-student-vocational (vocationalEvent)="moveStepper()"></app-student-vocational>
                 </mat-step>
 
                 <mat-step [editable]="common.studentAction!='add'" [completed]="false">
                     <ng-template matStepLabel>Results</ng-template>
+                    <div class="mt-5 ml-5 mb-3"> Please fill the mandatory details marked by <span class="caret">*</span></div>
                     <app-student-result (resultEvent)="resultEvent()"></app-student-result>
                 </mat-step>
 

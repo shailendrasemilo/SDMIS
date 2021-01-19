@@ -336,7 +336,7 @@
     }
 
     .stepper-section {
-        margin: 2rem 2rem 3rem 3rem
+        margin: 0 2rem 3rem 3rem
     }
 
     .mat-radio-button {
@@ -421,7 +421,7 @@
     .school-details, .std-details {
         width: 100%;
         background-color: white;
-        border-radius: 10px;
+        border-radius: 5px;
     }
 
     .table-panel {
@@ -453,4 +453,15 @@
     .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-11, .col-lg-11 {
         padding-left: 0;
         padding-right: 20px;
+    }
+
+    .mat-form-field-required-marker {
+        color: var(--color-red) !important;
+        font-weight: 900;
+
+    }
+
+    .caret {
+        color: var(--color-red);
+        font-weight: 900;
     }
