@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { getMatIconFailedToSanitizeLiteralError } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -27,6 +28,11 @@ export class Dashboard2Component implements OnInit {
   genderListData: any = {};
   genderChartData: number[];
   progressChartData: number[] = [0, 0];
+  categoryCount: any = [];
+  categoryCreated: any = false;
+  managementCreated: any = false;
+  mgmtCount: any = [];
+  catTotal: any = 0;
   genderTotal: any
   genderMst: any = [{ name: 'Boys', index: '0', class: "boy" },
   { name: 'Girls', index: '1', class: 'girl' },
@@ -73,6 +79,28 @@ export class Dashboard2Component implements OnInit {
     this.getBlockDetails(this.userObj.blockCode)
     this.getTotalSchoolCount(this.userObj.blockCode);
     this.createTableData(this.userObj.blockCode)
+    this.getMgmtCatData(this.userObj.blockCode); 
+  }
+
+  getMgmtCatData(blockCode) {
+    this.http.getMgmtCatCount(blockCode, 'CATEGORY').subscribe(res => {
+      console.log(res)
+      if(res.statusCode == environment.httpSuccess) {
+        this.categoryCount = res.data.result;
+        // this.catTotal = this.categoryCount.reduce(function (a, b) {
+        //   return a + b.totalSchools
+        // }, 0);
+        this.categoryCreated = true;
+      }
+    })
+    this.http.getMgmtCatCount(blockCode, 'MANAGEMENT').subscribe(res => {
+      console.log(res)
+      if(res.statusCode == environment.httpSuccess) {
+        this.mgmtCount = res.data.result;
+        
+        this.managementCreated = true;
+      }
+    })
   }
 
   getBlockDetails(blockCode) {

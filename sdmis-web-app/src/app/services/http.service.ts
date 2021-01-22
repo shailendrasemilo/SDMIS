@@ -210,4 +210,13 @@ export class HttpService {
     return this.http.get<any>(environment.mhrd_base_url + '/regionDetails', { params })
   }
 
+  getMgmtCatCount(blockCode, type) {
+    let params = new HttpParams();
+    params = params.set('regionType', 'BLOCK')
+    params = params.set('countBy', type)
+    params = params.set('regionCode', blockCode)
+    return this.http.get<any>(environment.mhrd_base_url + '/schoolCount', { params })
+    
+  }
+
 }

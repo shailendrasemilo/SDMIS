@@ -371,9 +371,11 @@
     }
 
     .dash-card {
-        min-height: 350px;
-        max-height: 350px;
-        ;
+        height: 340px;
+    }
+
+    .block-dash .dash-card {
+        height: 440px;
     }
 
     .total-chart {
@@ -393,7 +395,7 @@
     }
 
     .chart-legend {
-        margin: 4rem auto 0 1rem;
+        margin: 3rem auto 0 1rem;
         font-size: 1.4rem;
     }
 
@@ -453,6 +455,7 @@
     .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-11, .col-lg-11 {
         padding-left: 0;
         padding-right: 20px;
+        /* margin-right: 3rem; */
     }
 
     .mat-form-field-required-marker {

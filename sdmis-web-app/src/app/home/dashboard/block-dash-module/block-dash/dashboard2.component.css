@@ -18,6 +18,14 @@
     margin-bottom: 1rem !important;
 }
 
+/* .progress-chart .chart-legend>ul {
+    margin-top: 4rem !important;
+} */
+
+.progress-chart .chart-legend>ul>li {
+    margin-bottom: 2rem !important;
+}
+
 .label-name {
     font-weight: 500;
 }
@@ -60,7 +68,14 @@
 }
 
 .progress-chart .chart-legend {
-    margin: 2rem auto 0 1rem !important;
+    margin: 1.5rem auto 0 1rem !important;
+}
+
+.progress-chart .legend-layout {
+    height: 10px;
+    width: 15px;
+    margin-right: 1rem;
+    border-radius: 5px;
 }
 
 .school-table tr.mat-header-row {
@@ -75,4 +90,9 @@
     width: 250px;
     background-position: 220px 10px;
     height: 35px;
+}
+
+.totalSchools {
+    color: var(--color-grey);
+    margin-bottom: 0.5rem;
 }
