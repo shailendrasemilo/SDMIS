@@ -26,10 +26,11 @@ export class HttpService {
     return this.http.get<any>(environment.mhrd_base_url + '/regionMasters', { params });
   }
 
-  getBlocksByDistrict(districtId) {
+  getBlocksByDistrict(distCode) {
     let params = new HttpParams();
-    params = params.set('districtId', districtId);
-    return this.http.get<any>(environment.api_base_url + '/getBlock', { params });
+    params = params.set('type', 'BLOCK');
+    params = params.set('districtCode', distCode);
+    return this.http.get<any>(environment.mhrd_base_url + '/regionMasters', { params });
   }
 
   saveStudentEducationInfo(requestDto) {
@@ -210,13 +211,20 @@ export class HttpService {
     return this.http.get<any>(environment.mhrd_base_url + '/regionDetails', { params })
   }
 
-  getMgmtCatCount(blockCode, type) {
+  getMgmtCatCount(regionType, regionCode, type) {
     let params = new HttpParams();
-    params = params.set('regionType', 'BLOCK')
+    params = params.set('regionType', regionType)
     params = params.set('countBy', type)
-    params = params.set('regionCode', blockCode)
+    params = params.set('regionCode', regionCode)
+    console.log(params.toString())
     return this.http.get<any>(environment.mhrd_base_url + '/schoolCount', { params })
-    
+  }
+
+  getDistDetail(distCode) {
+    let params = new HttpParams();
+    params = params.set('regionType', 'DISTRICT')
+    params = params.set('districtCode', distCode)
+    return this.http.get<any>(environment.mhrd_base_url + '/regionDetails', { params })
   }
 
 }

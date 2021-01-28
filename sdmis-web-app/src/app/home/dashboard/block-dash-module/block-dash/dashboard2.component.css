@@ -44,20 +44,9 @@
     color: var(--color-grey)
 }
 
-.mat-card {
-    box-shadow: 0px 2px 4px #0000000D;
-}
-
 .class-wise-label, .class-wise-count {
     text-align: left;
     min-width: 4rem;
-}
-
-.total-highlight {
-    margin-top: 3rem;
-    font-size: 4rem;
-    font-weight: 900;
-    color: var(--color-green);
 }
 
 .text-highlight {
@@ -78,21 +67,8 @@
     border-radius: 5px;
 }
 
-.school-table tr.mat-header-row {
-    height: 30px !important;
-}
-
-.school-table tr.mat-row:hover {
-    cursor: pointer;
-}
-
 .custom-input {
     width: 250px;
     background-position: 220px 10px;
     height: 35px;
-}
-
-.totalSchools {
-    color: var(--color-grey);
-    margin-bottom: 0.5rem;
 }

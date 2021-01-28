@@ -81,7 +81,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.userObj = this.common.userObj;
-    if (this.userObj.userType == 'B' && this.common.schoolDetail?.udiseCode) {
+    if ((this.userObj.userType == 'B' || this.userObj.userType == 'D')  && this.common.schoolDetail?.udiseCode) {
       this.viewDashLevel = 'school';
       this.hitSchoolDash(this.common.schoolDetail?.udiseCode);
     } else {
@@ -182,7 +182,7 @@ export class DashboardComponent implements OnInit {
       });
       this.classWiseCreated = true;
 
-    } else if ((this.userObj.userType == 'S' || this.userObj.userType == 'B') && this.viewDashLevel == "school") {
+    } else if ((this.userObj.userType == 'S' || this.userObj.userType == 'B' || this.userObj.userType == 'D') && this.viewDashLevel == "school") {
 
       if (this.common.schoolDetail.udiseCode) {
         let schoolObj = this.common.schoolDetail;

@@ -25,194 +25,102 @@
                 </li>
             </ul>
         </div>
+    </div>
 
-        <div class="row block-dash">
-            <div class="col-md-3" *ngIf="totalCreated">
-                <mat-card class="dash-card">
-                    <div class="dashboard-card-head">
-                        Total Schools
+    <app-common-dash regionType='BLOCK' [regionCode]='blockCode' (event)="getSchoolProgress(blockCode);"></app-common-dash>
+    <div class="row">
+        <div class="col-md-3 mt-5" *ngIf="progressCreated">
+            <mat-card class="dash-card progress-chart">
+                <div class="dashboard-card-head">
+                    School Progress
+                </div>
+                <div class="total-chart">
+                    <canvas baseChart chartType="doughnut" [data]="progressChartData" [options]="chartOptions"
+                        [legend]="false" [colors]="chartColors">
+                    </canvas>
+                    <div class="text-chart">
+                        {{common.totalSchools}}
                     </div>
-                    <div class="text-center mt-5">
-                        <img src="assets/images/school.svg" alt="school" class="img-fluid" [style.width]="'130px'">
-                        <div class="total-highlight">
-                            {{totalSchools}}
-                        </div>
-                    </div>
-                </mat-card>
-            </div>
-
-            <div class="col-md-3" *ngIf="categoryCreated">
-                <mat-card class="dash-card">
-                    <div class="dashboard-card-head">
-                        Category Wise school count
-                    </div>
-                    <div class="mt-4 ml-3">
-                        <ul class="list-unstyled">
-                            <li *ngFor='let label of categoryCount' class="mr-3 mb-3 d-flex align-items-center">
-                                <div class="label-name totalSchools">
-                                    {{label.categoryDesc}}
-                                </div>
-                                <div class="ml-auto label-count">
-                                    {{label.totalSchools}}
-                                </div>
-                            </li>
-                        </ul>
-                        <!-- <ul class="list-unstyled">
-                            <li class="mr-3 mb-3 d-flex align-items-center">
-                                <div class="label-count">
-                                    Total
-                                </div>
-                                <div class="ml-auto label-count">
-                                    {{catTotal}}
-                                </div>
-                            </li>
-                        </ul> -->
-                    </div>
-                </mat-card>
-
-            </div>
-
-
-            <div class="col-md-6" *ngIf="managementCreated">
-                <mat-card class="dash-card">
-                    <div class="dashboard-card-head">
-                        Management wise school count
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mt-4 ml-3">
-                                <ul class="list-unstyled">
-                                    <li *ngFor='let label of mgmtCount; index as i'>
-                                        <div class="mr-3 mb-2 d-flex align-items-center" *ngIf="(i+1) % 2 != 0">
-                                            <div class="label-name totalSchools">
-                                                {{label.managementStateDesc}}
-                                            </div>
-                                            <div class="ml-auto label-count">
-                                                {{label.totalSchools}}
-                                            </div>
-                                        </div>
-
-                                    </li>
-                                </ul>
+                </div>
+                <div class="chart-legend">
+                    <ul class="list-unstyled">
+                        <li *ngFor='let label of progressMst' class="mr-3 mb-2 d-flex align-items-center">
+                            <div [ngClass]="label.class=='green' ? 'green-chart' : 'red-chart'" class="legend-layout">
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mt-4 ml-3">
-                                <ul class="list-unstyled">
-                                    <li *ngFor='let label of mgmtCount; index as i'>
-                                        <div class="mr-3 mb-2 d-flex align-items-center" *ngIf="(i+1) % 2 == 0">
-                                            <div class="label-name totalSchools">
-                                                {{label.managementStateDesc}}
-                                            </div>
-                                            <div class="ml-auto label-count">
-                                                {{label.totalSchools}}
-                                            </div>
-                                        </div>
-
-                                    </li>
-                                </ul>
+                            <div class="label-name">
+                                {{label.name}}
                             </div>
-                        </div>
-                    </div>
-
-                </mat-card>
-               
+                            <div class="ml-auto label-count">
+                                {{label.count}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </mat-card>
+            <div class="text-highlight text-right" *ngIf="!genderCreated && !socialCatCreated">
+                <a href="javascript:void(0)" (click)="getGenderCatData(blockCode)"> More.. </a>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-3 mt-5" *ngIf="progressCreated">
-                <mat-card class="dash-card progress-chart">
-                    <div class="dashboard-card-head">
-                        School Progress
+
+        <div class="col-md-3 mt-5" *ngIf="genderCreated">
+            <mat-card class="dash-card">
+                <div class="dashboard-card-head">
+                    Students gender wise
+                </div>
+                <div class="total-chart">
+                    <canvas baseChart chartType="doughnut" [data]="genderChartData" [options]="chartOptions"
+                        [legend]="false" [colors]="chartColors">
+                    </canvas>
+                    <div class="text-chart">
+                        {{genderTotal}}
                     </div>
-                    <div class="total-chart">
-                        <canvas baseChart chartType="doughnut" [data]="progressChartData" [options]="chartOptions"
-                            [legend]="false" [colors]="chartColors">
-                        </canvas>
-                        <div class="text-chart">
-                            {{totalSchools}}
-                        </div>
-                    </div>
-                    <div class="chart-legend">
+                </div>
+                <div class="chart-legend">
+                    <ul class="list-unstyled">
+                        <li *ngFor='let label of genderMst' class="mr-3 mb-2 d-flex align-items-center">
+                            <div [ngClass]="label.class=='boy' ? 'green-chart' : (label.class=='girl' ? 'red-chart' : 'violet-chart')"
+                                class="legend-layout"></div>
+                            <div class="label-name">
+                                {{label.name}}
+                            </div>
+                            <div class="ml-auto label-count">
+                                {{label.count}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </mat-card>
+        </div>
+        <div class="col-md-6 mt-5" *ngIf="socialCatCreated">
+            <mat-card class="dash-card">
+                <div class="dashboard-card-head">
+                    Students Social Category wise
+                </div>
+                <div class="row">
+                    <div class="col-md-12 pr-5">
+                        <div class="class-wise-head">Social Category:</div>
                         <ul class="list-unstyled">
-                            <li *ngFor='let label of progressMst' class="mr-3 mb-2 d-flex align-items-center">
-                                <div [ngClass]="label.class=='green' ? 'green-chart' : 'red-chart'"
-                                    class="legend-layout">
-                                </div>
-                                <div class="label-name">
-                                    {{label.name}}
-                                </div>
-                                <div class="ml-auto label-count">
-                                    {{label.count}}
+                            <li *ngFor='let cat of socialCatMst'>
+                                <div class="d-flex align-items-center classwise-chart">
+                                    <div class="class-wise-label">{{cat.name}}</div>
+                                    <mat-progress-bar class="blue-progress mr-3 ml-3" mode="determinate"
+                                        [value]="cat.count / socialCatMax * 100">
+                                    </mat-progress-bar>
+                                    <div class="class-wise-count">{{cat.count}}</div>
                                 </div>
                             </li>
                         </ul>
                     </div>
-                </mat-card>
-                <div class="text-highlight text-right" *ngIf="!genderCreated && !socialCatCreated">
-                    <a href="javascript:void(0)" (click)="getGenderCatData(userObj.blockCode)"> More.. </a>
                 </div>
+            </mat-card>
+            <div class="text-highlight text-right">
+                <a href="javascript:void(0)" (click)="socialCatCreated = false; genderCreated=false;"> Close
+                </a>
             </div>
-
-            <div class="col-md-3 mt-5" *ngIf="genderCreated">
-                <mat-card class="dash-card">
-                    <div class="dashboard-card-head">
-                        Students gender wise
-                    </div>
-                    <div class="total-chart">
-                        <canvas baseChart chartType="doughnut" [data]="genderChartData" [options]="chartOptions"
-                            [legend]="false" [colors]="chartColors">
-                        </canvas>
-                        <div class="text-chart">
-                            {{genderTotal}}
-                        </div>
-                    </div>
-                    <div class="chart-legend">
-                        <ul class="list-unstyled">
-                            <li *ngFor='let label of genderMst' class="mr-3 mb-2 d-flex align-items-center">
-                                <div [ngClass]="label.class=='boy' ? 'green-chart' : (label.class=='girl' ? 'red-chart' : 'violet-chart')"
-                                    class="legend-layout"></div>
-                                <div class="label-name">
-                                    {{label.name}}
-                                </div>
-                                <div class="ml-auto label-count">
-                                    {{label.count}}
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </mat-card>
-            </div>
-            <div class="col-md-6 mt-5" *ngIf="socialCatCreated">
-                <mat-card class="dash-card">
-                    <div class="dashboard-card-head">
-                        Students Social Category wise
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12 pr-5">
-                            <div class="class-wise-head">Social Category:</div>
-                            <ul class="list-unstyled">
-                                <li *ngFor='let cat of socialCatMst'>
-                                    <div class="d-flex align-items-center classwise-chart">
-                                        <div class="class-wise-label">{{cat.name}}</div>
-                                        <mat-progress-bar class="blue-progress mr-3 ml-3" mode="determinate"
-                                            [value]="cat.count / socialCatMax * 100">
-                                        </mat-progress-bar>
-                                        <div class="class-wise-count">{{cat.count}}</div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </mat-card>
-                <div class="text-highlight text-right">
-                    <a href="javascript:void(0)" (click)="socialCatCreated = false; genderCreated=false;"> Close
-                    </a>
-                </div>
-            </div>
-
         </div>
 
+    </div>
+    <div class="ml-4 mr-4">
         <div class="school-table mt-4" *ngIf="tableDataCreated">
             <div class=" w-100 align-items-center d-flex school-details table-panel">
                 <div class="font-weight-bold ml-4">Please select a school from the below list to view all classes
@@ -220,7 +128,7 @@
                 <input type="text" class="custom-input ml-auto m-3" placeholder="Search..."
                     (keyup)="applyFilter($event.target.value)">
             </div>
-            <table mat-table [dataSource]="tableData" class="w-100 mt-3">
+            <table mat-table [dataSource]="tableData" class="w-100 mt-3" [ngClass]="userObj.userType=='B' ? 'pointer' : ''">
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef>School Name</th>
                     <td mat-cell *matCellDef="let element"> {{element.schName}} </td>
@@ -246,13 +154,12 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="tableColumn"></tr>
-                <tr mat-row *matRowDef="let element; columns: tableColumn;" (click)="schoolEnrollment(element)">
+                <tr mat-row *matRowDef="let element; columns: tableColumn;" (click)="userObj.userType=='B' && schoolEnrollment(element)">
                 </tr>
             </table>
-            <mat-paginator [pageSizeOptions]="[10, 15, 20, 15, 30]" class="w-100"></mat-paginator>
+            <mat-paginator [pageSizeOptions]="[10, 15, 20, 25, 30]" class="w-100"></mat-paginator>
         </div>
     </div>
-
 </div>
 
 

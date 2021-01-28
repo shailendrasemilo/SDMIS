@@ -1,0 +1,84 @@
+<div class="row common-dash">
+
+    <div class="col-md-3" *ngIf="totalCreated">
+        <mat-card class="dash-card">
+            <div class="dashboard-card-head">
+                Total Schools
+            </div>
+            <div class="text-center mt-5">
+                <img src="assets/images/school.svg" alt="school" class="img-fluid" [style.width]="'130px'">
+                <div class="total-highlight">
+                    {{common.totalSchools}}
+                </div>
+            </div>
+        </mat-card>
+    </div>
+
+    <div class="col-md-3" *ngIf="categoryCreated">
+        <mat-card class="dash-card">
+            <div class="dashboard-card-head">
+                Category Wise school count
+            </div>
+            <div class="mt-4 ml-3">
+                <ul class="list-unstyled">
+                    <li *ngFor='let label of categoryCount' class="mr-3 mb-3 d-flex align-items-center">
+                        <div class="label-name totalSchools">
+                            {{label.categoryDesc}}
+                        </div>
+                        <div class="ml-auto label-count">
+                            {{label.totalSchools}}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </mat-card>
+
+    </div>
+
+
+    <div class="col-md-6" *ngIf="managementCreated">
+        <mat-card class="dash-card">
+            <div class="dashboard-card-head">
+                Management wise school count
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mt-4 ml-3">
+                        <ul class="list-unstyled">
+                            <li *ngFor='let label of mgmtCount; index as i'>
+                                <div class="mr-3 mb-2 d-flex align-items-center" *ngIf="(i+1) % 2 != 0">
+                                    <div class="label-name totalSchools">
+                                        {{label.managementStateDesc}}
+                                    </div>
+                                    <div class="ml-auto label-count">
+                                        {{label.totalSchools}}
+                                    </div>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mt-4 ml-3">
+                        <ul class="list-unstyled">
+                            <li *ngFor='let label of mgmtCount; index as i'>
+                                <div class="mr-3 mb-2 d-flex align-items-center" *ngIf="(i+1) % 2 == 0">
+                                    <div class="label-name totalSchools">
+                                        {{label.managementStateDesc}}
+                                    </div>
+                                    <div class="ml-auto label-count">
+                                        {{label.totalSchools}}
+                                    </div>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </mat-card>
+
+    </div>
+</div>

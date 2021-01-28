@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     { 'username': '16010300709', 'password': 'Admin@123', 'schoolId': '16010300709', userType: 'S', name: 'Prerit Mathur - 16010300709', designation: 'Teacher' },
     { 'username': '16010300701', 'password': 'Admin@123', 'schoolId': '16010300701', userType: 'S', name: 'Prerit Mathur - 16010300701', designation: 'Teacher' },
     { 'username': '160103', 'password': 'Admin@123', 'blockCode': '160103', userType: 'B', name: 'Prerit Mathur - 160103', designation: 'Block User' },
+    { 'username': '1601', 'password': 'Admin@123', 'districtCode': '1601', userType: 'D', name: 'Prerit Mathur - 1601', designation: 'District User' },
   ];
 
 
@@ -47,6 +48,8 @@ export class LoginComponent implements OnInit {
         }
         else if (element.userType == 'B') {
           this.router.navigateByUrl('/home/dashboard/2')
+        } else if (element.userType == 'D') {
+          this.router.navigateByUrl('/home/dashboard/3')
         }
         login = true;
       }

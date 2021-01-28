@@ -1,18 +1,24 @@
 <div *ngIf="commonService.sidenavOpen">
     <ul class="list-unstyled menu-list">
+        <li *ngIf="userObj.userType == 'D'">
+            <a routerLink="/home/dashboard/3" routerLinkActive="active">
+                <img src="assets/images/dashboard.svg" alt="Dashboard" width="15px">
+                <span> District Dashboard </span>
+            </a>
+        </li>
         <li *ngIf="userObj.userType == 'B'">
             <a routerLink="/home/dashboard/2" routerLinkActive="active">
                 <img src="assets/images/dashboard.svg" alt="Dashboard" width="15px">
                 <span> Block Dashboard </span>
             </a>
         </li>
-        <li>
+        <li *ngIf="userObj.userType == 'B' || userObj.userType == 'S'">
             <a routerLink="/home/dashboard/1" routerLinkActive="active">
                 <img src="assets/images/dashboard.svg" alt="Dashboard" width="15px">
                 <span> Enrollment Dashboard </span>
             </a>
         </li>
-        <li>
+        <li *ngIf="userObj.userType == 'B' || userObj.userType == 'S'">
             <a routerLink="/home/studentProfile" routerLinkActive="active">
                 <img src="assets/images/manage.svg" width="15px"> Student Profile
             </a>
@@ -32,12 +38,24 @@
 
 <div *ngIf="!commonService.sidenavOpen">
     <ul class="list-unstyled menu-list">
-        <li>
-            <a routerLink="/home/dashboard" routerLinkActive="active">
+
+        <li *ngIf="userObj.userType == 'D'">
+            <a routerLink="/home/dashboard/3" routerLinkActive="active">
                 <img src="assets/images/dashboard.svg" alt="Dashboard" width="15px">
             </a>
         </li>
-        <li>
+        <li *ngIf="userObj.userType == 'B'">
+            <a routerLink="/home/dashboard/2" routerLinkActive="active">
+                <img src="assets/images/dashboard.svg" alt="Dashboard" width="15px">
+            </a>
+        </li>
+        <li *ngIf="userObj.userType == 'B' || userObj.userType == 'S'">
+            <a routerLink="/home/dashboard/1" routerLinkActive="active">
+                <img src="assets/images/dashboard.svg" alt="Dashboard" width="15px">
+            </a>
+        </li>
+
+        <li *ngIf="userObj.userType == 'S'">
             <a routerLink="/home/studentProfile" routerLinkActive="active">
                 <img src="assets/images/manage.svg" width="15px">
             </a>

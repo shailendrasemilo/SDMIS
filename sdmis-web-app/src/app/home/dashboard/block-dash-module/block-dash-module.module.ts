@@ -10,7 +10,7 @@ import { AlertModule } from 'src/app/alert/alert.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
-
+import { CommonDashModule } from '../common-dash/common-dash.module'
 
 @NgModule({
   declarations: [ Dashboard2Component ],
@@ -23,7 +23,9 @@ import { MatButtonModule } from '@angular/material/button';
     AlertModule,
     MatTableModule,
     MatPaginatorModule,
-    MatButtonModule
-  ]
+    MatButtonModule,
+    CommonDashModule
+  ],
+  exports: [Dashboard2Component]
 })
 export class BlockDashModuleModule { }

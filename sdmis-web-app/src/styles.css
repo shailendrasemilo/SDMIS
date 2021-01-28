@@ -374,7 +374,11 @@
         height: 340px;
     }
 
-    .block-dash .dash-card {
+    .school-table .pointer tr.mat-row:hover {
+        cursor: pointer;
+    }
+
+    .common-dash .dash-card {
         height: 440px;
     }
 
@@ -442,29 +446,36 @@
         margin: 1.5rem;
         text-align: center;
     }
-    
+
     .school-details ul li {
         width: 220px;
     }
-    
+
     .school-details ul li label {
         font-weight: 600;
         margin-bottom: 1rem;
     }
 
-    .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-11, .col-lg-11 {
+    /* .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-11, .col-lg-11 {
         padding-left: 0;
         padding-right: 20px;
-        /* margin-right: 3rem; */
-    }
+    } */
 
     .mat-form-field-required-marker {
         color: var(--color-red) !important;
         font-weight: 900;
-
     }
 
     .caret {
         color: var(--color-red);
         font-weight: 900;
+    }
+
+    .totalSchools {
+        color: var(--color-grey);
+        margin-bottom: 0.5rem;
+    }
+
+    .mat-card {
+        box-shadow: 0px 2px 4px #0000000D !important;
     }

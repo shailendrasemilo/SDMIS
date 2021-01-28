@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { getMatIconFailedToSanitizeLiteralError } from '@angular/material/icon';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -14,16 +14,16 @@ import { environment } from 'src/environments/environment';
 })
 export class Dashboard2Component implements OnInit {
 
+  @Input() blockInput;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-
+  blockCode: any;
   totalCreated: any = false;
   genderCreated: any = false;
   socialCatCreated: any = false;
   progressCreated: any = false;
   userObj: any = {};
   blockDetails: any = {};
-  totalSchools: any;
   dashboardObj: any = {};
   genderListData: any = {};
   genderChartData: number[];
@@ -75,56 +75,46 @@ export class Dashboard2Component implements OnInit {
 
   ngOnInit(): void {
     this.userObj = this.common.userObj;
-    console.log(this.userObj)
-    this.getBlockDetails(this.userObj.blockCode)
-    this.getTotalSchoolCount(this.userObj.blockCode);
-    this.createTableData(this.userObj.blockCode)
-    this.getMgmtCatData(this.userObj.blockCode); 
-  }
-
-  getMgmtCatData(blockCode) {
-    this.http.getMgmtCatCount(blockCode, 'CATEGORY').subscribe(res => {
-      console.log(res)
-      if(res.statusCode == environment.httpSuccess) {
-        this.categoryCount = res.data.result;
-        // this.catTotal = this.categoryCount.reduce(function (a, b) {
-        //   return a + b.totalSchools
-        // }, 0);
-        this.categoryCreated = true;
-      }
-    })
-    this.http.getMgmtCatCount(blockCode, 'MANAGEMENT').subscribe(res => {
-      console.log(res)
-      if(res.statusCode == environment.httpSuccess) {
-        this.mgmtCount = res.data.result;
-        
-        this.managementCreated = true;
-      }
-    })
+    console.log(this.blockInput)
+    if (this.blockInput) {
+      this.blockCode = this.blockInput
+    } else {
+      this.blockCode = this.userObj.blockCode
+    }
+    this.getBlockDetails(this.blockCode)
+    this.createTableData(this.blockCode)
+    // this.getSchoolProgress(this.blockCode);
   }
 
   getBlockDetails(blockCode) {
     this.http.getBlockByBlockCode(blockCode).subscribe(res => {
       console.log(res)
-      if(res.statusCode == environment.httpSuccess) {
+      if (res.statusCode == environment.httpSuccess) {
         this.blockDetails = res.data.result;
       }
     })
   }
 
   getSchoolProgress(blockCode) {
-    this.http.getSchoolProgress(blockCode).subscribe(res => {
-      console.log(res);
-      if (res.statusCode == environment.successCode) {
-        this.progressMst[0].count = parseInt(res.schoolCount)
-        this.progressMst[1].count = parseInt(this.totalSchools) - parseInt(res.schoolCount);
-        this.progressChartData[0] = parseInt(res.schoolCount)
-        this.progressChartData[1] = parseInt(this.totalSchools) - parseInt(res.schoolCount);
-        this.progressCreated = true;
+    let interval = setInterval(() => {
+      console.log(this.common.totalSchools)
+      if (this.common.totalSchools) {
+        this.http.getSchoolProgress(blockCode).subscribe(res => {
+          console.log(res);
+          if (res.statusCode == environment.successCode) {
+            this.progressMst[0].count = parseInt(res.schoolCount)
+            this.progressMst[1].count = parseInt(this.common.totalSchools) - parseInt(res.schoolCount);
+            this.progressChartData[0] = parseInt(res.schoolCount)
+            this.progressChartData[1] = parseInt(this.common.totalSchools) - parseInt(res.schoolCount);
+            this.progressCreated = true;
+          }
+        })
+        clearInterval(interval)
       } else {
-
+        console.log(interval)
       }
-    })
+    }, 1)
+
   }
 
   createTableData(blockCode) {
@@ -142,17 +132,6 @@ export class Dashboard2Component implements OnInit {
             this.tableDataCreated = true;
           }
         })
-      }
-    })
-  }
-
-  getTotalSchoolCount(blockCode) {
-    this.http.getAllSchoolByBlock(blockCode, 1, 1).subscribe(res => {
-      console.log(res)
-      if (res.statusCode == environment.httpSuccess) {
-        this.totalSchools = res.data.totalSize;
-        this.totalCreated = true
-        this.getSchoolProgress(blockCode);
       }
     })
   }

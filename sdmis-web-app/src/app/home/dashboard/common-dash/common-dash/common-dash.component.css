@@ -1,0 +1,10 @@
+.label-count {
+    font-weight: 900;
+}
+
+.total-highlight {
+    margin-top: 3rem;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--color-green);
+}

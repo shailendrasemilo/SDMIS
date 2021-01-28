@@ -8,6 +8,7 @@ export class CommonService {
 
   constructor(private http: HttpService) {}
 
+  totalSchools: any;
   currentRoute: String = "Dashboard";
   generatedStudentId: any;
   studentAction: any = 'summaryList';

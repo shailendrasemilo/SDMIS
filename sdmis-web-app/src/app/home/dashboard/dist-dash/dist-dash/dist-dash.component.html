@@ -1,0 +1,73 @@
+<div class="container">
+    <div *ngIf="viewDashLevel=='district'">
+        <div class="mb-4 d-flex align-items-center">
+            <div class="ml-4 mb-4">
+                <span class="page-head">District Dashboard</span>
+            </div>
+        </div>
+
+        <div class="ml-4 mr-4">
+            <div class="mb-5 school-details" *ngIf="distDetails.districtCode">
+                <ul class="d-flex flex-wrap list-unstyled">
+                    <li>
+                        <label>District Name</label>
+                        <div>{{distDetails.districtName}}</div>
+                    </li>
+                    <li>
+                        <label>District Code</label>
+                        <div>{{distDetails.districtCode}}</div>
+                    </li>
+                    <li>
+                        <label>Total Blocks</label>
+                        <div>{{blockList.data?.length}}</div>
+                    </li>
+                    <li>
+                        <label>State</label>
+                        <div>{{distDetails.stateName}}</div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <app-common-dash regionType='DISTRICT' regionCode='{{userObj.districtCode}}'></app-common-dash>
+
+        <div class="ml-4 mr-4">
+            <div class="school-table mt-4" *ngIf="tableDataCreated">
+                <div class=" w-100 align-items-center d-flex school-details table-panel">
+                    <div class="font-weight-bold ml-4">Please select a block from the below list to view it's schools
+                    </div>
+                    <input type="text" class="custom-input ml-auto m-3" placeholder="Search..."
+                        (keyup)="applyFilter($event.target.value)">
+                </div>
+                <table mat-table [dataSource]="blockList" class="w-100 mt-3" [ngClass]="userObj.userType=='D' ? 'pointer' : ''">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef>Block Name</th>
+                        <td mat-cell *matCellDef="let element"> {{element.regionName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="id">
+                        <th mat-header-cell *matHeaderCellDef>Block Code</th>
+                        <td mat-cell *matCellDef="let element"> {{element.regionCode}} </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="tableColumn"></tr>
+                    <tr mat-row *matRowDef="let element; columns: tableColumn;" (click)="getBlockDash(element)">
+                    </tr>
+                </table>
+                <!-- <mat-paginator [pageSizeOptions]="[10, 15, 20, 15, 30]" class="w-100"></mat-paginator> -->
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="viewDashLevel == 'block'">
+        <div class="text-highlight text-right mr-5" >
+            <a href="javascript:void(0)" (click)="viewDashLevel='district'"> Back</a>
+        </div>
+        <app-dashboard2 [blockInput]='blockObj.regionCode'></app-dashboard2>
+    </div>
+
+</div>
+
+
+<!-- <div *ngIf='alertFlag'>
+    <app-alert [message]='alertMsg' [flag]='alertFlag' [count]='alertCount'></app-alert>
+</div> -->
