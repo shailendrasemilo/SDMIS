@@ -6,7 +6,7 @@
 
                 <mat-form-field class="w-75">
                     <mat-label>Result (31)</mat-label>
-                    <mat-select [(ngModel)]="resultDetail.lastResult" name="resultDetail.lastResult" required>
+                    <mat-select [(ngModel)]="resultDetail.lastResult" name="resultDetail.lastResult" required [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let res of resultList" [value]='res.value'>{{res.name}}
                         </mat-option>
                     </mat-select>
@@ -17,7 +17,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Marks Obtained (32)</mat-label>
-                    <input matInput placeholder="Marks Obtained" [(ngModel)]="resultDetail.markObtain"
+                    <input matInput placeholder="Marks Obtained" [(ngModel)]="resultDetail.markObtain" [disabled]="!common.allowFormUpdate"
                         name="resultDetail.markObtain" required>
                     <mat-error>Marks Obtained is required</mat-error>
                 </mat-form-field>
@@ -25,7 +25,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Schooling Status (33)</mat-label>
-                    <mat-select [(ngModel)]="resultDetail.schoolingStatus" name="resultDetail.schoolingStatus" required>
+                    <mat-select [(ngModel)]="resultDetail.schoolingStatus" name="resultDetail.schoolingStatus" required [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let stat of schoolingStatus" [value]='stat.value'>{{stat.name}}
                         </mat-option>
                     </mat-select>
@@ -35,7 +35,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.stdClass == '11' || common.stdClass == '12'">
                 <mat-form-field class="w-75">
                     <mat-label>Stream (34)</mat-label>
-                    <mat-select [(ngModel)]="resultDetail.stream" name="resultDetail.stream" required>
+                    <mat-select [(ngModel)]="resultDetail.stream" name="resultDetail.stream" required [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let stream of streamList" [value]='stream.value'>{{stream.name}}
                         </mat-option>
                     </mat-select>
@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" *ngIf="common.allowFormUpdate">
             <div class="col-lg-11 col-md-11">
                 <div class="mt-5">
                     <button *ngIf="common.studentAction=='add'" type="button" mat-raised-button color="primary"

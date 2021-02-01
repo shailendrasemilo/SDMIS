@@ -13,12 +13,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
+import { CharacterOnlyDirective } from './directives/character-only.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NavigationComponent
+    NavigationComponent,
   ],
   imports: [
     BrowserModule,

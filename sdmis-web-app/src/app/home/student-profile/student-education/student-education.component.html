@@ -5,7 +5,7 @@
 
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.schoolMgmt == '5'">
                 <label id="freeEdu" class="radio-label">Getting free Education as per RTE education (15)</label>
-                <mat-radio-group aria-labelledby="freeEdu" [(ngModel)]="educationDetail.freeEdu"
+                <mat-radio-group aria-labelledby="freeEdu" [(ngModel)]="educationDetail.freeEdu" [disabled]="!common.allowFormUpdate"
                     name="educationDetail.freeEdu">
                     <mat-radio-button value="1" class="mr-2"> Yes </mat-radio-button>
                     <mat-radio-button value="0" class="ml-2"> No </mat-radio-button>
@@ -15,7 +15,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Previous Class (17)</mat-label>
-                    <mat-select [(ngModel)]="educationDetail.classPrevYear" name="educationDetail.classPrevYear"
+                    <mat-select [(ngModel)]="educationDetail.classPrevYear" name="educationDetail.classPrevYear" [disabled]="!common.allowFormUpdate"
                         required>
                         <mat-option *ngFor="let class of classList" [value]="class.id">{{class.name}}</mat-option>
                     </mat-select>
@@ -26,7 +26,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.stdClass == '1'">
                 <mat-form-field class="w-75">
                     <mat-label>Previous year status (18)</mat-label>
-                    <mat-select [(ngModel)]="educationDetail.statusPrev" name="educationDetail.statusPrev"
+                    <mat-select [(ngModel)]="educationDetail.statusPrev" name="educationDetail.statusPrev" [disabled]="!common.allowFormUpdate"
                         required>
                         <mat-option *ngFor="let stat of statusList" [value]="stat.code">{{stat.name}}</mat-option>
                     </mat-select>
@@ -39,7 +39,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Prev. year attendance (19)</mat-label>
-                    <input matInput placeholder="Attendance" [(ngModel)]="educationDetail.classAttend"
+                    <input matInput placeholder="Attendance" [(ngModel)]="educationDetail.classAttend" [disabled]="!common.allowFormUpdate"
                         name="educationDetail.classAttend" required>
                     <mat-error>Attendance is required</mat-error>
                 </mat-form-field>
@@ -47,14 +47,14 @@
             <div class="col-md-8 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Medium of Instruction (20)</mat-label>
-                    <mat-select [(ngModel)]="educationDetail.moi" name="educationDetail.moi" required>
+                    <mat-select [(ngModel)]="educationDetail.moi" name="educationDetail.moi" required [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let moi of moiList" [value]='moi.code'>{{moi.name}}</mat-option>
                     </mat-select>
                     <mat-error>Medium of Instruction is required</mat-error>
                 </mat-form-field>
             </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="common.allowFormUpdate">
             <div class="col-lg-11 col-md-11">
                 <div class="mt-5">
                     <button *ngIf="common.studentAction=='add'" type="button" mat-raised-button color="primary"

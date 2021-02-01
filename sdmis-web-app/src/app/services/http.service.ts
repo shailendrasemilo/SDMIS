@@ -227,4 +227,11 @@ export class HttpService {
     return this.http.get<any>(environment.mhrd_base_url + '/regionDetails', { params })
   }
 
+  getRegionDash(type, code) {
+    let params = new HttpParams();
+    params = params.set('regionType', type)
+    params = params.set('regionCode', code)
+    return this.http.get<any>(environment.api_base_url + '/getRegionDashboard', { params })
+  }
+
 }

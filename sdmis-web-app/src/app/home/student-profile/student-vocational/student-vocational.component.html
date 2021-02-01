@@ -6,7 +6,7 @@
 
                 <mat-form-field class="w-75">
                     <mat-label>Trade/Sector (35)</mat-label>
-                    <mat-select [(ngModel)]="vocationalDetail.trade" name="vocationalDetail.trade" required>
+                    <mat-select [(ngModel)]="vocationalDetail.trade" name="vocationalDetail.trade" required [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let trade of tradeList" [value]='trade.code'>{{trade.name}}
                         </mat-option>
                     </mat-select>
@@ -16,7 +16,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Job Role (36)</mat-label>
-                    <mat-select [(ngModel)]="vocationalDetail.jobRole" name="vocationalDetail.jobRole" required>
+                    <mat-select [(ngModel)]="vocationalDetail.jobRole" name="vocationalDetail.jobRole" required [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let job of jobRole" [value]='job.code'>{{job.name}}
                         </mat-option>
                     </mat-select>
@@ -28,7 +28,7 @@
 
                 <mat-form-field class="w-75">
                     <mat-label>NSQF Level (37)</mat-label>
-                    <mat-select [(ngModel)]="vocationalDetail.nsqfLevel" name="vocationalDetail.nsqfLevel" required>
+                    <mat-select [(ngModel)]="vocationalDetail.nsqfLevel" name="vocationalDetail.nsqfLevel" required [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let nsqf of nsqfLevels" [value]='nsqf.value'>{{nsqf.name}}
                         </mat-option>
                     </mat-select>
@@ -40,7 +40,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Student opted for (38)</mat-label>
-                    <mat-select [(ngModel)]="vocationalDetail.stuOptedFor" name="vocationalDetail.stuOptedFor" required>
+                    <mat-select [(ngModel)]="vocationalDetail.stuOptedFor" name="vocationalDetail.stuOptedFor" required [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let opt of stdOptFor" [value]='opt.name'>{{opt.name}}
                         </mat-option>
                     </mat-select>
@@ -53,7 +53,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Employment Status (39)</mat-label>
-                    <mat-select [(ngModel)]="vocationalDetail.placementStatus" name="vocationalDetail.placementStatus"
+                    <mat-select [(ngModel)]="vocationalDetail.placementStatus" name="vocationalDetail.placementStatus" [disabled]="!common.allowFormUpdate"
                         required>
                         <mat-option *ngFor="let emp of employmentStatus" [value]='emp.value'>{{emp.name}}
                         </mat-option>
@@ -65,7 +65,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Salary Offered (40)</mat-label>
-                    <mat-select [(ngModel)]="vocationalDetail.salaryOffered" name="vocationalDetail.salaryOffered"
+                    <mat-select [(ngModel)]="vocationalDetail.salaryOffered" name="vocationalDetail.salaryOffered" [disabled]="!common.allowFormUpdate"
                         required>
                         <mat-option *ngFor="let sal of salaryList" [value]='sal.value'>{{sal.name}}
                         </mat-option>
@@ -75,7 +75,7 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" *ngIf="common.allowFormUpdate">
             <div class="col-lg-11 col-md-11">
                 <div class="mt-5">
                     <button *ngIf="common.studentAction=='add'" type="button" mat-raised-button color="primary"

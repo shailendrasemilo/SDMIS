@@ -18,6 +18,7 @@ export class CommonService {
   schoolMgmt: any;
   stdClass: any;
   stdClassName: any;
+  allowFormUpdate: boolean = true;
 
   classList: any = [
     { name: 'Class I', id: 'I', value: 1},

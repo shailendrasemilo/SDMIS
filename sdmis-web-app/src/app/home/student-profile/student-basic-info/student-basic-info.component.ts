@@ -41,11 +41,18 @@ export class StudentBasicInfoComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.common.allowFormUpdate = true;
     this.common.schoolDetail = JSON.parse(sessionStorage.getItem('schoolDetail'))
     console.log(this.common.schoolDetail)
     this.getStateList();
     this.getMasterData();
     this.userObj = this.common.userObj;
+    if(this.userObj.userType == 'D' || this.userObj.userType == 'ST') {
+      console.log('inside')
+      this.common.allowFormUpdate = false;
+
+    }
+    console.log(this.common.allowFormUpdate)
     if (this.common.studentAction == 'edit') {
       this.getStdBasicInfo();
     } else if (this.common.studentAction == 'add') {

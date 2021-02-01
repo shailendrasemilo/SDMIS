@@ -12,13 +12,13 @@ import { Location } from '@angular/common';
   selector: 'app-student-profile',
   templateUrl: './student-profile.component.html',
   styleUrls: ['./student-profile.component.css'],
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed', style({ height: '0px', minHeight: '0' })),
-      state('expanded', style({ height: '*' })),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+  // animations: [
+  //   trigger('detailExpand', [
+  //     state('collapsed', style({ height: '0px', minHeight: '0' })),
+  //     state('expanded', style({ height: '*' })),
+  //     transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+  //   ]),
+  // ],
   encapsulation: ViewEncapsulation.None
 })
 export class StudentProfileComponent implements OnInit {
@@ -33,12 +33,15 @@ export class StudentProfileComponent implements OnInit {
   schoolList: any = [];
   schoolTable: any = new MatTableDataSource;
   tableColumn: any = ['name', 'id', 'cat', 'mgmt', 'range']
-  classColumn: any = ['class', 'std', 'view', 'add']
+  classColumn: any = ['class', 'std', 'view']
   showSchools: boolean = false;
   basicInfoTableHead = ['name', 'admissionNum', 'doa', 'class', 'section', 'gender', 'action'];
   showProgress: boolean = false;
   classStudentCount: any = [];
   schoolFilter: any;
+  blockTable: any = [];
+  blockColumn: any = ['name', 'id', 'count']
+  blockFilter: any;
 
   sectionList: any = [];
 
@@ -50,27 +53,51 @@ export class StudentProfileComponent implements OnInit {
     this.userObj = this.common.userObj;
     let obj: any = {};
     obj = this.location.getState()
-    console.log(obj.className, obj.school);
     if (obj.className) {
+      if (this.userObj.userType == 'S' || this.userObj.userType == 'B') {
+        this.classColumn.push('add')
+      }
       this.common.schoolDetail = obj.school;
+      sessionStorage.setItem('schoolDetail', JSON.stringify(this.common.schoolDetail))
       this.getStudentList(obj.className);
       this.common.stdClassName = obj.className
       this.common.studentAction = 'studentList';
     } else {
       if (this.userObj.userType == 'S') {
+        this.classColumn.push('add')
         this.common.schoolDetail = JSON.parse(sessionStorage.getItem('schoolDetail'))
         if (this.common.schoolDetail.udiseCode) {
           this.getClassBySchoolRange(this.common.schoolDetail)
         }
       } else if (this.userObj.userType == 'B') {
+        this.classColumn.push('add')
         this.common.studentAction = 'schoolList';
         this.getSchools(this.userObj.blockCode);
+      } else if (this.userObj.userType == 'D') {
+        this.common.studentAction = 'blockList';
+        this.getBlocks(this.userObj.districtCode)
       }
     }
   }
 
+  getBlocks(distCode) {
+    this.httpService.getBlocksByDistrict(distCode).subscribe(res => {
+      console.log(res)
+      if (res.statusCode == environment.httpSuccess) {
+        this.blockTable = new MatTableDataSource(res.data.result);
+        this.setPaginator(this.blockTable)
+      }
+    })
+  }
+
+  getSchoolByBlock(block) {
+    console.log(block)
+    this.getSchools(block.regionCode);
+    this.common.studentAction = 'schoolList';
+  }
+
   getClassBySchoolRange(school) {
-    if (this.userObj.userType == 'B') {
+    if (this.userObj.userType != 'S') {
       this.common.schoolDetail = school;
       sessionStorage.setItem('schoolDetail', JSON.stringify(school))
     }
@@ -95,7 +122,7 @@ export class StudentProfileComponent implements OnInit {
           if (res2.statusCode == environment.httpSuccess) {
             this.schoolList = res2.data.result;
             this.schoolTable = new MatTableDataSource(this.schoolList)
-            this.setSchoolPaginator();
+            this.setPaginator(this.schoolTable);
           }
         })
       } else {
@@ -106,9 +133,9 @@ export class StudentProfileComponent implements OnInit {
     })
   }
 
-  setSchoolPaginator() {
+  setPaginator(tableData) {
     setTimeout(() => {
-      this.schoolTable.paginator = this.paginator;
+      tableData.paginator = this.paginator;
     }, 100)
   }
 
@@ -182,9 +209,10 @@ export class StudentProfileComponent implements OnInit {
 
   applySchoolFilter(searchText) {
     this.schoolTable.filter = searchText.trim().toLowerCase();
-    console.log(this.schoolTable.data)
-    console.log(this.schoolTable.filteredData)
+  }
 
+  applyBlockFilter(searchText) {
+    this.blockTable.filter = searchText.trim().toLowerCase();
   }
 
   openProfile(classObj) {
@@ -195,8 +223,7 @@ export class StudentProfileComponent implements OnInit {
   ngOnDestroy() {
     console.log('destroy')
     console.log(this.userObj.userType, this.common.schoolDetail?.udiseCode)
-    if (this.userObj.userType == 'B' && this.common.schoolDetail?.udiseCode) {
-      console.log('school found')
+    if ((this.userObj.userType == 'B' || this.userObj.userType == 'D') && this.common.schoolDetail?.udiseCode) {
       this.common.schoolDetail = {};
     }
   }

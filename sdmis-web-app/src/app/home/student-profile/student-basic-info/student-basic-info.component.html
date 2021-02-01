@@ -6,23 +6,11 @@
             </div>
         </div>
         <div class="row form-field">
-            <!-- <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="userObj.userType=='B'">
-                <mat-form-field class="w-75">
-                    <mat-label>School</mat-label>
-                    <mat-select [(ngModel)]="classMapping.udiseCode" name="classMapping.udiseCode" required>
-                        <mat-option *ngFor="let school of schoolList" [value]="school.udiseCode"
-                            (click)="getClassBySchoolRange(school)">{{school.schName}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error>School is required</mat-error>
-                </mat-form-field>
-            </div> -->
-
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Student Aadhar Number (1)</mat-label>
                     <input matInput placeholder="Student Aadhar Number (1)" [(ngModel)]="profileDetails.aadharNum"
-                        maxlength="12" minlength="12" appNumberOnly name="profileDetails.aadharNum">
+                        maxlength="12" minlength="12" appNumberOnly name="profileDetails.aadharNum" [disabled]="!common.allowFormUpdate">
                     <mat-error>Please provide valid Aadhar Number</mat-error>
 
                 </mat-form-field>
@@ -32,7 +20,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>Student Name (2)</mat-label>
                     <input matInput placeholder="Student Name (2)" [(ngModel)]="profileDetails.name"
-                        name="profileDetails.name" required>
+                        name="profileDetails.name" required appCharacterOnly [disabled]="!common.allowFormUpdate">
                     <mat-error>Student Name is required</mat-error>
                 </mat-form-field>
             </div>
@@ -41,7 +29,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>Father's Name (3)</mat-label>
                     <input matInput placeholder="Father's Name (3)" [(ngModel)]="profileDetails.fatherName"
-                        name="profileDetails.fatherName" required>
+                        name="profileDetails.name" required appCharacterOnly [disabled]="!common.allowFormUpdate">
                     <mat-error>Father's Name is required</mat-error>
                 </mat-form-field>
             </div>
@@ -49,7 +37,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>Mother's Name (4)</mat-label>
                     <input matInput placeholder="Mother's Name (4)" [(ngModel)]="profileDetails.motherName"
-                        name="profileDetails.motherName" required>
+                        name="profileDetails.motherName" required appCharacterOnly [disabled]="!common.allowFormUpdate">
                     <mat-error>Mother's Name is required</mat-error>
                 </mat-form-field>
             </div>
@@ -58,7 +46,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>Date of Birth (5)</mat-label>
                     <input matInput [matDatepicker]="pickerDob" [(ngModel)]="profileDetails.dob"
-                        name="profileDetails.dob" (focus)="pickerDob.open()" required>
+                        name="profileDetails.dob" (focus)="pickerDob.open()" required [disabled]="!common.allowFormUpdate">
                     <mat-datepicker-toggle matSuffix [for]="pickerDob"></mat-datepicker-toggle>
                     <mat-datepicker #pickerDob [startAt]='profileDetails.dob'></mat-datepicker>
                     <mat-error>Date of Birth is required</mat-error>
@@ -68,7 +56,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Gender (6)</mat-label>
-                    <mat-select [(ngModel)]="profileDetails.gender" name="profileDetails.gender" required>
+                    <mat-select [(ngModel)]="profileDetails.gender" name="profileDetails.gender" required [disabled]="!common.allowFormUpdate">
                         <mat-option value="1">Boy</mat-option>
                         <mat-option value="2">Girl</mat-option>
                         <mat-option value="3">Other/Transgender</mat-option>
@@ -81,7 +69,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>Social Category (7)</mat-label>
                     <mat-select [(ngModel)]="profileDetails.socialCategory" name="profileDetails.socialCategory"
-                        required>
+                        required [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let socialCategory of socialCategoryList" [value]="socialCategory.code">
                             {{socialCategory.name}}</mat-option>
                     </mat-select>
@@ -92,7 +80,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Religion (8)</mat-label>
-                    <mat-select [(ngModel)]="profileDetails.religion" name="profileDetails.religion" required>
+                    <mat-select [(ngModel)]="profileDetails.religion" name="profileDetails.religion" required [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let religion of religionList" [value]="religion.code">{{religion.name}}
                         </mat-option>
                     </mat-select>
@@ -103,7 +91,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Mother Tongue (9)</mat-label>
-                    <mat-select [(ngModel)]="profileDetails.motherTongue" name="profileDetails.motherTongue" required>
+                    <mat-select [(ngModel)]="profileDetails.motherTongue" name="profileDetails.motherTongue" required [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let motherTongue of motherTongueList" [value]="motherTongue.id">
                             {{motherTongue.name}} </mat-option>
                     </mat-select>
@@ -120,7 +108,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>State</mat-label>
-                    <mat-select [(ngModel)]="profileDetails.stateId" name="profileDetails.stateId" required #state
+                    <mat-select [(ngModel)]="profileDetails.stateId" name="profileDetails.stateId" required #state [disabled]="!common.allowFormUpdate"
                         (ngModelChange)="getDistrictList(state.value)">
                         <mat-option *ngFor="let state of stateList" [value]="state.regionCode">{{state.regionName}}
                         </mat-option>
@@ -133,7 +121,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>District</mat-label>
-                    <mat-select [(ngModel)]="profileDetails.districtId" name="profileDetails.districtId" required #dist>
+                    <mat-select [(ngModel)]="profileDetails.districtId" name="profileDetails.districtId" required #dist [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let district of districtList" [value]="district.regionCode">
                             {{district.regionName}}
                         </mat-option>
@@ -145,7 +133,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>Habitat/Locality (10)</mat-label>
                     <input matInput placeholder="Habitat/Locality (10)" [(ngModel)]="profileDetails.locality"
-                        name="profileDetails.locality" required>
+                        name="profileDetails.locality" required appCharacterOnly [disabled]="!common.allowFormUpdate">
                     <mat-error>Habitat/Locality is required</mat-error>
                 </mat-form-field>
             </div>
@@ -160,7 +148,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>Date of Admission (11)</mat-label>
                     <input matInput [matDatepicker]="pickerDoa" [(ngModel)]="profileDetails.doa"
-                        name="profileDetails.doa" (focus)="pickerDoa.open()" required>
+                        name="profileDetails.doa" (focus)="pickerDoa.open()" required [disabled]="!common.allowFormUpdate">
                     <mat-datepicker-toggle matSuffix [for]="pickerDoa"></mat-datepicker-toggle>
                     <mat-datepicker #pickerDoa [startAt]='profileDetails.doa'></mat-datepicker>
                     <mat-error>Date of Admission is required</mat-error>
@@ -171,7 +159,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>School Admission Number (12)</mat-label>
                     <input matInput placeholder="School Admission Number (12)" [(ngModel)]="profileDetails.admissionNum"
-                        name="profileDetails.admissionNum" required appNumberOnly>
+                        name="profileDetails.admissionNum" required appNumberOnly [disabled]="!common.allowFormUpdate">
                     <mat-error>School Admission No. is required</mat-error>
                 </mat-form-field>
             </div>
@@ -179,7 +167,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <label id="belongBPL" class="radio-label">Child belong to BPL? (13)</label>
                 <mat-radio-group aria-labelledby="belongBPL" [(ngModel)]="profileDetails.belongBPL"
-                    name="profileDetails.belongBPL">
+                    name="profileDetails.belongBPL" [disabled]="!common.allowFormUpdate">
                     <div>
                         <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
                         <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
@@ -191,7 +179,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <label id="disadvantageGroup" class="radio-label">Belong to disadvantage group? (14)</label>
                 <mat-radio-group aria-labelledby="disadvantageGroup" [(ngModel)]="profileDetails.disadvantageGroup"
-                    name="profileDetails.disadvantageGroup">
+                    name="profileDetails.disadvantageGroup" [disabled]="!common.allowFormUpdate">
                     <div>
                         <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
                         <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
@@ -210,7 +198,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Student Section</mat-label>
-                    <mat-select [(ngModel)]="classMapping.section" name="classMapping.section" required>
+                    <mat-select [(ngModel)]="classMapping.section" name="classMapping.section" required [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let section of sectionList" [value]="section.sectionName">
                             {{section.sectionName}}
                         </mat-option>
@@ -223,7 +211,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>Type of Disablity (21)</mat-label>
                     <mat-select [(ngModel)]="profileDetails.disabilityType" name="profileDetails.disabilityType"
-                        required>
+                        required [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let disability of disabilityList" [value]="disability.code">
                             {{disability.name}}
                         </mat-option>
@@ -235,7 +223,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <label id="childHomeless" class="radio-label mt-3">Is Child Homeless? (30)</label>
                 <mat-radio-group class="w-75" aria-labelledby="childHomeless" [(ngModel)]="profileDetails.childHomeless"
-                    name="profileDetails.childHomeless" required>
+                    name="profileDetails.childHomeless" required [disabled]="!common.allowFormUpdate">
                     <div>
                         <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
                         <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
@@ -246,7 +234,7 @@
         </div>
 
 
-        <div class="row">
+        <div class="row" *ngIf="common.allowFormUpdate">
             <div class="col-lg-11 col-md-11">
                 <div class="mt-4">
                     <button *ngIf="common.studentAction=='add'" type="button" mat-raised-button color="primary"

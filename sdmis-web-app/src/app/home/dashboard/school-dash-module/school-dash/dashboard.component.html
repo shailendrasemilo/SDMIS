@@ -7,7 +7,7 @@
             <button type="button" mat-raised-button color="primary" class="btn-gradient"
                 routerLink="/home/dashboard/2">Back</button>
         </div>
-        <div class="ml-auto mr-5" *ngIf="(userObj.userType=='D')">
+        <div class="ml-auto mr-5" *ngIf="(userObj.userType=='D') && viewDashLevel== 'school'">
             <button type="button" mat-raised-button color="primary" class="btn-gradient"
                 routerLink="/home/dashboard/3">Back</button>
         </div>

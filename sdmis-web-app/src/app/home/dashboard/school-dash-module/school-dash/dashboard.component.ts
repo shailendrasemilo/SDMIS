@@ -92,6 +92,9 @@ export class DashboardComponent implements OnInit {
       } else if (this.userObj.userType == 'B') {
         this.viewDashLevel = 'block';
         this.getBlockDash(this.userObj.blockCode);
+      } else if (this.userObj.userType == 'D') {
+        this.viewDashLevel = 'district';
+        this.getDistDash('DISTRICT', this.userObj.districtCode);
       }
     }
 
@@ -101,6 +104,23 @@ export class DashboardComponent implements OnInit {
     this.totalCreated = false;
     this.sectionWiseCreated = false;
     this.classWiseCreated = false;
+  }
+
+  getDistDash(type, distCode) {
+    console.log(distCode)
+    this.http.getRegionDash(type, distCode).subscribe(res => {
+      console.log(res)
+      if(environment.successCode == res.statusCode) {
+        this.dashboardData = res.dashboardData;
+        this.createTotalData();
+        this.createSectionWiseData();
+        this.createClassWiseData();
+      } else {
+        this.alertMsg = res.description;
+        this.alertCount = this.alertCount + 1;
+        this.alertFlag = true;
+      }
+    })
   }
 
   getSchoolDash(udiseCode) {
@@ -175,13 +195,12 @@ export class DashboardComponent implements OnInit {
   createClassWiseData() {
     let classArr = this.dashboardData.classesData;
     this.classWiseData = [];
-    if (this.userObj.userType == 'B' && this.viewDashLevel == "block") {
+    if ((this.userObj.userType == 'B' && this.viewDashLevel == "block") || (this.userObj.userType == 'D' && this.viewDashLevel == "district")) {
       this.classWiseData = [...this.classWiseMst]
       this.classWiseData.forEach(element => {
         element.count = classArr[element.classNum - 1]
       });
       this.classWiseCreated = true;
-
     } else if ((this.userObj.userType == 'S' || this.userObj.userType == 'B' || this.userObj.userType == 'D') && this.viewDashLevel == "school") {
 
       if (this.common.schoolDetail.udiseCode) {
@@ -208,11 +227,12 @@ export class DashboardComponent implements OnInit {
   }
 
   viewStudents(className) {
+    console.log(this.common.schoolDetail)
     this.router.navigateByUrl('/home/studentProfile', { state: { className: className, school: this.common.schoolDetail } });
   }
   
   ngOnDestroy() {
-    if(this.userObj.userType == 'B' && this.common.schoolDetail?.udiseCode) {
+    if((this.userObj.userType == 'B' || this.userObj.userType == 'D') && this.common.schoolDetail?.udiseCode) {
       console.log('school found')
       this.common.schoolDetail = {};
     }

@@ -12,13 +12,13 @@
                 <span> Block Dashboard </span>
             </a>
         </li>
-        <li *ngIf="userObj.userType == 'B' || userObj.userType == 'S'">
+        <li>
             <a routerLink="/home/dashboard/1" routerLinkActive="active">
                 <img src="assets/images/dashboard.svg" alt="Dashboard" width="15px">
                 <span> Enrollment Dashboard </span>
             </a>
         </li>
-        <li *ngIf="userObj.userType == 'B' || userObj.userType == 'S'">
+        <li>
             <a routerLink="/home/studentProfile" routerLinkActive="active">
                 <img src="assets/images/manage.svg" width="15px"> Student Profile
             </a>
@@ -55,7 +55,7 @@
             </a>
         </li>
 
-        <li *ngIf="userObj.userType == 'S'">
+        <li>
             <a routerLink="/home/studentProfile" routerLinkActive="active">
                 <img src="assets/images/manage.svg" width="15px">
             </a>

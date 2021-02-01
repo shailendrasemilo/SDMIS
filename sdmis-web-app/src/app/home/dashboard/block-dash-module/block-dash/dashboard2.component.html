@@ -154,7 +154,7 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="tableColumn"></tr>
-                <tr mat-row *matRowDef="let element; columns: tableColumn;" (click)="userObj.userType=='B' && schoolEnrollment(element)">
+                <tr mat-row *matRowDef="let element; columns: tableColumn;" (click)="schoolEnrollment(element)">
                 </tr>
             </table>
             <mat-paginator [pageSizeOptions]="[10, 15, 20, 25, 30]" class="w-100"></mat-paginator>

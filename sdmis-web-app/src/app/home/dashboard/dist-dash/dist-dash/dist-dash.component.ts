@@ -15,7 +15,7 @@ export class DistDashComponent implements OnInit {
   distDetails: any = {};
   blockList: any = [];
   tableDataCreated: any = false;
-  tableColumn: any = ['name', 'id'];
+  tableColumn: any = ['name', 'id', 'count'];
   viewDashLevel: any = 'district';
   blockObj: any = [];
   constructor(private common: CommonService, private http: HttpService) { }
