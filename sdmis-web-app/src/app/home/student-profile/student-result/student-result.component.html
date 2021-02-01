@@ -5,7 +5,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
 
                 <mat-form-field class="w-75">
-                    <mat-label>Result (31)</mat-label>
+                    <mat-label>Previous Result (31)</mat-label>
                     <mat-select [(ngModel)]="resultDetail.lastResult" name="resultDetail.lastResult" required [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let res of resultList" [value]='res.value'>{{res.name}}
                         </mat-option>

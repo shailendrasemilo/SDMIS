@@ -34,13 +34,11 @@
 
                 </mat-form-field>
             </div>
-
-
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Prev. year attendance (19)</mat-label>
                     <input matInput placeholder="Attendance" [(ngModel)]="educationDetail.classAttend" [disabled]="!common.allowFormUpdate"
-                        name="educationDetail.classAttend" required>
+                        name="educationDetail.classAttend" appNumberOnly required>
                     <mat-error>Attendance is required</mat-error>
                 </mat-form-field>
             </div>

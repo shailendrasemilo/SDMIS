@@ -133,7 +133,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>Habitat/Locality (10)</mat-label>
                     <input matInput placeholder="Habitat/Locality (10)" [(ngModel)]="profileDetails.locality"
-                        name="profileDetails.locality" required appCharacterOnly [disabled]="!common.allowFormUpdate">
+                        name="profileDetails.locality" required [disabled]="!common.allowFormUpdate">
                     <mat-error>Habitat/Locality is required</mat-error>
                 </mat-form-field>
             </div>

@@ -42,7 +42,7 @@ export class StudentProfileComponent implements OnInit {
   blockTable: any = [];
   blockColumn: any = ['name', 'id', 'count']
   blockFilter: any;
-
+  root: boolean = true;
   sectionList: any = [];
 
   stdSearchParam: any = {};
@@ -56,6 +56,8 @@ export class StudentProfileComponent implements OnInit {
     if (obj.className) {
       if (this.userObj.userType == 'S' || this.userObj.userType == 'B') {
         this.classColumn.push('add')
+      } else if ( this.userObj.userType == 'D' ) {
+        this.root = false;
       }
       this.common.schoolDetail = obj.school;
       sessionStorage.setItem('schoolDetail', JSON.stringify(this.common.schoolDetail))

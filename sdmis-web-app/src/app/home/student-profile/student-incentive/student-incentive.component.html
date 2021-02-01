@@ -26,7 +26,7 @@
 
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.schoolMgmt == '4'">
                 <div><label id="freeBooks" class="radio-label">Getting free books (24)</label></div>
-                <mat-radio-group aria-labelledby="freeBooks" [(ngModel)]="incentiveDetail.textBook" [disabled]="!common.allowFormUpdate"
+                <mat-radio-group aria-labelledby="freeBooks" [(ngModel)]="incentiveDetail.textBook" required [disabled]="!common.allowFormUpdate"
                     name="incentiveDetail.textBook">
                     <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
                     <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
@@ -34,7 +34,7 @@
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.schoolMgmt == '4'">
                 <div><label id="freeTransport" class="radio-label">Getting free transport (25)</label></div>
-                <mat-radio-group aria-labelledby="freeTransport" [(ngModel)]="incentiveDetail.transFacility" [disabled]="!common.allowFormUpdate"
+                <mat-radio-group aria-labelledby="freeTransport" [(ngModel)]="incentiveDetail.transFacility" required [disabled]="!common.allowFormUpdate"
                     name="incentiveDetail.transFacility">
                     <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
                     <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
@@ -42,7 +42,7 @@
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.schoolMgmt == '4'">
                 <div><label id="freeEscort" class="radio-label">Getting free escort (26)</label></div>
-                <mat-radio-group aria-labelledby="freeEscort" [(ngModel)]="incentiveDetail.escortFacility" [disabled]="!common.allowFormUpdate"
+                <mat-radio-group aria-labelledby="freeEscort" [(ngModel)]="incentiveDetail.escortFacility" required [disabled]="!common.allowFormUpdate"
                     name="incentiveDetail.escortFacility">
                     <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
                     <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
@@ -50,7 +50,7 @@
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.schoolMgmt == '4'">
                 <div><label id="freeBicycle" class="radio-label">Getting free bicycle (27)</label></div>
-                <mat-radio-group aria-labelledby="freeBicycle" [(ngModel)]="incentiveDetail.bicycle" [disabled]="!common.allowFormUpdate"
+                <mat-radio-group aria-labelledby="freeBicycle" [(ngModel)]="incentiveDetail.bicycle" required [disabled]="!common.allowFormUpdate"
                     name="incentiveDetail.bicycle">
                     <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
                     <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>
@@ -58,7 +58,7 @@
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.schoolMgmt == '4'">
                 <div><label id="freeHostel" class="radio-label">Getting free hostel (28)</label></div>
-                <mat-radio-group aria-labelledby="freeHostel" [(ngModel)]="incentiveDetail.hostalFacility" [disabled]="!common.allowFormUpdate"
+                <mat-radio-group aria-labelledby="freeHostel" [(ngModel)]="incentiveDetail.hostalFacility" required [disabled]="!common.allowFormUpdate"
                     name="incentiveDetail.hostalFacility">
                     <mat-radio-button [value]="1" class="mr-2"> Yes </mat-radio-button>
                     <mat-radio-button [value]="0" class="ml-2"> No </mat-radio-button>

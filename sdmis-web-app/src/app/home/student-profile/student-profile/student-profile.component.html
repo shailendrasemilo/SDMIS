@@ -134,13 +134,17 @@
                     </li>
                 </ul>
                 <ul class="d-flex flex-wrap list-unstyled ml-auto">
-                    <li>
+                    <li *ngIf="root">
                         <div *ngIf="(userObj.userType == 'B' || userObj.userType == 'D') && common.studentAction=='classList'">
                             <button *ngIf="!showSchools" type="button" mat-raised-button color="primary"
                                 class="btn-gradient"
-                                (click)="common.studentAction = 'schoolList'; setPaginator(schoolTable);">School
-                                List</button>
+                                (click)="common.studentAction = 'schoolList'; setPaginator(schoolTable);">School List</button>
                         </div>
+                    </li>
+                    <li *ngIf="!root">
+                        <button type="button" mat-raised-button color="primary"
+                                class="btn-gradient"
+                                (click)="getBlocks(userObj.districtCode)">Block List</button>
                     </li>
                 </ul>
             </div>
