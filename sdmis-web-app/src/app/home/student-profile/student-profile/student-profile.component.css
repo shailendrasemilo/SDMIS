@@ -5,26 +5,15 @@
 
 .mat-horizontal-stepper-header-container {
     background-color: var(--drawer-content);
-    padding: 1rem 0;
-}
-
-.mat-horizontal-stepper-header {
-    flex-direction: column;
-    /* height: 0px !important; */
-    padding: 20px 24px !important;
 }
 
 .mat-step-icon {
-    height: 40px !important;
-    width: 40px !important;
+    height: 30px !important;
+    width: 30px !important;
 }
 
 .mat-step-header .mat-step-icon-selected {
     background-color: var(--color-blue);
-}
-
-.mat-step-icon {
-    margin-bottom: 1.3rem;
 }
 
 .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
@@ -47,7 +36,6 @@
 }
 
 .short-field .mat-form-field-appearance-outline .mat-form-field-outline-thick {
-    /* color: white !important; */
     opacity: 1 !important;
     background-color: white;
 }
@@ -58,10 +46,6 @@
 
 .school-table .mat-row:hover {
     cursor: pointer;
-}
-
-.classTable tr.mat-header-row {
-    height: 20px !important
 }
 
 .std-details label {
@@ -76,8 +60,3 @@
 .classTable table {
     width: 65%
 }
-
-/* .table-action {
-    width: 50%;
-} */
-

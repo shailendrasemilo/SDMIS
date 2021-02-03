@@ -14,7 +14,7 @@ export class StudentEducationComponent implements OnInit {
   requestDto: any = {};
   classList: any = [];
   moiList: any = [{ name: 'Hindi', id: 1 }, { name: 'English', id: 2 }];
-  statusList: any = []
+  statusList: any = [{name: 'Same School', code: '1'}, {name: 'Another School', code: '2'}, {name: 'Anganwadi-ECCE', code: '3'}, {name: 'None', code: '4'}]
   userObj: any = {};
 
   alertCount: number = 0;
@@ -35,31 +35,10 @@ export class StudentEducationComponent implements OnInit {
         this.moiList = res.data.result;
       }
     })
-    let classinterval = setInterval(() => {
-      if (this.common.stdClass) {
-        if (this.common.stdClass == '1') {
-          this.http.getSchoolingStatus().subscribe(res => {
-            if (res.statusCode == environment.httpSuccess) {
-              this.statusList = res.data.result;
-              console.log(this.statusList)
-            } else {
-              console.log("prev status error")
-            }
-            clearInterval(classinterval);
-
-          })
-        } else {
-          clearInterval(classinterval);
-        }
-      } else {
-        clearInterval(classinterval);
-      }
-    }, 1)
-
-
-      if (this.common.schoolDetail) {
-        this.classList = this.common.createSchoolClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
-      }
+    
+    if (this.common.schoolDetail) {
+      this.classList = this.common.createPrevClassList(this.common.schoolDetail.classFrom, this.common.schoolDetail.classTo)
+    }
   }
 
 

@@ -15,8 +15,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4">
                 <mat-form-field class="w-75">
                     <mat-label>Previous Class (17)</mat-label>
-                    <mat-select [(ngModel)]="educationDetail.classPrevYear" name="educationDetail.classPrevYear" [disabled]="!common.allowFormUpdate"
-                        required>
+                    <mat-select [(ngModel)]="educationDetail.classPrevYear" name="educationDetail.classPrevYear" [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let class of classList" [value]="class.id">{{class.name}}</mat-option>
                     </mat-select>
                     <mat-error>Previous Class is required</mat-error>
@@ -26,8 +25,7 @@
             <div class="col-md-6 col-lg-4 col-xl-3 mt-4" *ngIf="common.stdClass == '1'">
                 <mat-form-field class="w-75">
                     <mat-label>Previous year status (18)</mat-label>
-                    <mat-select [(ngModel)]="educationDetail.statusPrev" name="educationDetail.statusPrev" [disabled]="!common.allowFormUpdate"
-                        required>
+                    <mat-select [(ngModel)]="educationDetail.statusPrev" name="educationDetail.statusPrev" [disabled]="!common.allowFormUpdate">
                         <mat-option *ngFor="let stat of statusList" [value]="stat.code">{{stat.name}}</mat-option>
                     </mat-select>
                     <mat-error>Previous Year status is required</mat-error>
@@ -38,7 +36,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>Prev. year attendance (19)</mat-label>
                     <input matInput placeholder="Attendance" [(ngModel)]="educationDetail.classAttend" [disabled]="!common.allowFormUpdate"
-                        name="educationDetail.classAttend" appNumberOnly required>
+                        name="educationDetail.classAttend" appNumberOnly>
                     <mat-error>Attendance is required</mat-error>
                 </mat-form-field>
             </div>

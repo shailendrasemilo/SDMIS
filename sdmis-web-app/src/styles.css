@@ -230,7 +230,7 @@
     }
 
     tr.mat-header-row {
-        height: 65px !important;
+        height: 30px !important
     }
 
     .basic-detail ul li label {
@@ -443,7 +443,7 @@
     }
 
     .school-details ul li, .std-details ul li {
-        margin: 1.5rem;
+        margin: 1.2rem;
         text-align: center;
     }
 
@@ -478,4 +478,34 @@
 
     .mat-card {
         box-shadow: 0px 2px 4px #0000000D !important;
+    }
+
+    .form-section {
+        font-weight: 900;
+        font-size: 22px;
+        margin-top: 0.5rem;
+        margin-left: 1rem;
+        color: var(--color-blue);
+    }
+
+    .form-row {
+        margin-top: 2rem !important;
+        background-color: #f6f6f6;
+    }
+
+    .mat-expansion-panel-header-title {
+        font-weight: 900;
+        color: var(--color-blue)
+    }
+
+    .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled="true"]) {
+        background: none;
+    }
+
+    .mat-horizontal-stepper-header {
+        height: 60px !important;
+    }
+
+    .mat-expansion-panel-header.mat-expanded {
+        height: 50px;
     }

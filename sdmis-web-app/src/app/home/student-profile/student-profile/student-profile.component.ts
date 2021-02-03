@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatStepper } from '@angular/material/stepper';
 import { environment } from 'src/environments/environment';
 import { HttpService } from '../../../services/http.service';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonService } from 'src/app/services/common.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-student-profile',
@@ -44,6 +44,7 @@ export class StudentProfileComponent implements OnInit {
   blockFilter: any;
   root: boolean = true;
   sectionList: any = [];
+  expandSchPanel: any = true;
 
   stdSearchParam: any = {};
   userObj: any = {}
@@ -56,7 +57,7 @@ export class StudentProfileComponent implements OnInit {
     if (obj.className) {
       if (this.userObj.userType == 'S' || this.userObj.userType == 'B') {
         this.classColumn.push('add')
-      } else if ( this.userObj.userType == 'D' ) {
+      } else if (this.userObj.userType == 'D') {
         this.root = false;
       }
       this.common.schoolDetail = obj.school;
@@ -196,6 +197,8 @@ export class StudentProfileComponent implements OnInit {
     this.alertMsg = "Student Profile has been completed";
     this.alertCount = this.alertCount + 1;
     this.alertFlag = true;
+    console.log(this.common.stdClassName)
+    this.getStudentList(this.common.stdClassName)
   }
 
   viewStudentDetails(studentId) {
@@ -227,6 +230,15 @@ export class StudentProfileComponent implements OnInit {
     console.log(this.userObj.userType, this.common.schoolDetail?.udiseCode)
     if ((this.userObj.userType == 'B' || this.userObj.userType == 'D') && this.common.schoolDetail?.udiseCode) {
       this.common.schoolDetail = {};
+    }
+  }
+
+  expand() {
+    if (this.expandSchPanel) {
+      this.expandSchPanel = false;
+    } else {
+      this.expandSchPanel = true;
+
     }
   }
 

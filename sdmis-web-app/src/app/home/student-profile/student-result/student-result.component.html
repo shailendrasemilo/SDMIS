@@ -18,7 +18,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>Marks Obtained (32)</mat-label>
                     <input matInput placeholder="Marks Obtained" [(ngModel)]="resultDetail.markObtain" [disabled]="!common.allowFormUpdate"
-                        name="resultDetail.markObtain" required>
+                        name="resultDetail.markObtain" required appNumberOnly>
                     <mat-error>Marks Obtained is required</mat-error>
                 </mat-form-field>
             </div>
@@ -26,7 +26,7 @@
                 <mat-form-field class="w-75">
                     <mat-label>Schooling Status (33)</mat-label>
                     <mat-select [(ngModel)]="resultDetail.schoolingStatus" name="resultDetail.schoolingStatus" required [disabled]="!common.allowFormUpdate">
-                        <mat-option *ngFor="let stat of schoolingStatus" [value]='stat.value'>{{stat.name}}
+                        <mat-option *ngFor="let stat of schoolingStatus" [value]='stat.code'>{{stat.name}}
                         </mat-option>
                     </mat-select>
                     <mat-error>Schooling Status is required</mat-error>

@@ -11,7 +11,7 @@ export class CommonService {
   totalSchools: any;
   currentRoute: String = "Dashboard";
   generatedStudentId: any;
-  studentAction: any = 'summaryList';
+  studentAction: any = 'add';
   stdIdEdit: any;
   sidenavOpen: any = true;
   schoolDetail: any = {};
@@ -51,6 +51,18 @@ export class CommonService {
     let classList = [];
     mstClass.filter(obj => {
       if (obj.value >= classFrom && obj.value <= classTo) {
+        classList.push(obj)
+      }
+    })
+    return classList
+  }
+
+  createPrevClassList(classFrom, classTo) {
+    console.log(classFrom + " : " + classTo)
+    let mstClass = [...this.classList]
+    let classList = [];
+    mstClass.filter(obj => {
+      if (obj.value >= classFrom && obj.value <= classTo && obj.value <= this.stdClass) {
         classList.push(obj)
       }
     })

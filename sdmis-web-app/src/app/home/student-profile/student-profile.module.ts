@@ -23,6 +23,7 @@ import { StudentVocationalComponent } from './student-vocational/student-vocatio
 import { StudentResultComponent } from './student-result/student-result.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [StudentProfileComponent, StudentBasicInfoComponent, StudentEducationComponent,
@@ -43,7 +44,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatTableModule,
     MatProgressBarModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatExpansionModule
   ]
 })
 export class StudentProfileModule {

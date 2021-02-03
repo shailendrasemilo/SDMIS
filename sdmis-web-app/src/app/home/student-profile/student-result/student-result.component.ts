@@ -19,7 +19,7 @@ export class StudentResultComponent implements OnInit {
     { name: "Discontinued", value: 3 },
     { name: "New admission in current year", value: 4 }]
 
-  schoolingStatus: any = [{ name: "Continuing in the school", value: "1" }, { name: "Left the school with Transfer Certificate", value: "2" }]
+  schoolingStatus: any = []
 
   streamList: any = [{ name: "Not Applicable", value: "0" }, { name: "Arts", value: "1" }, { name: "Science", value: "2" }, { name: "Commerce", value: "3" }, { name: "Vocational", value: "4" }, { name: "Other", value: "5" }];
 
@@ -32,9 +32,37 @@ export class StudentResultComponent implements OnInit {
 
   ngOnInit(): void {
     this.userObj = this.common.userObj;
+    let classinterval = setInterval(() => {
+      if (this.common.stdClass) {
+        if (this.common.stdClass == '1') {
+          this.http.getSchoolingStatus().subscribe(res => {
+            if (res.statusCode == environment.httpSuccess) {
+              this.schoolingStatus = res.data.result;
+              console.log(this.schoolingStatus)
+            } else {
+              console.log("prev status error")
+            }
+            clearInterval(classinterval);
+
+          })
+        } else {
+          clearInterval(classinterval);
+        }
+      } else {
+        clearInterval(classinterval);
+      }
+    }, 1)
     if (this.common.studentAction == 'edit') {
       this.getResultDetail(this.common.stdIdEdit, this.common.schoolDetail.udiseCode);
     }
+  }
+
+  getSchoolingStatus() {
+    this.http.getSchoolingStatus().subscribe(res => {
+      if(res.statusCode == environment.httpSuccess) {
+        this.schoolingStatus = res.data.result
+      }
+    })
   }
 
   getResultDetail(studentId, schoolId) {

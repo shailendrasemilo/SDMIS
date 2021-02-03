@@ -11,50 +11,60 @@
         </div>
     </div>
     <div class="ml-4 mr-4">
-        <div *ngIf="common.studentAction == 'classList' || common.studentAction == 'summaryList'"
+        <mat-accordian
+            *ngIf="common.studentAction == 'classList' || common.studentAction == 'summaryList' || common.studentAction == 'add' || common.studentAction == 'edit'"
             class="school-details">
-            <ul class="d-flex flex-wrap list-unstyled">
-                <li>
-                    <label>School Name</label>
-                    <div>{{common.schoolDetail.schName ? common.schoolDetail.schName :
-                        common.schoolDetail.schoolName}}</div>
-                </li>
-                <li>
-                    <label>UDISE Code</label>
-                    <div>{{common.schoolDetail.udiseCode}}</div>
-                </li>
-                <li>
-                    <label>Category</label>
-                    <div>{{common.schoolDetail.schCatDesc ? common.schoolDetail.schCatDesc :
-                        common.schoolDetail.schoolCategoryDesc}}</div>
-                </li>
-                <li>
-                    <label>Management</label>
-                    <div>{{common.schoolDetail.schMgmtDesc ? common.schoolDetail.schMgmtDesc :
-                        common.schoolDetail.schoolManagementCenterDesc}}</div>
-                </li>
-                <li>
-                    <label>Block</label>
-                    <div>{{common.schoolDetail.blockName}}</div>
-                </li>
-                <li>
-                    <label>District</label>
-                    <div>{{common.schoolDetail.districtName}}</div>
-                </li>
-                <li>
-                    <label>State</label>
-                    <div>{{common.schoolDetail.stateName}}</div>
-                </li>
-                <li>
-                    <label>Class From</label>
-                    <div>{{common.schoolDetail.classFrom}}</div>
-                </li>
-                <li>
-                    <label>Class To</label>
-                    <div>{{common.schoolDetail.classTo}}</div>
-                </li>
-            </ul>
-        </div>
+            <mat-expansion-panel class="mat-elevation-z" (click)="expand()" [expanded]="expandSchPanel">
+                <mat-expansion-panel-header>
+                    <mat-panel-title *ngIf="!expandSchPanel">
+                        {{(common.schoolDetail.schName ? common.schoolDetail.schName : common.schoolDetail.schoolName) + ' (' + common.schoolDetail.udiseCode + '), Classes from ' +
+                        common.schoolDetail.classFrom + ' - ' +
+                        common.schoolDetail.classTo}}
+                    </mat-panel-title>
+                    <mat-panel-title *ngIf="expandSchPanel">
+                        School Details
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <ul class="d-flex flex-wrap list-unstyled">
+                    <li>
+                        <label>School Name</label>
+                        <div>{{common.schoolDetail.schName ? common.schoolDetail.schName :
+                            common.schoolDetail.schoolName}}</div>
+                    </li>
+                    <li>
+                        <label>UDISE Code</label>
+                        <div>{{common.schoolDetail.udiseCode}}</div>
+                    </li>
+                    <li>
+                        <label>Category</label>
+                        <div>{{common.schoolDetail.schCatDesc ? common.schoolDetail.schCatDesc :
+                            common.schoolDetail.schoolCategoryDesc}}</div>
+                    </li>
+                    <li>
+                        <label>Management</label>
+                        <div>{{common.schoolDetail.schMgmtDesc ? common.schoolDetail.schMgmtDesc :
+                            common.schoolDetail.schoolManagementCenterDesc}}</div>
+                    </li>
+                    <li>
+                        <label>Block</label>
+                        <div>{{common.schoolDetail.blockName}}</div>
+                    </li>
+                    <li>
+                        <label>District</label>
+                        <div>{{common.schoolDetail.districtName}}</div>
+                    </li>
+                    <li>
+                        <label>State</label>
+                        <div>{{common.schoolDetail.stateName}}</div>
+                    </li>
+                    <li>
+                        <label>Classes</label>
+                        <div>{{common.schoolDetail.classFrom + ' - ' + common.schoolDetail.classTo}}</div>
+                    </li>
+
+                </ul>
+            </mat-expansion-panel>
+        </mat-accordian>
 
         <div *ngIf="common.studentAction=='blockList' && blockTable.data?.length > 0" class="mb-5">
             <div class="school-table">
@@ -135,16 +145,17 @@
                 </ul>
                 <ul class="d-flex flex-wrap list-unstyled ml-auto">
                     <li *ngIf="root">
-                        <div *ngIf="(userObj.userType == 'B' || userObj.userType == 'D') && common.studentAction=='classList'">
+                        <div
+                            *ngIf="(userObj.userType == 'B' || userObj.userType == 'D') && common.studentAction=='classList'">
                             <button *ngIf="!showSchools" type="button" mat-raised-button color="primary"
                                 class="btn-gradient"
-                                (click)="common.studentAction = 'schoolList'; setPaginator(schoolTable);">School List</button>
+                                (click)="common.studentAction = 'schoolList'; setPaginator(schoolTable);">School
+                                List</button>
                         </div>
                     </li>
                     <li *ngIf="!root">
-                        <button type="button" mat-raised-button color="primary"
-                                class="btn-gradient"
-                                (click)="getBlocks(userObj.districtCode)">Block List</button>
+                        <button type="button" mat-raised-button color="primary" class="btn-gradient"
+                            (click)="getBlocks(userObj.districtCode)">Block List</button>
                     </li>
                 </ul>
             </div>
@@ -161,7 +172,8 @@
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="view">
-                    <th mat-header-cell *matHeaderCellDef [ngStyle]="userObj.userType!='D' && {'text-align': 'right'}"> Action </th>
+                    <th mat-header-cell *matHeaderCellDef [ngStyle]="userObj.userType!='D' && {'text-align': 'right'}">
+                        Action </th>
                     <td mat-cell *matCellDef="let element" [ngStyle]="{'width': '200px'}">
                         <div class="d-flex align-items-center table-action"
                             (click)="getStudentList(element.id); openProfile(element);">
